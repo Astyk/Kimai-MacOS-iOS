@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "Kimai.h"
+
 
 @implementation AppDelegate
 
@@ -16,8 +18,32 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+
+    // Initialize StatusBarItem
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    statusItemView = [[StatusItemView alloc] init];
+    statusItemView.statusItem = statusItem;
+    //[statusItemView setMenu:mainMenu];
+    [statusItemView setToolTip:NSLocalizedString(@"Kimai Mac OS X",
+                                                 @"Status Item Tooltip")];
+    [statusItem setView:statusItemView];
+    [statusItemView setMainWindow:_window];
+    [statusItemView setTitle:@" Kimai "];
+
+    
+    Kimai *kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:@"http://timetracker.blockhausmedien.at/"]];
+    [kimai authenticateWithUsername:@"admin" password:@"test123" success:^(id response) {
+        
+        [kimai preloadAllContent];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+    
+    
+    
 }
+
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "at.blockhausmedien.kimai" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory

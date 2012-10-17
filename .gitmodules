@@ -1,0 +1,6 @@
+[submodule "Demiurgic-JSON-RPC"]
+	path = Demiurgic-JSON-RPC
+	url = https://github.com/dbowen/Demiurgic-JSON-RPC.git
+[submodule "JSONKit"]
+	path = JSONKit
+	url = https://github.com/johnezang/JSONKit.git

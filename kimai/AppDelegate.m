@@ -18,18 +18,28 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    
 
     // Initialize StatusBarItem
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     statusItemView = [[StatusItemView alloc] init];
     statusItemView.statusItem = statusItem;
-    //[statusItemView setMenu:mainMenu];
     [statusItemView setToolTip:NSLocalizedString(@"Kimai Mac OS X",
                                                  @"Status Item Tooltip")];
     [statusItem setView:statusItemView];
     [statusItemView setMainWindow:_window];
     [statusItemView setTitle:@" Kimai "];
 
+    [statusItem setHighlightMode:YES];
+
+    
+    NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
+    NSMenuItem *soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Status Menu Item" action:nil keyEquivalent:@"S"];
+    [soMenuItem setEnabled:YES];
+    [stackMenu addItem:soMenuItem];
+    [statusItem setMenu:stackMenu];
+
+    
     
     Kimai *kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:@"http://timetracker.blockhausmedien.at/"]];
     [kimai authenticateWithUsername:@"admin" password:@"test123" success:^(id response) {

@@ -13,9 +13,11 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
+    NSMenu *mainMenu;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSMenu *mainMenu;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

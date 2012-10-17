@@ -42,49 +42,66 @@
 
 
 
-#pragma mark -
-#pragma mark NSResponder
+#pragma mark - NSResponder
 
 
 - (void)mouseDown:(NSEvent *)event {
-    isHighlighted = YES;   
+    [super mouseDown:event];
+    isHighlighted = YES;
     [self setNeedsDisplay:YES];
+    [self mouseDown];
 }
 
 - (void)rightMouseDown:(NSEvent *)event {
-    [self mouseDown:event];
+    [super rightMouseDown:event];
+    [self mouseDown];
 }
 
 - (void)otherMouseDown:(NSEvent *)event {
-    [self mouseDown:event];
+    [super otherMouseDown:event];
+    [self mouseDown];
 }
 
 - (void)mouseUp:(NSEvent *)event {
-    
+    [super mouseUp:event];
+    [self mouseUp];
+}
+
+- (void)rightMouseUp:(NSEvent *)event {
+    [super rightMouseUp:event];
+    [self mouseUp];
+}
+
+- (void)otherMouseUp:(NSEvent *)event {
+    [super otherMouseUp:event];
+    [self mouseUp];
+}
+
+
+#pragma mark - Mouse Responder
+
+
+- (void)mouseUp {
     if ([mainWindow isVisible]) {
-        [mainWindow orderOut:self]; 
+        [mainWindow orderOut:self];
     } else {
         [mainWindow makeKeyAndOrderFront:self];
         [NSApp activateIgnoringOtherApps:YES];
     }
-
+    
     isHighlighted = NO;
     [self setNeedsDisplay:YES];
 }
 
-- (void)rightMouseUp:(NSEvent *)event {
-    [self mouseUp:event];
+
+- (void)mouseDown {
+    isHighlighted = YES;
+    [self setNeedsDisplay:YES];
 }
 
-- (void)otherMouseUp:(NSEvent *)event {
-    [self mouseUp:event];
-}
 
 
-
-#pragma mark -
-#pragma mark NSMenuDelegate
-
+#pragma mark - NSMenuDelegate
 
 
 - (void)menuWillOpen:(NSMenu *)menu {
@@ -99,8 +116,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Title calculations
+#pragma mark - Title calculations
 
 
 - (NSColor *)titleForegroundColor {

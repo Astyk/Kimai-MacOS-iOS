@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KimaiProject.h"
 #import "KimaiTask.h"
+#import "KimaiActiveRecording.h"
 
 typedef void (^KimaiSuccessHandler)(id response);
 typedef void (^KimaiFailureHandler)(NSError *error);
@@ -18,17 +19,21 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 
 @property (strong) NSURL *url;
 @property (strong) NSString *apiKey;
+
 @property (strong) NSArray *projects;
 @property (strong) NSArray *tasks;
+@property (strong) NSArray *activeRecordings;
 
 
 - (id)initWithURL:(NSURL *)url;
-- (void)preloadAllContent;
 - (void)authenticateWithUsername:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
+
+- (void)reloadAllContent;
+- (void)reloadAllContentWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)reloadProjectsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)reloadTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
+- (void)reloadActiveRecordingWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 
-
-
+- (void)startProject:(KimaiProject *)project withTask:(KimaiTask *)task success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 
 @end

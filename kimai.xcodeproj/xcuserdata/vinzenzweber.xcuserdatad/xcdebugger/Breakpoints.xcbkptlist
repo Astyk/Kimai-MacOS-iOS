@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "kimai/StatusBar/StatusItemView.m"
-         timestampString = "372191374.21706"
+         timestampString = "372191820.689644"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
          landmarkName = "-drawRect:"
          landmarkType = "5">
       </FileBreakpoint>

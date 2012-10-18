@@ -10,6 +10,7 @@
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
@@ -35,6 +36,8 @@
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
+		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
 		BC928EDF162C3A8200685547 /* kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -186,6 +189,8 @@
 				BC9815D3162F1B7B00886EBC /* KimaiProject.m */,
 				BC9815D9162F22C000886EBC /* KimaiTask.h */,
 				BC9815DA162F22C000886EBC /* KimaiTask.m */,
+				BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */,
+				BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */,
 			);
 			path = Kimai;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */,
 				BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */,
 				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
+				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

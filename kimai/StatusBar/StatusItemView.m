@@ -46,34 +46,28 @@
 
 
 - (void)mouseDown:(NSEvent *)event {
-    [super mouseDown:event];
     isHighlighted = YES;
     [self setNeedsDisplay:YES];
     [self mouseDown];
 }
 
 - (void)rightMouseDown:(NSEvent *)event {
-    [super rightMouseDown:event];
     [self mouseDown];
 }
 
 - (void)otherMouseDown:(NSEvent *)event {
-    [super otherMouseDown:event];
     [self mouseDown];
 }
 
 - (void)mouseUp:(NSEvent *)event {
-    [super mouseUp:event];
     [self mouseUp];
 }
 
 - (void)rightMouseUp:(NSEvent *)event {
-    [super rightMouseUp:event];
     [self mouseUp];
 }
 
 - (void)otherMouseUp:(NSEvent *)event {
-    [super otherMouseUp:event];
     [self mouseUp];
 }
 

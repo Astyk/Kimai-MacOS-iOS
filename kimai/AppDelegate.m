@@ -10,48 +10,117 @@
 #import "Kimai.h"
 
 
+@interface AppDelegate() {
+    Kimai *_kimai;
+}
+
+@end
+
+
 @implementation AppDelegate
 
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
 
     // Initialize StatusBarItem
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    statusItemView = [[StatusItemView alloc] init];
-    statusItemView.statusItem = statusItem;
-    [statusItemView setToolTip:NSLocalizedString(@"Kimai Mac OS X",
-                                                 @"Status Item Tooltip")];
+//    statusItemView = [[StatusItemView alloc] init];
+//    statusItemView.statusItem = statusItem;
+//    [statusItemView setToolTip:NSLocalizedString(@"Kimai Mac OS X",
+//                                                 @"Status Item Tooltip")];
     [statusItem setView:statusItemView];
-    [statusItemView setMainWindow:_window];
-    [statusItemView setTitle:@" Kimai "];
+//    [statusItemView setMainWindow:_window];
+//    [statusItemView setTitle:@" Kimai "];
 
     [statusItem setHighlightMode:YES];
+    [statusItem setTitle:@"Kimai"];
 
     
-    NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
-    NSMenuItem *soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Status Menu Item" action:nil keyEquivalent:@"S"];
-    [soMenuItem setEnabled:YES];
-    [stackMenu addItem:soMenuItem];
-    [statusItem setMenu:stackMenu];
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
+    [statusItem setMenu:menu];
 
     
+
+    KimaiFailureHandler failureHandler = ^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        [self reloadMenu];
+    };
     
-    Kimai *kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:@"http://timetracker.blockhausmedien.at/"]];
-    [kimai authenticateWithUsername:@"admin" password:@"test123" success:^(id response) {
-        
-        [kimai preloadAllContent];
-        
+    _kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:@"http://timetracker.blockhausmedien.at/"]];
+    [_kimai authenticateWithUsername:@"admin" password:@"test123" success:^(id response) {
+        [self reloadData:nil];
+    } failure:failureHandler];
+    
+}
+
+
+- (IBAction)reloadData:(id)sender {
+    [_kimai reloadAllContentWithSuccess:^(id response) {
+        [self reloadMenu];
     } failure:^(NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
+        NSLog(@"ERROR: %@", error);
+        [self reloadMenu];
     }];
+}
+
+
+- (void)reloadMenu {
+    
+    NSString *title = @"Kimai";
+    if (_kimai.activeRecordings) {
+        KimaiActiveRecording *activeRecording = [_kimai.activeRecordings objectAtIndex:0];
+        title = [NSString stringWithFormat:@"%@ - %@", activeRecording.projectName, activeRecording.activityName];
+    }
+    [statusItem setTitle:title];
     
     
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    for (KimaiTask *task in _kimai.tasks) {
+        if ([task.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
+            [menuItem setRepresentedObject:task];
+            [menuItem setEnabled:YES];
+            [tasksMenu addItem:menuItem];
+        }
+    }
     
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+
+    for (KimaiProject *project in _kimai.projects) {
+        if ([project.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
+            [menuItem setRepresentedObject:project];
+            [menuItem setEnabled:YES];
+            [menuItem setSubmenu:[tasksMenu copy]];
+            [kimaiMenu addItem:menuItem];
+        }
+    }
+
+    [statusItem setMenu:kimaiMenu];
+
+}
+
+
+- (void)clickedMenuItem:(id)sender {
+    if ([sender isKindOfClass:[NSMenuItem class]]) {
+       
+        NSMenuItem *menuItem = (NSMenuItem *)sender;
+        KimaiTask *task = menuItem.representedObject;
+        KimaiProject *project = menuItem.parentItem.representedObject;
+        
+        [_kimai startProject:project withTask:task success:^(id response) {
+            [self reloadData:nil];
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+            [self reloadData:nil];
+        }];
+        
+    }
 }
 
 

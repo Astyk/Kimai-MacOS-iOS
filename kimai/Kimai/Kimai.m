@@ -36,41 +36,55 @@
 }
 
 
+- (void)logAllData {
 
-- (void)preloadAllContent {
+    NSLog(@"PROJECTS:");
+
+    for (KimaiProject *project in self.projects) {
+        NSLog(@"%@", project);
+    }
+
+    NSLog(@"TASKS:");
     
-    KimaiFailureHandler failureHandler = ^(NSError *error) {
-        NSLog(@"%@", error);
-    };
+    for (KimaiTask *task in self.tasks) {
+        NSLog(@"%@", task);
+    }
     
+    NSLog(@"ACTIVITY:");
+    
+    for (KimaiActiveRecording *activity in self.activeRecordings) {
+        NSLog(@"%@", activity);
+    }
+
+}
+
+
+
+- (void)reloadAllContent {
+
+    [self reloadAllContentWithSuccess:^(id response) {
+        [self logAllData];
+    } failure:^(NSError *error) {
+        NSLog(@"ERROR: %@", error);
+    }];
+    
+}
+
+
+- (void)reloadAllContentWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
     [self reloadProjectsWithSuccess:^(id response) {
-        
-        for (KimaiProject *project in response) {
-            NSLog(@"%@", project);
-        }
-        
+       
         [self reloadTasksWithSuccess:^(id response) {
-            
-            for (KimaiTask *task in response) {
-                NSLog(@"%@", task);
-            }
-            
+
+         [self reloadActiveRecordingWithSuccess:successHandler failure:failureHandler];
+
         } failure:failureHandler];
-        
+
     } failure:failureHandler];
 
 }
 
-/*
- function initRecorderPage()
- {
- setProjects(Kimai.getProjects());
- setTasks(Kimai.getTasks());
- setActiveTask(Kimai.getRunningTask());
- }
- */
-//getActiveRecording
 
 - (void)authenticateWithUsername:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
@@ -94,27 +108,119 @@
     
 }
 
+
 - (void)reloadProjectsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+   
+    [self _mapMethod:@"getProjects" toClass:[KimaiProject class] success:^(id response) {
+        
+        self.projects = response;
+        
+        if (successHandler) {
+            successHandler(response);
+        }
+        
+    } failure:failureHandler];
     
-    [self _callMethod:@"getProjects"
-       withParameters:@[self.apiKey]
+}
+
+
+- (void)reloadTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+ 
+    [self _mapMethod:@"getTasks" toClass:[KimaiTask class] success:^(id response) {
+
+        self.tasks = response;
+        
+        if (successHandler) {
+            successHandler(response);
+        }
+        
+    } failure:failureHandler];
+    
+}
+
+
+- (void)reloadActiveRecordingWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self _mapMethod:@"getActiveRecording" toClass:[KimaiActiveRecording class] success:^(id response) {
+        
+        self.activeRecordings = response;
+        
+        if (successHandler) {
+            successHandler(response);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if ([[error.userInfo valueForKey:@"NSLocalizedDescriptionKey"] isEqualToString:@"No active recording."]) {
+            
+            self.activeRecordings = nil;
+
+            if (successHandler) {
+                successHandler(nil);
+            }
+
+        } else if (failureHandler) {
+            failureHandler(error);
+        }
+        
+    }];
+    
+}
+
+
+- (void)startProject:(KimaiProject *)project withTask:(KimaiTask *)task success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self stopAllActivityRecordingsWithSuccess:^(id response) {
+
+        [self _callMethod:@"startRecord"
+           withParameters:@[self.apiKey, project.projectID, task.activityID]
+           successHandler:^(id response) {
+               if (response && [response isKindOfClass:[NSArray class]]) {
+                   if (successHandler) {
+                       successHandler(nil);
+                   }
+               }
+           }
+           failureHandler:failureHandler];
+
+    } failure:failureHandler];
+
+}
+
+
+- (void)stopAllActivityRecordingsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    if (self.activeRecordings.count > 0) {
+        
+        KimaiActiveRecording *activity = [self.activeRecordings objectAtIndex:0];
+        
+        [self stopActivityRecording:activity success:^(id response) {
+            
+            [self reloadActiveRecordingWithSuccess:^(id response) {
+                [self stopAllActivityRecordingsWithSuccess:successHandler failure:failureHandler];
+            } failure:^(NSError *error) {
+                [self stopAllActivityRecordingsWithSuccess:successHandler failure:failureHandler];
+            }];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+            [self stopAllActivityRecordingsWithSuccess:successHandler failure:failureHandler];
+        }];
+        
+    } else if (successHandler) {
+        successHandler(nil);
+    }
+}
+
+
+- (void)stopActivityRecording:(KimaiActiveRecording *)activity success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self _callMethod:@"stopRecord"
+       withParameters:@[self.apiKey, activity.timeEntryID]
        successHandler:^(id response) {
            if (response && [response isKindOfClass:[NSArray class]]) {
-               
-               NSArray *responseProjects = (NSArray *)response;
-               NSMutableArray *projects = [NSMutableArray arrayWithCapacity:responseProjects.count];
-               
-               for (NSDictionary *project in responseProjects) {
-                   KimaiProject *kimaiProject = [[KimaiProject alloc] initWithDictionary:project];
-                   [projects addObject:kimaiProject];
-               }
-               
-               self.projects = projects;
-               
                if (successHandler) {
-                   successHandler(self.projects);
+                   successHandler(nil);
                }
-               
            }
        }
        failureHandler:failureHandler];
@@ -122,31 +228,29 @@
 }
 
 
-- (void)reloadTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+- (void)_mapMethod:(NSString *)method toClass:(Class)kimaiObjectClass success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
-    [self _callMethod:@"getTasks"
+    [self _callMethod:method
        withParameters:@[self.apiKey]
        successHandler:^(id response) {
            if (response && [response isKindOfClass:[NSArray class]]) {
                
-               NSArray *responseTasks = (NSArray *)response;
-               NSMutableArray *tasks = [NSMutableArray arrayWithCapacity:responseTasks.count];
+               NSArray *responseArray = (NSArray *)response;
+               NSMutableArray *responseObjects = [NSMutableArray arrayWithCapacity:responseArray.count];
                
-               for (NSDictionary *task in responseTasks) {
-                   KimaiTask *kimaiTask = [[KimaiTask alloc] initWithDictionary:task];
-                   [tasks addObject:kimaiTask];
+               for (NSDictionary *objectDictionary in responseArray) {
+                   id kimaiObject = [[kimaiObjectClass alloc] initWithDictionary:objectDictionary];
+                   [responseObjects addObject:kimaiObject];
                }
-               
-               self.tasks = tasks;
-               
+
                if (successHandler) {
-                   successHandler(self.tasks);
+                   successHandler(responseObjects);
                }
                
            }
        }
        failureHandler:failureHandler];
-    
+
 }
 
 
@@ -164,6 +268,9 @@
             return;
         }
     }
+    
+    
+    NSLog(@"Call method \"%@\"", methodName);
     
     [_jsonRPC callMethod:methodName
           withParameters:methodParams
@@ -189,6 +296,7 @@
                     
                     NSDictionary *dict = (NSDictionary *)methodResult;
                     if (dict) {
+                        
                         BOOL success = (BOOL)[dict valueForKey:@"success"];
                         if (success) {
 
@@ -199,7 +307,12 @@
                             }
                             
                         } else if (failureHandler) {
-                            failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"Unknown error" forKey:@"NSLocalizedDescriptionKey"]]);
+                            
+                            NSDictionary *error = (NSDictionary *)[dict valueForKey:@"error"];
+                            NSString *msg = (NSString *)[error valueForKey:@"msg"];
+
+                            failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:msg forKey:@"NSLocalizedDescriptionKey"]]);
+                            
                         }
                     }
                     

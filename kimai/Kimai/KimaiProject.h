@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "KimaiObject.h"
 
 @interface KimaiProject : KimaiObject

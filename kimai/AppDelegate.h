@@ -13,7 +13,6 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
-    NSMenu *mainMenu;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -24,5 +23,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)saveAction:(id)sender;
+- (IBAction)reloadData:(id)sender;
+
 
 @end

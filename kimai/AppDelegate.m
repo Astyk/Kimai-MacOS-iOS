@@ -25,6 +25,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
+    [self hidePreferences];
+    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];

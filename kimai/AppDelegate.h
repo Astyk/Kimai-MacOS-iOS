@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "StatusItemView.h"
-
+#import "Kimai.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSStatusItem *statusItem;
@@ -17,13 +17,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSMenu *mainMenu;
+@property (strong) Kimai *kimai;
 
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
-- (IBAction)saveAction:(id)sender;
 - (IBAction)reloadData:(id)sender;
-
 
 @end

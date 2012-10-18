@@ -10,16 +10,20 @@
 
 @interface KimaiActiveRecording : KimaiObject
 
-@property (strong) NSNumber *activityID;
-@property (strong) NSString *activityName;
+@property (strong) NSNumber *timeEntryID;
+
 @property (strong) NSNumber *customerID;
 @property (strong) NSString *customerName;
-@property (strong) NSNumber *duration;
-@property (strong) NSNumber *end;
+
 @property (strong) NSNumber *projectID;
 @property (strong) NSString *projectName;
+
+@property (strong) NSNumber *activityID;
+@property (strong) NSString *activityName;
+
 @property (strong) NSNumber *servertime;
 @property (strong) NSNumber *start;
-@property (strong) NSNumber *timeEntryID;
+@property (strong) NSNumber *duration;
+@property (strong) NSNumber *end;
 
 @end

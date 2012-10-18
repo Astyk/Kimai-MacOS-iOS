@@ -40,15 +40,15 @@
 		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
 		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
 		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
-		BC928EDF162C3A8200685547 /* kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kimai-Prefix.pch"; sourceTree = "<group>"; };
+		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		BC928EE7162C3A8200685547 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC928EE8162C3A8200685547 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		BC928EEB162C3A8200685547 /* kimai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "kimai-Info.plist"; sourceTree = "<group>"; };
+		BC928EEB162C3A8200685547 /* Kimai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kimai-Info.plist"; sourceTree = "<group>"; };
 		BC928EED162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC928EEF162C3A8200685547 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BC928EF1162C3A8200685547 /* kimai-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "kimai-Prefix.pch"; sourceTree = "<group>"; };
 		BC928EF3162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BC928EF5162C3A8200685547 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC928EF6162C3A8200685547 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
-				BC928EE9162C3A8200685547 /* kimai */,
+				BC928EE9162C3A8200685547 /* Kimai */,
 				BC928EE2162C3A8200685547 /* Frameworks */,
 				BC928EE0162C3A8200685547 /* Products */,
 			);
@@ -117,7 +117,7 @@
 		BC928EE0162C3A8200685547 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BC928EDF162C3A8200685547 /* kimai.app */,
+				BC928EDF162C3A8200685547 /* Kimai.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,7 +142,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		BC928EE9162C3A8200685547 /* kimai */ = {
+		BC928EE9162C3A8200685547 /* Kimai */ = {
 			isa = PBXGroup;
 			children = (
 				BC928EF5162C3A8200685547 /* AppDelegate.h */,
@@ -154,17 +154,18 @@
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
 			);
+			name = Kimai;
 			path = kimai;
 			sourceTree = "<group>";
 		};
 		BC928EEA162C3A8200685547 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BC928EEB162C3A8200685547 /* kimai-Info.plist */,
+				BC928EEB162C3A8200685547 /* Kimai-Info.plist */,
 				BC928EEC162C3A8200685547 /* InfoPlist.strings */,
 				BC87F0A416304CD6001BDF87 /* Icon.icns */,
 				BC928EEF162C3A8200685547 /* main.m */,
-				BC928EF1162C3A8200685547 /* kimai-Prefix.pch */,
+				BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */,
 				BC928EF2162C3A8200685547 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -201,9 +202,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BC928EDE162C3A8200685547 /* kimai */ = {
+		BC928EDE162C3A8200685547 /* Kimai */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "kimai" */;
+			buildConfigurationList = BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "Kimai" */;
 			buildPhases = (
 				BC928EDB162C3A8200685547 /* Sources */,
 				BC928EDC162C3A8200685547 /* Frameworks */,
@@ -213,9 +214,9 @@
 			);
 			dependencies = (
 			);
-			name = kimai;
+			name = Kimai;
 			productName = kimai;
-			productReference = BC928EDF162C3A8200685547 /* kimai.app */;
+			productReference = BC928EDF162C3A8200685547 /* Kimai.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -227,7 +228,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "blockhaus medienagentur";
 			};
-			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */;
+			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -239,7 +240,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BC928EDE162C3A8200685547 /* kimai */,
+				BC928EDE162C3A8200685547 /* Kimai */,
 			);
 		};
 /* End PBXProject section */
@@ -368,9 +369,9 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "kimai/kimai-Prefix.pch";
-				INFOPLIST_FILE = "kimai/kimai-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
+				PRODUCT_NAME = Kimai;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -380,9 +381,9 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "kimai/kimai-Prefix.pch";
-				INFOPLIST_FILE = "kimai/kimai-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
+				PRODUCT_NAME = Kimai;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -390,7 +391,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */ = {
+		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC928EFE162C3A8200685547 /* Debug */,
@@ -399,7 +400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "kimai" */ = {
+		BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "Kimai" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC928F01162C3A8200685547 /* Debug */,

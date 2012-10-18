@@ -130,7 +130,10 @@
 
 
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
-    
+
+    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(openPreferences) keyEquivalent:@""];
+    [kimaiMenu addItem:preferencesMenuItem];
+
     NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
     [kimaiMenu addItem:quitMenuItem];
     
@@ -174,6 +177,11 @@
     [NSApp terminate:self];
 }
 
+
+- (void)openPreferences {
+    [self.window makeKeyAndOrderFront:self];
+    [NSApp activateIgnoringOtherApps:YES];
+}
 
 
 #pragma mark - NSTimer

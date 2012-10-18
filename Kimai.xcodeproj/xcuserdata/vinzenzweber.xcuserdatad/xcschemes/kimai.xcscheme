@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC928EDE162C3A8200685547"
                BuildableName = "kimai.app"
-               BlueprintName = "kimai"
-               ReferencedContainer = "container:kimai.xcodeproj">
+               BlueprintName = "Kimai"
+               ReferencedContainer = "container:Kimai.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC928EDE162C3A8200685547"
             BuildableName = "kimai.app"
-            BlueprintName = "kimai"
-            ReferencedContainer = "container:kimai.xcodeproj">
+            BlueprintName = "Kimai"
+            ReferencedContainer = "container:Kimai.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC928EDE162C3A8200685547"
             BuildableName = "kimai.app"
-            BlueprintName = "kimai"
-            ReferencedContainer = "container:kimai.xcodeproj">
+            BlueprintName = "Kimai"
+            ReferencedContainer = "container:Kimai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC928EDE162C3A8200685547"
             BuildableName = "kimai.app"
-            BlueprintName = "kimai"
-            ReferencedContainer = "container:kimai.xcodeproj">
+            BlueprintName = "Kimai"
+            ReferencedContainer = "container:Kimai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

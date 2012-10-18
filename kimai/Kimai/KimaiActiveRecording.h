@@ -8,7 +8,9 @@
 
 #import "KimaiObject.h"
 
-@interface KimaiActiveRecording : KimaiObject
+@interface KimaiActiveRecording : KimaiObject {
+    NSNumber *_start;
+}
 
 @property (strong) NSNumber *timeEntryID;
 
@@ -22,8 +24,10 @@
 @property (strong) NSString *activityName;
 
 @property (strong) NSNumber *servertime;
-@property (strong) NSNumber *start;
+@property (nonatomic, strong) NSNumber *start;
 @property (strong) NSNumber *duration;
 @property (strong) NSNumber *end;
+
+@property (strong) NSDate *startDate;
 
 @end

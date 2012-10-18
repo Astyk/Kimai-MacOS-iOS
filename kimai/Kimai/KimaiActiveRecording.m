@@ -10,4 +10,11 @@
 
 @implementation KimaiActiveRecording
 
+@synthesize start = _start;
+
+- (void)setStart:(NSNumber *)start {
+    _start = start;
+    self.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
+}
+
 @end

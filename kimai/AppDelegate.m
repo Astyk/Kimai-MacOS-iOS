@@ -9,12 +9,24 @@
 #import "AppDelegate.h"
 
 
+@interface AppDelegate () {
+    NSTimer *_trainingTimer;
+}
+
+@end
+
+
+
 @implementation AppDelegate
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
+    if ([self.window isVisible]) {
+        [self.window orderOut:self];
+    }
+    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
@@ -49,14 +61,49 @@
 }
 
 
+- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
+    
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
+                                                                       fromDate:activity.startDate
+                                                                         toDate:[NSDate date]
+                                                                        options:0];
+    
+    NSInteger hours = [dateComponents hour];
+    NSInteger minutes = [dateComponents minute];
+    NSInteger seconds = [dateComponents second];
+    
+    NSString *time;
+    if (hours > 0) {
+        time = [NSString stringWithFormat:@"%li:%@:%@", hours, [self formatTimeComponent:minutes], [self formatTimeComponent:seconds]];
+    } else {
+        time = [NSString stringWithFormat:@"%@:%@", [self formatTimeComponent:minutes], [self formatTimeComponent:seconds]];
+    }
+    
+    return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, time];
+}
+
+
 - (void)reloadMenu {
+
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+
     
     NSString *title = @"Kimai";
     if (self.kimai.activeRecordings) {
+        
+        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop" action:@selector(stopAllActivities) keyEquivalent:@""];
+        [kimaiMenu addItem:stopMenuItem];
+        [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
         KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
-        title = [NSString stringWithFormat:@"%@ - %@", activeRecording.projectName, activeRecording.activityName];
+        title = [self statusBarTitleWithActivity:activeRecording];
+        
+        [self startTimer];
+    } else {
+        [self stopTimer];
     }
     [statusItem setTitle:title];
+    
     
     
     NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
@@ -69,8 +116,8 @@
         }
     }
     
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
 
+    
     for (KimaiProject *project in self.kimai.projects) {
         if ([project.visible boolValue] == YES) {
             NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
@@ -81,6 +128,13 @@
         }
     }
 
+
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+    
+    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
+    [kimaiMenu addItem:quitMenuItem];
+    
+    
     [statusItem setMenu:kimaiMenu];
 
 }
@@ -101,6 +155,78 @@
         }];
         
     }
+}
+
+
+- (void)stopAllActivities {
+    
+    [self.kimai stopAllActivityRecordingsWithSuccess:^(id response) {
+        [self reloadData:nil];
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+        [self reloadData:nil];
+    }];
+
+}
+
+
+- (void)quitApplication {
+    [NSApp terminate:self];
+}
+
+
+
+#pragma mark - NSTimer
+
+
+- (void)startTimer {
+    
+    if (_trainingTimer != nil) {
+        return;
+    }
+    
+    [self timerUpdate];
+    
+    _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(timerUpdate)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    
+    // enable UI updates also when scrollview is scrolling
+    //[[NSRunLoop mainRunLoop] addTimer:_trainingTimer forMode:NSRunLoopCommonModes];
+    
+}
+
+
+- (void)stopTimer {
+    [_trainingTimer invalidate];
+    _trainingTimer = nil;
+}
+
+
+- (NSString *)formatTimeComponent:(NSInteger)timeComponent {
+    if (timeComponent < 10) {
+        return [NSString stringWithFormat:@"0%li", timeComponent];
+    }
+    return [NSString stringWithFormat:@"%li", timeComponent];
+}
+
+
+- (void)updateTime {
+    
+    if (self.kimai.activeRecordings.count == 0) {
+        return;
+    }
+    
+    KimaiActiveRecording *activity = [self.kimai.activeRecordings objectAtIndex:0];
+    [statusItem setTitle:[self statusBarTitleWithActivity:activity]];
+
+}
+
+
+- (void)timerUpdate {
+    [self performSelectorOnMainThread:@selector(updateTime) withObject:nil waitUntilDone:NO];
 }
 
 

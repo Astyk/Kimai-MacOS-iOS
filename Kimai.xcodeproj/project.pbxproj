@@ -12,6 +12,8 @@
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
+		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
+		BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0E216306E07001BDF87 /* RHKeychain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
@@ -41,6 +43,9 @@
 		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
 		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
 		BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kimai-Prefix.pch"; sourceTree = "<group>"; };
+		BC87F0DA16306DEB001BDF87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BC87F0E116306E07001BDF87 /* RHKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHKeychain.h; sourceTree = "<group>"; };
+		BC87F0E216306E07001BDF87 /* RHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHKeychain.m; sourceTree = "<group>"; };
 		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -74,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */,
 				BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */,
 				BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */,
 			);
@@ -105,6 +111,16 @@
 			path = JSONKit;
 			sourceTree = SOURCE_ROOT;
 		};
+		BC87F0DC16306E07001BDF87 /* RHKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F0E116306E07001BDF87 /* RHKeychain.h */,
+				BC87F0E216306E07001BDF87 /* RHKeychain.m */,
+			);
+			name = RHKeychain;
+			path = RHKeychain/RHKeychain;
+			sourceTree = SOURCE_ROOT;
+		};
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
@@ -125,21 +141,14 @@
 		BC928EE2162C3A8200685547 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BC928F31162C3FCB00685547 /* WebKit.framework */,
-				BC928EE3162C3A8200685547 /* Cocoa.framework */,
-				BC928EE5162C3A8200685547 /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BC928EE5162C3A8200685547 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
+				BC87F0DA16306DEB001BDF87 /* Security.framework */,
 				BC928EE7162C3A8200685547 /* CoreData.framework */,
 				BC928EE8162C3A8200685547 /* Foundation.framework */,
+				BC928F31162C3FCB00685547 /* WebKit.framework */,
+				BC928EE3162C3A8200685547 /* Cocoa.framework */,
 			);
-			name = "Other Frameworks";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC928EE9162C3A8200685547 /* Kimai */ = {
@@ -150,6 +159,7 @@
 				BC928EF8162C3A8200685547 /* MainMenu.xib */,
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
+				BC87F0DC16306E07001BDF87 /* RHKeychain */,
 				BC928F22162C3BA500685547 /* StatusBar */,
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
@@ -278,6 +288,7 @@
 				BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */,
 				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
 				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
+				BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

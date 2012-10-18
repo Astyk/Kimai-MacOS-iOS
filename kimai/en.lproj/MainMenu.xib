@@ -191,7 +191,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="928038650">
@@ -199,6 +199,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{179, 13}, {127, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="766395779">
@@ -226,6 +227,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{147, 228}, {289, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1047415423"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -264,6 +266,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 230}, {125, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="644697562"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -297,13 +300,14 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{144, 152}, {295, 68}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="230322436"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="900678296">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">138412032</int>
-								<string key="NSContents">The URL to your Kimai.temp_caseinsensitive_rename installation. Use HTTPS rather than HTTP as your password will be sent unencrypted!</string>
+								<string key="NSContents">The URL to your Kimai installation. Use HTTPS rather than HTTP as your password will be sent unencrypted!</string>
 								<reference key="NSSupport" ref="980259924"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
 								<reference key="NSControlView" ref="1047415423"/>
@@ -321,6 +325,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{144, 33}, {295, 51}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="928038650"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -345,6 +350,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{147, 124}, {289, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="759499452"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -367,6 +373,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 126}, {125, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="426872194"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -387,6 +394,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 94}, {125, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="902242563"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -407,6 +415,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{147, 92}, {289, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="802599192"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -428,6 +437,8 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{485, 275}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="878873356"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
@@ -508,12 +519,36 @@
 					<int key="connectionID">561</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">kimaiURLTextField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="644697562"/>
+					</object>
+					<int key="connectionID">755</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">usernameTextField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="426872194"/>
+					</object>
+					<int key="connectionID">756</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">passwordTextField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="902242563"/>
+					</object>
+					<int key="connectionID">757</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reloadData:</string>
+						<string key="label">storePreferences:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="928038650"/>
 					</object>
-					<int key="connectionID">573</int>
+					<int key="connectionID">758</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1038,12 +1073,12 @@
 							<reference ref="928038650"/>
 							<reference ref="644697562"/>
 							<reference ref="878873356"/>
-							<reference ref="1047415423"/>
-							<reference ref="426872194"/>
 							<reference ref="230322436"/>
 							<reference ref="902242563"/>
 							<reference ref="759499452"/>
 							<reference ref="802599192"/>
+							<reference ref="426872194"/>
+							<reference ref="1047415423"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -1503,7 +1538,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">753</int>
+			<int key="maxID">758</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1511,24 +1546,39 @@
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">reloadData:</string>
+						<string key="NS.key.0">storePreferences:</string>
 						<string key="NS.object.0">id</string>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">reloadData:</string>
+						<string key="NS.key.0">storePreferences:</string>
 						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">reloadData:</string>
+							<string key="name">storePreferences:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="kimaiURLTextField">NSTextField</string>
 						<string key="mainMenu">NSMenu</string>
+						<string key="passwordTextField">NSSecureTextField</string>
+						<string key="usernameTextField">NSTextField</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="kimaiURLTextField">
+							<string key="name">kimaiURLTextField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="mainMenu">
 							<string key="name">mainMenu</string>
 							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordTextField">
+							<string key="name">passwordTextField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="usernameTextField">
+							<string key="name">usernameTextField</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="window">
 							<string key="name">window</string>

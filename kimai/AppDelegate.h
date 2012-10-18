@@ -17,8 +17,14 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSMenu *mainMenu;
+
+@property (weak) IBOutlet NSTextField *kimaiURLTextField;
+@property (weak) IBOutlet NSTextField *usernameTextField;
+@property (weak) IBOutlet NSSecureTextField *passwordTextField;
+
 @property (strong) Kimai *kimai;
 
-- (IBAction)reloadData:(id)sender;
+
+- (IBAction)storePreferences:(id)sender;
 
 @end

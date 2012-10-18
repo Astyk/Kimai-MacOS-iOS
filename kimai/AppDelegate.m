@@ -7,26 +7,24 @@
 //
 
 #import "AppDelegate.h"
+#import "RHKeychain.h"
 
 
 @interface AppDelegate () {
     NSTimer *_trainingTimer;
 }
-
 @end
 
 
 
 @implementation AppDelegate
 
+static NSString *SERVICENAME = @"org.kimai.timetracker";
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
-    if ([self.window isVisible]) {
-        [self.window orderOut:self];
-    }
-    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
@@ -36,28 +34,96 @@
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
     [statusItem setMenu:menu];
 
-    
 
-    KimaiFailureHandler failureHandler = ^(NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        [self reloadMenu];
-    };
+    [self initKimai];
+}
+
+
+#pragma mark - Alert Sheet
+
+
+- (void)showAlertSheetWithError:(NSError *)error {
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:@"Error"];
+    [alert setInformativeText:error.description];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+}
+
+
+#pragma mark - Kimai
+
+
+- (void)initKimai {
     
-    self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:@"http://timetracker.blockhausmedien.at/"]];
-    [self.kimai authenticateWithUsername:@"admin" password:@"test123" success:^(id response) {
-        [self reloadData:nil];
-    } failure:failureHandler];
+    if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
+        
+        NSString *kimaiServerURL = RHKeychainGetGenericComment(NULL, SERVICENAME);
+        NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
+        NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
+        
+        [self.kimaiURLTextField setStringValue:kimaiServerURL];
+        [self.usernameTextField setStringValue:username];
+        [self.passwordTextField setStringValue:password];
+        
+        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
+        [self.kimai authenticateWithUsername:username password:password success:^(id response) {
+            
+            [self reloadData];
+            
+        } failure:^(NSError *error) {
+            
+            [self showAlertSheetWithError:error];
+            [self reloadMenu];
+            
+        }];
+        
+    } else {
+        [self showPreferences];
+    }
     
 }
 
 
-- (IBAction)reloadData:(id)sender {
+- (void)reloadData {
+    
     [self.kimai reloadAllContentWithSuccess:^(id response) {
         [self reloadMenu];
     } failure:^(NSError *error) {
-        NSLog(@"ERROR: %@", error);
+        [self showAlertSheetWithError:error];
         [self reloadMenu];
     }];
+}
+
+
+- (IBAction)storePreferences:(id)sender {
+    
+    if (self.window.isVisible) {
+
+        NSString *kimaiServerURL = [self.kimaiURLTextField stringValue];
+        NSString *username = [self.usernameTextField stringValue];
+        NSString *password = [self.passwordTextField stringValue];
+
+        if (kimaiServerURL.length == 0 ||
+            username.length == 0 ||
+            password.length == 0) {
+            return;
+        }
+        
+        if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME) == NO) {
+            RHKeychainAddGenericEntry(NULL, SERVICENAME);
+        }
+        
+        if (RHKeychainSetGenericUsername(NULL, SERVICENAME, username) &&
+            RHKeychainSetGenericPassword(NULL, SERVICENAME, password) &&
+            RHKeychainSetGenericComment(NULL, SERVICENAME, kimaiServerURL)) {
+            [self hidePreferences];
+            [self initKimai];
+        }
+        
+    }
+    
 }
 
 
@@ -131,7 +197,7 @@
 
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
-    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(openPreferences) keyEquivalent:@""];
+    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
     [kimaiMenu addItem:preferencesMenuItem];
 
     NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
@@ -151,10 +217,10 @@
         KimaiProject *project = menuItem.parentItem.representedObject;
         
         [self.kimai startProject:project withTask:task success:^(id response) {
-            [self reloadData:nil];
+            [self reloadData];
         } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-            [self reloadData:nil];
+            [self showAlertSheetWithError:error];
+            [self reloadData];
         }];
         
     }
@@ -164,10 +230,10 @@
 - (void)stopAllActivities {
     
     [self.kimai stopAllActivityRecordingsWithSuccess:^(id response) {
-        [self reloadData:nil];
+        [self reloadData];
     } failure:^(NSError *error) {
-        NSLog(@"%@", error);
-        [self reloadData:nil];
+        [self showAlertSheetWithError:error];
+        [self reloadData];
     }];
 
 }
@@ -178,7 +244,19 @@
 }
 
 
-- (void)openPreferences {
+
+#pragma mark - NSWindow
+
+
+- (void)hidePreferences {
+    if ([self.window isVisible]) {
+        [self.window orderOut:self];
+    }
+}
+
+
+- (void)showPreferences {
+    [self.window center];
     [self.window makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
 }

@@ -46,7 +46,7 @@
 				<array class="NSMutableArray" key="NSMenuItems">
 					<object class="NSMenuItem" id="694149608">
 						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">Kimai.temp_caseinsensitive_rename</string>
+						<string key="NSTitle">Kimai</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -60,11 +60,11 @@
 						</object>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="110575045">
-							<string key="NSTitle">Kimai.temp_caseinsensitive_rename</string>
+							<string key="NSTitle">Kimai</string>
 							<array class="NSMutableArray" key="NSMenuItems">
 								<object class="NSMenuItem" id="238522557">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">About Kimai.temp_caseinsensitive_rename</string>
+									<string key="NSTitle">About Kimai</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -129,7 +129,7 @@
 								</object>
 								<object class="NSMenuItem" id="755159360">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Hide Kimai.temp_caseinsensitive_rename</string>
+									<string key="NSTitle">Hide Kimai</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -167,7 +167,7 @@
 								</object>
 								<object class="NSMenuItem" id="632727374">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Quit Kimai.temp_caseinsensitive_rename</string>
+									<string key="NSTitle">Quit Kimai</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -200,6 +200,7 @@
 							<string key="NSFrame">{{179, 13}, {127, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="766395779">
@@ -592,6 +593,7 @@
 							<reference ref="110575045"/>
 						</array>
 						<reference key="parent" ref="649796088"/>
+						<string key="objectName">Menu Item - Kimai</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">57</int>
@@ -610,16 +612,19 @@
 							<reference ref="342932134"/>
 						</array>
 						<reference key="parent" ref="694149608"/>
+						<string key="objectName">Menu - Kimai</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
 						<reference key="object" ref="238522557"/>
 						<reference key="parent" ref="110575045"/>
+						<string key="objectName">Menu Item - About Kimai</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">134</int>
 						<reference key="object" ref="755159360"/>
 						<reference key="parent" ref="110575045"/>
+						<string key="objectName">Menu Item - Hide Kimai</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">150</int>
@@ -630,6 +635,7 @@
 						<int key="objectID">136</int>
 						<reference key="object" ref="632727374"/>
 						<reference key="parent" ref="110575045"/>
+						<string key="objectName">Menu Item - Quit Kimai</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">144</int>

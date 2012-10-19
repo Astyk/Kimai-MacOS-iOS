@@ -14,6 +14,7 @@
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
 		BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0E216306E07001BDF87 /* RHKeychain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
@@ -46,6 +47,8 @@
 		BC87F0DA16306DEB001BDF87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC87F0E116306E07001BDF87 /* RHKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHKeychain.h; sourceTree = "<group>"; };
 		BC87F0E216306E07001BDF87 /* RHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHKeychain.m; sourceTree = "<group>"; };
+		BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunningApplicationsController.h; path = ApplicationObserver/RunningApplicationsController.h; sourceTree = "<group>"; };
+		BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunningApplicationsController.m; path = ApplicationObserver/RunningApplicationsController.m; sourceTree = "<group>"; };
 		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -121,6 +124,15 @@
 			path = RHKeychain/RHKeychain;
 			sourceTree = SOURCE_ROOT;
 		};
+		BC87F0F316314107001BDF87 /* ApplicationObserver */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */,
+				BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */,
+			);
+			name = ApplicationObserver;
+			sourceTree = "<group>";
+		};
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +175,7 @@
 				BC928F22162C3BA500685547 /* StatusBar */,
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
+				BC87F0F316314107001BDF87 /* ApplicationObserver */,
 			);
 			name = Kimai;
 			path = kimai;
@@ -238,7 +251,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "blockhaus medienagentur";
 			};
-			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */;
+			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -289,6 +302,7 @@
 				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
 				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
 				BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */,
+				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,11 +392,13 @@
 		BC928F01162C3A8200685547 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				PRODUCT_NAME = Kimai;
+				PROVISIONING_PROFILE = "10D27EE7-BB1A-45C0-800D-997FC66E04F9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -390,11 +406,13 @@
 		BC928F02162C3A8200685547 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				PRODUCT_NAME = Kimai;
+				PROVISIONING_PROFILE = "10D27EE7-BB1A-45C0-800D-997FC66E04F9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -402,7 +420,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */ = {
+		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC928EFE162C3A8200685547 /* Debug */,

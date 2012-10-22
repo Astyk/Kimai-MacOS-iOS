@@ -314,7 +314,13 @@
                             failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:msg forKey:@"NSLocalizedDescriptionKey"]]);
                             
                         }
+                        
+                    } else if (failureHandler) {
+                        
+                        failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"No response from server!" forKey:@"NSLocalizedDescriptionKey"]]);
+                        
                     }
+
                     
                 }
             }];

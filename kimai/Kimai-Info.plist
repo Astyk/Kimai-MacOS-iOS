@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Icon</string>
 	<key>CFBundleIdentifier</key>
-	<string>at.blockhausmedien.kimai</string>
+	<string>org.kimai.timetracker</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1484bb6</string>
+	<string>3b6317c</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>

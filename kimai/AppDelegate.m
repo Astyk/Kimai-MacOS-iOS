@@ -23,6 +23,9 @@
 static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
+#pragma mark - NSApplicationDelegate
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
@@ -37,10 +40,96 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
     [statusItem setMenu:menu];
 
+    [self initScreensaverNotificationObserver];
     
     locationManager = [KimaiLocationManager sharedManager];
 
     [self initKimai];
+}
+
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+    return NSTerminateNow;
+}
+
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    [self removeScreensaverNotificationObserver];
+}
+
+
+#pragma mark - Screensaver Notifications
+
+
+- (void)initScreensaverNotificationObserver {
+   
+    NSDistributedNotificationCenter *notificationCenter = [NSDistributedNotificationCenter defaultCenter];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector(screensaverStarted:)
+                               name:@"com.apple.screensaver.didstart"
+                             object:nil];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector(screensaverStopped:)
+                               name:@"com.apple.screensaver.didstop"
+                             object:nil];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector(screenLocked:)
+                               name:@"com.apple.screenIsLocked"
+                             object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(screenUnlocked:)
+                               name:@"com.apple.screenIsUnlocked"
+                             object:nil];
+
+    
+
+}
+
+
+- (void)removeScreensaverNotificationObserver {
+    
+    NSDistributedNotificationCenter *notificationCenter = [NSDistributedNotificationCenter defaultCenter];
+
+    [notificationCenter removeObserver:self
+                                  name:@"com.apple.screensaver.didstart"
+                                object:nil];
+    
+    [notificationCenter removeObserver:self
+                                  name:@"com.apple.screensaver.didstop"
+                                object:nil];
+    
+    [notificationCenter removeObserver:self
+                                  name:@"com.apple.screenIsLocked"
+                                object:nil];
+    
+    [notificationCenter removeObserver:self
+                                  name:@"com.apple.screenIsUnlocked"
+                                object:nil];
+
+}
+
+
+- (void)screensaverStarted:(NSNotification *)notification {
+    NSLog(@"screensaverStarted");
+}
+
+
+- (void)screensaverStopped:(NSNotification *)notification {
+    NSLog(@"screensaverStopped");
+}
+
+
+- (void)screenLocked:(NSNotification *)notification {
+    NSLog(@"screenLocked");
+}
+
+
+- (void)screenUnlocked:(NSNotification *)notification {
+    NSLog(@"screenUnlocked");
 }
 
 
@@ -344,11 +433,5 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [self performSelectorOnMainThread:@selector(updateTime) withObject:nil waitUntilDone:NO];
 }
 
-
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
-
-    return NSTerminateNow;
-}
 
 @end

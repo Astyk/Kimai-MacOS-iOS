@@ -1,12 +1,15 @@
-[submodule "Demiurgic-JSON-RPC"]
-	path = Demiurgic-JSON-RPC
+[submodule "mac/Demiurgic-JSON-RPC"]
+	path = mac/Demiurgic-JSON-RPC
 	url = https://github.com/dbowen/Demiurgic-JSON-RPC.git
-[submodule "JSONKit"]
-	path = JSONKit
+[submodule "mac/JSONKit"]
+	path = mac/JSONKit
 	url = https://github.com/johnezang/JSONKit.git
-[submodule "RHKeychain"]
-	path = RHKeychain
+[submodule "mac/RHKeychain"]
+	path = mac/RHKeychain
 	url = https://github.com/heardrwt/RHKeychain.git
-[submodule "KSReachability"]
-	path = KSReachability
+[submodule "mac/KSReachability"]
+	path = mac/KSReachability
 	url = https://github.com/kstenerud/KSReachability.git
+[submodule "web"]
+	path = web
+	url = https://github.com/kimai/kimai.git

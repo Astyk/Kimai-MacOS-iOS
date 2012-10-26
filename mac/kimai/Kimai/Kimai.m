@@ -254,8 +254,10 @@
     
     [self stopAllActivityRecordingsWithSuccess:^(id response) {
 
+        NSNumber *timeIntervalSince1970 = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+        
         [self _callMethod:@"startRecord"
-           withParameters:@[self.apiKey, project.projectID, task.activityID]
+           withParameters:@[self.apiKey, project.projectID, task.activityID, timeIntervalSince1970]
            successHandler:^(id response) {
                if (response && [response isKindOfClass:[NSArray class]]) {
                    if (successHandler) {

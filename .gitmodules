@@ -12,4 +12,4 @@
 	url = https://github.com/kstenerud/KSReachability.git
 [submodule "web"]
 	path = web
-	url = https://github.com/kimai/kimai.git
+	url = https://github.com/blockhaus/kimai.git

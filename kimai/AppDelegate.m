@@ -8,10 +8,11 @@
 
 #import "AppDelegate.h"
 #import "RHKeychain.h"
-
+#import "KimaiLocationManager.h"
 
 @interface AppDelegate () {
     NSTimer *_trainingTimer;
+    KimaiLocationManager *locationManager;
 }
 @end
 
@@ -36,6 +37,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
     [statusItem setMenu:menu];
 
+    
+    locationManager = [KimaiLocationManager sharedManager];
 
     [self initKimai];
 }
@@ -64,22 +67,14 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         NSString *kimaiServerURL = RHKeychainGetGenericComment(NULL, SERVICENAME);
         NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
         NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-        
+                
+        // init Kimai
         [self.kimaiURLTextField setStringValue:kimaiServerURL];
         [self.usernameTextField setStringValue:username];
         [self.passwordTextField setStringValue:password];
         
         self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
-        [self.kimai authenticateWithUsername:username password:password success:^(id response) {
-            
-            [self reloadData];
-            
-        } failure:^(NSError *error) {
-            
-            [self showAlertSheetWithError:error];
-            [self reloadMenu];
-            
-        }];
+        self.kimai.delegate = self;
         
     } else {
         [self showPreferences];
@@ -96,6 +91,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         [self showAlertSheetWithError:error];
         [self reloadMenu];
     }];
+    
 }
 
 
@@ -138,14 +134,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     NSInteger hours = [dateComponents hour];
     NSInteger minutes = [dateComponents minute];
-    NSInteger seconds = [dateComponents second];
+   // NSInteger seconds = [dateComponents second];
     
-    NSString *time;
-    if (hours > 0) {
-        time = [NSString stringWithFormat:@"%li:%@:%@", hours, [self formatTimeComponent:minutes], [self formatTimeComponent:seconds]];
-    } else {
-        time = [NSString stringWithFormat:@"%@:%@", [self formatTimeComponent:minutes], [self formatTimeComponent:seconds]];
-    }
+    NSString *time = [NSString stringWithFormat:@"%lih %lim ", hours, minutes];
     
     return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, time];
 }
@@ -245,6 +236,42 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [NSApp terminate:self];
 }
 
+
+#pragma mark - KimaiDelegate
+
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
+    
+    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
+    
+    if (isServiceReachable.boolValue) {
+        
+        if (self.kimai.apiKey == nil) {
+            
+            if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
+
+                NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
+                NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
+
+                [self.kimai authenticateWithUsername:username password:password success:^(id response) {
+                    [self reloadData];
+                } failure:^(NSError *error) {
+                    [self showAlertSheetWithError:error];
+                    [self reloadMenu];
+                }];
+                
+            } else {
+                [self showPreferences];
+            }
+
+        } else {
+            [self reloadData];
+        }
+
+    } else {
+        [statusItem setTitle:@"Offline"];
+    }
+
+}
 
 
 #pragma mark - NSWindow

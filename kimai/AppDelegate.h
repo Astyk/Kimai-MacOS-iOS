@@ -7,13 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "KSReachability.h"
 #import "StatusItemView.h"
 #import "Kimai.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate> {
+
+@interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
 }
+
+@property (nonatomic, strong) KSReachability* reachability;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSMenu *mainMenu;

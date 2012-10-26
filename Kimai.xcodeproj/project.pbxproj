@@ -15,6 +15,12 @@
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
 		BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0E216306E07001BDF87 /* RHKeychain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */; };
+		BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0FD163967F2001BDF87 /* CoreLocation.framework */; };
+		BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE7162C3A8200685547 /* CoreData.framework */; };
+		BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1011639683E001BDF87 /* KimaiLocationManager.m */; };
+		BC87F1771639767E001BDF87 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1621639767E001BDF87 /* KSReachability.m */; };
+		BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F18516397A85001BDF87 /* SystemConfiguration.framework */; };
+		BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F19B16398291001BDF87 /* CoreWLAN.framework */; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
@@ -49,6 +55,13 @@
 		BC87F0E216306E07001BDF87 /* RHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHKeychain.m; sourceTree = "<group>"; };
 		BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunningApplicationsController.h; path = ApplicationObserver/RunningApplicationsController.h; sourceTree = "<group>"; };
 		BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunningApplicationsController.m; path = ApplicationObserver/RunningApplicationsController.m; sourceTree = "<group>"; };
+		BC87F0FD163967F2001BDF87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BC87F1001639683E001BDF87 /* KimaiLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KimaiLocationManager.h; path = Location/KimaiLocationManager.h; sourceTree = "<group>"; };
+		BC87F1011639683E001BDF87 /* KimaiLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KimaiLocationManager.m; path = Location/KimaiLocationManager.m; sourceTree = "<group>"; };
+		BC87F1611639767E001BDF87 /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
+		BC87F1621639767E001BDF87 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
+		BC87F18516397A85001BDF87 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BC87F19B16398291001BDF87 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -82,7 +95,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */,
+				BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */,
+				BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */,
 				BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */,
+				BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */,
 				BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */,
 				BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */,
 			);
@@ -99,7 +116,6 @@
 				BC35792E162DC10600F1BFAE /* DSJSONRPC.m */,
 				BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */,
 				BC357930162DC10600F1BFAE /* DSJSONRPCError.m */,
-				BC4B4D34162DC467000AE55E /* JSONKit */,
 			);
 			name = DSJSONRPC;
 			path = "Demiurgic-JSON-RPC/DSJSONRPC";
@@ -133,6 +149,24 @@
 			name = ApplicationObserver;
 			sourceTree = "<group>";
 		};
+		BC87F10316396842001BDF87 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F1001639683E001BDF87 /* KimaiLocationManager.h */,
+				BC87F1011639683E001BDF87 /* KimaiLocationManager.m */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		BC87F1421639767E001BDF87 /* KSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F1611639767E001BDF87 /* KSReachability.h */,
+				BC87F1621639767E001BDF87 /* KSReachability.m */,
+			);
+			path = KSReachability;
+			sourceTree = "<group>";
+		};
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
@@ -153,11 +187,18 @@
 		BC928EE2162C3A8200685547 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC87F1421639767E001BDF87 /* KSReachability */,
+				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
+				BC4B4D34162DC467000AE55E /* JSONKit */,
+				BC87F0DC16306E07001BDF87 /* RHKeychain */,
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
 				BC87F0DA16306DEB001BDF87 /* Security.framework */,
+				BC87F0FD163967F2001BDF87 /* CoreLocation.framework */,
 				BC928EE7162C3A8200685547 /* CoreData.framework */,
 				BC928EE8162C3A8200685547 /* Foundation.framework */,
 				BC928F31162C3FCB00685547 /* WebKit.framework */,
+				BC87F18516397A85001BDF87 /* SystemConfiguration.framework */,
+				BC87F19B16398291001BDF87 /* CoreWLAN.framework */,
 				BC928EE3162C3A8200685547 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -171,9 +212,8 @@
 				BC928EF8162C3A8200685547 /* MainMenu.xib */,
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
-				BC87F0DC16306E07001BDF87 /* RHKeychain */,
+				BC87F10316396842001BDF87 /* Location */,
 				BC928F22162C3BA500685547 /* StatusBar */,
-				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
 				BC87F0F316314107001BDF87 /* ApplicationObserver */,
 			);
@@ -303,6 +343,8 @@
 				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
 				BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */,
 				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
+				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
+				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

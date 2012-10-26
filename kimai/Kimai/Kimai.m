@@ -14,6 +14,8 @@
 
 @interface Kimai() {
     DSJSONRPC *_jsonRPC;
+    NSTimer *_reachabilityChangeTimeout;
+    BOOL _previousReachable;
 }
 
 @end
@@ -28,13 +30,91 @@
 {
     self = [super init];
     if (self) {
+
         self.url = url;
+        
+        // init service endpoint
         NSURL *jsonURL = [url URLByAppendingPathComponent:@"core/json.php"];
         _jsonRPC = [[DSJSONRPC alloc] initWithServiceEndpoint:jsonURL];
+                
+        // init Reachability
+        _previousReachable = NO;
+        _reachabilityChangeTimeout = nil;
+
+        NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self
+                               selector:@selector(onReachabilityChanged:)
+                                   name:kDefaultNetworkReachabilityChangedNotification
+                                 object:nil];
+
+        self.reachability = [KSReachability reachabilityToHost:url.host];
+        self.reachability.notificationName = kDefaultNetworkReachabilityChangedNotification;
+        
+        
     }
     return self;
 }
 
+
+#pragma mark - Reachability
+
+
+- (void)onReachabilityChanged:(NSNotification*)notification {
+    
+    KSReachability* reachability = (KSReachability*)notification.object;
+
+    // in case nothing changed, we don't need to do nothing
+    if (_previousReachable == reachability.reachable) {
+        return;
+    }
+    
+    // unbounce reachability changes
+    if (_reachabilityChangeTimeout != nil) {
+        [_reachabilityChangeTimeout invalidate];
+        _reachabilityChangeTimeout = nil;
+    }
+    
+    // reschedule a timeout timer
+    _reachabilityChangeTimeout = [NSTimer timerWithTimeInterval:2
+                                                         target:self
+                                                       selector:@selector(onReachabilityChangedTimeout:)
+                                                       userInfo:reachability
+                                                        repeats:NO];
+    
+    [[NSRunLoop currentRunLoop] addTimer:_reachabilityChangeTimeout
+                                 forMode:NSDefaultRunLoopMode];
+
+}
+
+
+/*
+ * Use a timer to detect REAL connection changes.
+ * Switching from Wifi to Ethernet in software also creates reachability events in a timeframe of about one second.
+ * 
+ */
+- (void)onReachabilityChangedTimeout:(NSTimer *)timer {
+
+    KSReachability* reachability = (KSReachability*)timer.userInfo;
+
+    _previousReachable = reachability.reachable;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(reachabilityChanged:)]) {
+        [self.delegate performSelector:@selector(reachabilityChanged:) withObject:[NSNumber numberWithBool:reachability.reachable]];
+    }
+    
+    [_reachabilityChangeTimeout invalidate];
+    _reachabilityChangeTimeout = nil;
+    
+}
+
+
+- (BOOL)isServiceReachable {
+    return self.reachability.reachable;
+}
+
+
+
+#pragma mark - API
 
 - (void)logAllData {
 
@@ -73,6 +153,8 @@
 
 - (void)reloadAllContentWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
+    NSLog(@"RELOAD ALL CONTENT");
+
     [self reloadProjectsWithSuccess:^(id response) {
        
         [self reloadTasksWithSuccess:^(id response) {
@@ -228,6 +310,9 @@
 }
 
 
+#pragma mark - Private
+
+
 - (void)_mapMethod:(NSString *)method toClass:(Class)kimaiObjectClass success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
     [self _callMethod:method
@@ -258,6 +343,14 @@
           withParameters:(id)methodParams
           successHandler:(KimaiSuccessHandler)successHandler
           failureHandler:(KimaiFailureHandler)failureHandler {
+    
+    
+    // check internet connection
+    if (self.reachability.reachable == NO) {
+        NSLog(@"Unable to call method %@, we are offline or Kimai is not reachable.", methodName);
+        return;
+    }
+    
     
     // we need an API key for all API calls except "authenticate"
     if (![methodName isEqualToString:@"authenticate"]) {
@@ -326,6 +419,14 @@
             }];
 }
 
+
+#pragma mark - Memory
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
 

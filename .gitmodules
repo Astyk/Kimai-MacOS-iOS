@@ -7,3 +7,6 @@
 [submodule "RHKeychain"]
 	path = RHKeychain
 	url = https://github.com/heardrwt/RHKeychain.git
+[submodule "KSReachability"]
+	path = KSReachability
+	url = https://github.com/kstenerud/KSReachability.git

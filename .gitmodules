@@ -1,6 +1,6 @@
 [submodule "mac/Demiurgic-JSON-RPC"]
 	path = mac/Demiurgic-JSON-RPC
-	url = https://github.com/dbowen/Demiurgic-JSON-RPC.git
+	url = https://github.com/blockhaus/Demiurgic-JSON-RPC.git
 [submodule "mac/JSONKit"]
 	path = mac/JSONKit
 	url = https://github.com/johnezang/JSONKit.git

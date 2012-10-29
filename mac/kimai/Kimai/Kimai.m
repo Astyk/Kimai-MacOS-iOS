@@ -165,11 +165,7 @@
        
         [self reloadTasksWithSuccess:^(id response) {
 
-            [self reloadActiveRecordingWithSuccess:^(id response) {
-            
-                [self reloadTimesheetWithSuccess:successHandler failure:failureHandler];
-                
-            } failure:failureHandler];
+            [self reloadActiveRecordingWithSuccess:successHandler failure:failureHandler];
 
         } failure:failureHandler];
 
@@ -417,6 +413,8 @@
                    successHandler(responseObjects);
                }
                
+           } else if (failureHandler) {
+               failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"No items in server response!" forKey:@"NSLocalizedDescriptionKey"]]);
            }
        }
        failureHandler:failureHandler];

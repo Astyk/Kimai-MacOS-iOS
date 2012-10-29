@@ -34,9 +34,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 	// this call will never return. Therefore you can suppress
 	// any first run UI by putting it after this call.
 	
-	PFMoveToApplicationsFolderIfNecessary();
-    
     [self hidePreferences];
+
+#ifndef DEBUG
+	PFMoveToApplicationsFolderIfNecessary();
+#endif
+    
 }
 
 

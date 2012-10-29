@@ -473,8 +473,8 @@
                     NSDictionary *dict = (NSDictionary *)methodResult;
                     if (dict) {
                         
-                        BOOL success = (BOOL)[dict valueForKey:@"success"];
-                        if (success) {
+                        NSNumber *success = (NSNumber *)[dict valueForKey:@"success"];
+                        if (success.boolValue) {
 
                             id items = [dict valueForKey:@"items"];
                             

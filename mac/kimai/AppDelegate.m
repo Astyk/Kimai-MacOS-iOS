@@ -309,16 +309,19 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
             return;
         }
         
+        
         if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME) == NO) {
             RHKeychainAddGenericEntry(NULL, SERVICENAME);
         }
         
+#ifndef DEBUG
         if (RHKeychainSetGenericUsername(NULL, SERVICENAME, username) &&
             RHKeychainSetGenericPassword(NULL, SERVICENAME, password) &&
             RHKeychainSetGenericComment(NULL, SERVICENAME, kimaiServerURL)) {
             [self hidePreferences];
             [self initKimai];
-        }
+        }        
+#endif
         
     }
     

@@ -10,9 +10,9 @@
 
 @interface KimaiTask : KimaiObject
 
-@property (strong) NSNumber *activityID;
-@property (strong) NSNumber *assignable;
-@property (strong) NSString *name;
-@property (strong) NSNumber *visible;
+@property (nonatomic, strong) NSNumber *activityID;
+@property (nonatomic, strong) NSNumber *assignable;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *visible;
 
 @end

@@ -15,6 +15,7 @@
     NSTimer *_trainingTimer;
     KimaiLocationManager *locationManager;
     NSDate *_screensaverStartedDate;
+    NSTimeInterval _totalWorkingDurationToday;
 }
 @end
 
@@ -184,10 +185,16 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
         
+#if DEBUG
+        NSString *kimaiServerURL = @"http://localhost/kimai";
+        NSString *username = @"testuser";
+        NSString *password = @"test123";
+#else
         NSString *kimaiServerURL = RHKeychainGetGenericComment(NULL, SERVICENAME);
         NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
         NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-                
+#endif
+
         // init Kimai
         [self.kimaiURLTextField setStringValue:kimaiServerURL];
         [self.usernameTextField setStringValue:username];
@@ -203,14 +210,81 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
+- (void)_testTimeSheets {
+    
+    KimaiTimesheetRecord *newRecord = [[KimaiTimesheetRecord alloc] init];
+    newRecord.statusID = [NSNumber numberWithInt:1];
+    newRecord.project = [self.kimai.projects objectAtIndex:0];
+    newRecord.task = [self.kimai.tasks objectAtIndex:0];
+    
+    // FROM - TODAY 00:00
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                          fromDate:[NSDate date]];
+    newRecord.startDate = [cal dateFromComponents:components];
+    newRecord.startDate = [newRecord.startDate dateByAddingTimeInterval:60*60]; // add one hour
+    
+    // TO - NOW
+    newRecord.endDate = [NSDate date];
+    
+    
+    [self.kimai setTimesheetRecord:newRecord success:^(id response) {
+        
+        [self.kimai getTimesheetRecordWithID:newRecord.timeEntryID success:^(id response) {
+            for (KimaiTimesheetRecord *record in response) {
+                NSLog(@"%@", record);
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];    
+
+}
+
+
+- (NSString *)totalWorkingHoursTodayByAddingTimeInterval:(NSTimeInterval)additionalTimeInterval {
+    
+    NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday + additionalTimeInterval;
+    
+    NSDate *now = [NSDate date];
+    NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:totalWorkingDurationToday sinceDate:now];
+    
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit
+                                                                       fromDate:now
+                                                                         toDate:nowPlusDuration
+                                                                        options:0];
+    NSInteger hours = [dateComponents hour];
+    NSInteger minutes = [dateComponents minute];
+    
+    NSString *time = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
+    if (hours == 0) {
+        time = [NSString stringWithFormat:@"%lim", minutes];
+    }
+
+    return time;
+}
+
+
+-(void)recalculateTotalWorkingDurationToday {
+    _totalWorkingDurationToday = 0;
+    for (KimaiTimesheetRecord *record in self.kimai.timesheetRecords) {
+        _totalWorkingDurationToday += record.duration.doubleValue;
+    }
+}
+
+
 - (void)reloadData {
     
     [self.kimai reloadAllContentWithSuccess:^(id response) {
         
 #if DEBUG
-        [self.kimai logAllData];
+        //[self.kimai logAllData];
+        //[self _testTimeSheets];
 #endif
-        
+        [self recalculateTotalWorkingDurationToday];
         [self reloadMenu];
         
     } failure:^(NSError *error) {
@@ -253,18 +327,27 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
     
+    NSDate *now = [NSDate date];
+    
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
                                                                        fromDate:activity.startDate
-                                                                         toDate:[NSDate date]
+                                                                         toDate:now
                                                                         options:0];
     
     NSInteger hours = [dateComponents hour];
     NSInteger minutes = [dateComponents minute];
    // NSInteger seconds = [dateComponents second];
     
-    NSString *time = [NSString stringWithFormat:@"%lih %lim ", hours, minutes];
+    NSString *activityTime = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
+    if (hours == 0) {
+        activityTime = [NSString stringWithFormat:@"%lim", minutes];
+    }
     
-    return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, time];
+    // total working hours today
+    NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
+    NSString *totalWorkingHoursToday = [self totalWorkingHoursTodayByAddingTimeInterval:activityDuration];
+    
+    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
 }
 
 
@@ -375,8 +458,15 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
             
             if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
 
+                
+#if DEBUG
+                NSString *username = @"testuser";
+                NSString *password = @"test123";
+#else
                 NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
                 NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
+#endif
+
 
                 [self.kimai authenticateWithUsername:username password:password success:^(id response) {
                     [self reloadData];
@@ -428,7 +518,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     [self timerUpdate];
     
-    _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:20.0
                                                       target:self
                                                     selector:@selector(timerUpdate)
                                                     userInfo:nil

@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
-		BC46C8E1163DDD8A00C9520D /* KimaiTimesheet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */; };
+		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
 		BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
@@ -47,14 +48,16 @@
 		BC35792E162DC10600F1BFAE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
 		BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
-		BC46C8DF163DDD8A00C9520D /* KimaiTimesheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheet.h; sourceTree = "<group>"; };
-		BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheet.m; sourceTree = "<group>"; };
+		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
+		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
 		BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFMoveApplication.h; path = LetsMove/PFMoveApplication.h; sourceTree = "<group>"; };
 		BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFMoveApplication.m; path = LetsMove/PFMoveApplication.m; sourceTree = "<group>"; };
 		BC46C8EB163E8C5C00C9520D /* NSString+SymlinksAndAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SymlinksAndAliases.h"; path = "LetsMove/NSString+SymlinksAndAliases.h"; sourceTree = "<group>"; };
 		BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SymlinksAndAliases.m"; path = "LetsMove/NSString+SymlinksAndAliases.m"; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
+		BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
 		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
 		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
 		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
@@ -277,10 +280,12 @@
 				BC9815D3162F1B7B00886EBC /* KimaiProject.m */,
 				BC9815D9162F22C000886EBC /* KimaiTask.h */,
 				BC9815DA162F22C000886EBC /* KimaiTask.m */,
+				BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */,
+				BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */,
 				BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */,
 				BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */,
-				BC46C8DF163DDD8A00C9520D /* KimaiTimesheet.h */,
-				BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */,
+				BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */,
+				BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */,
 			);
 			path = Kimai;
 			sourceTree = "<group>";
@@ -371,9 +376,10 @@
 				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
 				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
 				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
-				BC46C8E1163DDD8A00C9520D /* KimaiTimesheet.m in Sources */,
+				BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */,
 				BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */,
 				BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */,
+				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

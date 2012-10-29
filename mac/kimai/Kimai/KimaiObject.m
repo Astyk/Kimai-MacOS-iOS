@@ -25,8 +25,10 @@
             
             id value = [dictionary valueForKey:key];
             
-            if ([self respondsToSelector:NSSelectorFromString(key)] && value != [NSNull null]) {
-                [self setValue:value forKey:key];
+            if ([self respondsToSelector:NSSelectorFromString(key)]) {
+                if (value != [NSNull null]) {
+                    [self setValue:value forKey:key];
+                }
             } else {
                 NSLog(@"Does not respond to key '%@' of type %s", key, object_getClassName(value));
             }

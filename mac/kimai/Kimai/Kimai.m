@@ -139,8 +139,8 @@
 
     NSLog(@"TIMESHEET:");
     
-    for (KimaiTimesheet *timesheet in self.timesheets) {
-        NSLog(@"%@", timesheet);
+    for (KimaiTimesheetRecord *record in self.timesheetRecords) {
+        NSLog(@"%@", record);
     }
 
 }
@@ -165,7 +165,11 @@
        
         [self reloadTasksWithSuccess:^(id response) {
 
-            [self reloadActiveRecordingWithSuccess:successHandler failure:failureHandler];
+            [self reloadActiveRecordingWithSuccess:^(id response) {
+                
+                [self reloadCurrentDayTimesheetWithSuccess:successHandler failure:failureHandler];
+                
+            } failure:failureHandler];
 
         } failure:failureHandler];
 
@@ -200,12 +204,34 @@
 }
 
 
+#pragma mark getUsers
+
+
+- (void)reloadUsersWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self _mapMethod:@"getUsers"
+             toClass:[KimaiUser class]
+             success:^(id response) {
+        
+        self.users = response;
+        
+        if (successHandler) {
+            successHandler(response);
+        }
+        
+    } failure:failureHandler];
+    
+}
+
+
 #pragma mark getProjects
 
 
 - (void)reloadProjectsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
    
-    [self _mapMethod:@"getProjects" toClass:[KimaiProject class] success:^(id response) {
+    [self _mapMethod:@"getProjects"
+             toClass:[KimaiProject class]
+             success:^(id response) {
         
         self.projects = response;
         
@@ -223,7 +249,9 @@
 
 - (void)reloadTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
  
-    [self _mapMethod:@"getTasks" toClass:[KimaiTask class] success:^(id response) {
+    [self _mapMethod:@"getTasks"
+             toClass:[KimaiTask class]
+             success:^(id response) {
 
         self.tasks = response;
         
@@ -241,7 +269,9 @@
 
 - (void)reloadActiveRecordingWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
-    [self _mapMethod:@"getActiveRecording" toClass:[KimaiActiveRecording class] success:^(id response) {
+    [self _mapMethod:@"getActiveRecording"
+             toClass:[KimaiActiveRecording class]
+             success:^(id response) {
         
         self.activeRecordings = response;
         
@@ -339,43 +369,34 @@
 #pragma mark getTimesheet
 
 
-/**
- * Returns a list of recorded times.
- * @param string $apiKey
- * @param string $from a MySQL DATE/DATETIME/TIMESTAMP
- * @param string $to a MySQL DATE/DATETIME/TIMESTAMP
- * @param int $cleared -1 no filtering, 0 uncleared only, 1 cleared only
- * @param int $start limit start
- * @param int $limit count rows to select
- * @return array
- */
-- (void)reloadTimesheetWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+- (void)reloadCurrentDayTimesheetWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
 
-/*
-    // FROM - TODAY 00:00
+    // FROM TODAY 00:00 UNTIL NOW
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
                                           fromDate:[NSDate date]];
-    NSDate *today = [cal dateFromComponents:components];
-    NSNumber *fromDate = [NSNumber numberWithDouble:today.timeIntervalSince1970];
+    NSDate *startDate = [cal dateFromComponents:components];
+    NSDate *endDate = [NSDate date];
     
-    // TO - NOW
-    NSDate *now = [NSDate date];
-    NSNumber *toDate = [NSNumber numberWithDouble:now.timeIntervalSince1970];
-    
-    // CLEARED
-    NSNumber *cleared = [NSNumber numberWithInt:0];
-    
-    // LIMIT START
-    NSNumber *limitStart = [NSNumber numberWithInt:0];
+    [self reloadTimesheetWithStartDate:startDate
+                               endDate:endDate
+                            limitStart:[NSNumber numberWithInt:0]
+                            limitCount:[NSNumber numberWithInt:100]
+                               success:successHandler
+                               failure:failureHandler];
+}
 
-    // LIMIT COUNT
-    NSNumber *limitCount = [NSNumber numberWithInt:50];
-*/
 
-    [self _mapMethod:@"getTimesheet" toClass:[KimaiTimesheet class] success:^(id response) {
+- (void)reloadTimesheetWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate limitStart:(NSNumber *)limitStart limitCount:(NSNumber *)limitCount success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+
+    NSNumber *cleared = [NSNumber numberWithInt:0]; // -1 no filtering, 0 uncleared only, 1 cleared only
+
+    [self _mapMethod:@"getTimesheet"
+      withParameters:@[self.apiKey, startDate.description, endDate.description, cleared, limitStart, limitCount]
+             toClass:[KimaiTimesheetRecord class]
+             success:^(id response) {
         
-        self.timesheets = response;
+        self.timesheetRecords = response;
         
         if (successHandler) {
             successHandler(response);
@@ -386,11 +407,52 @@
 }
 
 
+- (void)getTimesheetRecordWithID:(NSNumber *)timesheetRecordID success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self _mapMethod:@"getTimesheetRecord"
+      withParameters:@[self.apiKey, timesheetRecordID]
+             toClass:[KimaiTimesheetRecord class]
+             success:^(id response) {
+
+        if (successHandler) {
+            successHandler(response);
+        }
+        
+    } failure:failureHandler];
+    
+}
+
+
+- (void)setTimesheetRecord:(KimaiTimesheetRecord *)record success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    [self _callMethod:@"setTimesheetRecord"
+       withParameters:@[self.apiKey, record.dataDictionary]
+       successHandler:^(id response) {
+           
+           NSDictionary *items = (NSDictionary *)response;
+           NSNumber *timeEntryID = [[items valueForKey:@"id"] objectAtIndex:0];
+           if (timeEntryID) {
+               record.timeEntryID = timeEntryID;
+               if (successHandler) {
+                   successHandler(record);
+               }
+           }
+           
+       }
+       failureHandler:failureHandler];
+    
+}
+
+
+
 #pragma mark - Private
 
 
 - (void)_mapMethod:(NSString *)method toClass:(Class)kimaiObjectClass success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
-    [self _mapMethod:method withParameters:@[self.apiKey] toClass:kimaiObjectClass success:successHandler failure:failureHandler];
+    [self _mapMethod:method withParameters:@[self.apiKey]
+             toClass:kimaiObjectClass
+             success:successHandler
+             failure:failureHandler];
 }
 
 

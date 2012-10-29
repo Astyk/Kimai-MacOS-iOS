@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
+		BC46C8E1163DDD8A00C9520D /* KimaiTimesheet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
@@ -44,6 +45,8 @@
 		BC35792E162DC10600F1BFAE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
 		BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
+		BC46C8DF163DDD8A00C9520D /* KimaiTimesheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheet.h; sourceTree = "<group>"; };
+		BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheet.m; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				BC9815DA162F22C000886EBC /* KimaiTask.m */,
 				BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */,
 				BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */,
+				BC46C8DF163DDD8A00C9520D /* KimaiTimesheet.h */,
+				BC46C8E0163DDD8A00C9520D /* KimaiTimesheet.m */,
 			);
 			path = Kimai;
 			sourceTree = "<group>";
@@ -291,7 +296,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "blockhaus medienagentur";
 			};
-			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */;
+			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -345,6 +350,7 @@
 				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
 				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
 				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
+				BC46C8E1163DDD8A00C9520D /* KimaiTimesheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +468,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "kimai" */ = {
+		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC928EFE162C3A8200685547 /* Debug */,

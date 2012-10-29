@@ -15,11 +15,24 @@
 {
     self = [super init];
     if (self) {
+        
         for (NSString *key in [dictionary allKeys]) {
+            
+            // watch out for "description" this is part of NSObject anyway
+            if ([key isEqualToString:@"description"]) {
+                continue;
+            }
+            
             id value = [dictionary valueForKey:key];
-            //NSLog(@"%@: %@", key, value);
-            [self setValue:value forKey:key];
+            
+            if ([self respondsToSelector:NSSelectorFromString(key)] && value != [NSNull null]) {
+                [self setValue:value forKey:key];
+            } else {
+                NSLog(@"Does not respond to key '%@' of type %s", key, object_getClassName(value));
+            }
+            
         }
+        
     }
     return self;
 }

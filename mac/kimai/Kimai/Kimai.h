@@ -12,6 +12,8 @@
 #import "KimaiProject.h"
 #import "KimaiTask.h"
 #import "KimaiActiveRecording.h"
+#import "KimaiTimesheet.h"
+
 
 typedef void (^KimaiSuccessHandler)(id response);
 typedef void (^KimaiFailureHandler)(NSError *error);
@@ -33,6 +35,7 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 @property (nonatomic, strong) NSArray *projects;
 @property (nonatomic, strong) NSArray *tasks;
 @property (nonatomic, strong) NSArray *activeRecordings;
+@property (nonatomic, strong) NSArray *timesheets;
 
 @property (nonatomic, strong) KSReachability *reachability;
 @property (nonatomic, readonly) BOOL isServiceReachable;
@@ -43,11 +46,14 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 - (id)initWithURL:(NSURL *)url;
 - (void)authenticateWithUsername:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 
+- (void)logAllData;
+
 - (void)reloadAllContent;
 - (void)reloadAllContentWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)reloadProjectsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)reloadTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)reloadActiveRecordingWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
+- (void)reloadTimesheetWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 
 - (void)startProject:(KimaiProject *)project withTask:(KimaiTask *)task success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)stopAllActivityRecordingsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;

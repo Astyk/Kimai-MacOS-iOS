@@ -13,6 +13,7 @@
 @interface AppDelegate () {
     NSTimer *_trainingTimer;
     KimaiLocationManager *locationManager;
+    NSDate *_screensaverStartedDate;
 }
 @end
 
@@ -115,11 +116,27 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)screensaverStarted:(NSNotification *)notification {
     NSLog(@"screensaverStarted");
+    
+    // log date/time when screensaver started for later reference
+    _screensaverStartedDate = [NSDate date];
 }
 
 
 - (void)screensaverStopped:(NSNotification *)notification {
     NSLog(@"screensaverStopped");
+    
+    if (_screensaverStartedDate != nil) {
+        
+        NSDate *now = [NSDate date];
+        NSTimeInterval screensaverActivateDuration = [_screensaverStartedDate timeIntervalSinceDate:now];
+        
+        // if the user left his Mac for more than 10 minutes
+        // ask what he did during the time
+        if (screensaverActivateDuration > 60 * 10) {
+             
+        }
+    }
+    
 }
 
 
@@ -175,7 +192,13 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)reloadData {
     
     [self.kimai reloadAllContentWithSuccess:^(id response) {
+        
+#if DEBUG
+        [self.kimai logAllData];
+#endif
+        
         [self reloadMenu];
+        
     } failure:^(NSError *error) {
         [self showAlertSheetWithError:error];
         [self reloadMenu];

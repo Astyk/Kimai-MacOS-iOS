@@ -57,7 +57,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
     [self initScreensaverNotificationObserver];
     
-    locationManager = [KimaiLocationManager sharedManager];
+    //locationManager = [KimaiLocationManager sharedManager];
 
     [self initKimai];
 }

@@ -13,3 +13,6 @@
 [submodule "web"]
 	path = web
 	url = https://github.com/blockhaus/kimai.git
+[submodule "mac/LetsMove"]
+	path = mac/LetsMove
+	url = https://github.com/potionfactory/LetsMove.git

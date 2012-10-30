@@ -374,6 +374,32 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
     
+    // TODAY TASK HISTORY
+    if (self.kimai.timesheetRecords) {
+        
+        NSSortDescriptor *startDateSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO];
+        NSArray *sortedTimesheetRecords = [self.kimai.timesheetRecords sortedArrayUsingDescriptors:[NSArray arrayWithObject:startDateSortDescriptor]];
+        
+        for (KimaiTimesheetRecord *record in sortedTimesheetRecords) {
+
+            // is endDate AFTER startDate
+            if ([record.endDate compare:record.startDate] == NSOrderedDescending) {
+                NSString *activityTime = [self formattedDurationStringFromDate:record.startDate toDate:record.endDate];
+                NSString *title = [NSString stringWithFormat:@"%@ - %@ - %@", record.projectName, record.activityName, activityTime];
+                NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
+                //[menuItem setRepresentedObject:project];
+                [menuItem setEnabled:NO];
+                //[menuItem setSubmenu:[tasksMenu copy]];
+                [kimaiMenu addItem:menuItem];
+            }
+            
+        }
+
+        // SEPERATOR
+        [kimaiMenu addItem:[NSMenuItem separatorItem]];
+    }
+
+    
     // RELOAD DATA
     NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
     [kimaiMenu addItem:reloadMenuItem];
@@ -586,3 +612,4 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 @end
+    

@@ -245,29 +245,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-- (NSString *)totalWorkingHoursTodayByAddingTimeInterval:(NSTimeInterval)additionalTimeInterval {
-    
-    NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday + additionalTimeInterval;
-    
-    NSDate *now = [NSDate date];
-    NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:totalWorkingDurationToday sinceDate:now];
-    
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit
-                                                                       fromDate:now
-                                                                         toDate:nowPlusDuration
-                                                                        options:0];
-    NSInteger hours = [dateComponents hour];
-    NSInteger minutes = [dateComponents minute];
-    
-    NSString *time = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
-    if (hours == 0) {
-        time = [NSString stringWithFormat:@"%lim", minutes];
-    }
-
-    return time;
-}
-
-
 -(void)recalculateTotalWorkingDurationToday {
     _totalWorkingDurationToday = 0;
     for (KimaiTimesheetRecord *record in self.kimai.timesheetRecords) {
@@ -295,14 +272,152 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
+#pragma mark - KimaiDelegate
+
+
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
+    
+    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
+    
+    if (isServiceReachable.boolValue) {
+        
+        if (self.kimai.apiKey == nil) {
+            
+            if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
+                
+                
+#if DEBUG
+                NSString *username = @"testuser";
+                NSString *password = @"test123";
+#else
+                NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
+                NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
+#endif
+                
+                
+                [self.kimai authenticateWithUsername:username password:password success:^(id response) {
+                    [self reloadData];
+                } failure:^(NSError *error) {
+                    [self showAlertSheetWithError:error];
+                    [self reloadMenu];
+                }];
+                
+            } else {
+                [self showPreferences];
+            }
+            
+        } else {
+            [self reloadData];
+        }
+        
+    } else {
+        [statusItem setTitle:@"Offline"];
+    }
+    
+}
+
+
+#pragma mark - User Interface
+
+
+- (void)reloadMenu {
+    
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    
+    
+    NSString *title = @"Kimai";
+    if (self.kimai.activeRecordings) {
+        
+        // STOP ALL ACTIVE TASKS
+        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop Running Tasks" action:@selector(stopAllActivities) keyEquivalent:@""];
+        [kimaiMenu addItem:stopMenuItem];
+        
+        // SEPERATOR
+        [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
+        KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
+        title = [self statusBarTitleWithActivity:activeRecording];
+        
+        [self startTimer];
+    } else {
+        [self stopTimer];
+    }
+    [statusItem setTitle:title];
+    
+    
+    
+    // TASKS
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    for (KimaiTask *task in self.kimai.tasks) {
+        if ([task.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
+            [menuItem setRepresentedObject:task];
+            [menuItem setEnabled:YES];
+            [tasksMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // PROJECTS
+    for (KimaiProject *project in self.kimai.projects) {
+        if ([project.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
+            [menuItem setRepresentedObject:project];
+            [menuItem setEnabled:YES];
+            [menuItem setSubmenu:[tasksMenu copy]];
+            [kimaiMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // SEPERATOR
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
+    
+    // RELOAD DATA
+    NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
+    [kimaiMenu addItem:reloadMenuItem];
+    
+    
+    // OPEN WEBSITE
+    if (self.kimai.url != nil) {
+        NSMenuItem *launchWebsiteMenuItem = [[NSMenuItem alloc] initWithTitle:@"Launch Kimai Website" action:@selector(launchKimaiWebsite) keyEquivalent:@""];
+        [kimaiMenu addItem:launchWebsiteMenuItem];
+    }
+    
+    
+    // PREFERENCES
+    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
+    [kimaiMenu addItem:preferencesMenuItem];
+    
+    
+    // SEPERATOR
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
+    
+    // QUIT
+    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
+    [kimaiMenu addItem:quitMenuItem];
+    
+    
+    [statusItem setMenu:kimaiMenu];
+    
+}
+
+
+- (void)launchKimaiWebsite {
+    [[NSWorkspace sharedWorkspace] openURL:self.kimai.url];
+}
+
+
 - (IBAction)storePreferences:(id)sender {
     
     if (self.window.isVisible) {
-
+        
         NSString *kimaiServerURL = [self.kimaiURLTextField stringValue];
         NSString *username = [self.usernameTextField stringValue];
         NSString *password = [self.passwordTextField stringValue];
-
+        
         if (kimaiServerURL.length == 0 ||
             username.length == 0 ||
             password.length == 0) {
@@ -320,7 +435,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
             RHKeychainSetGenericComment(NULL, SERVICENAME, kimaiServerURL)) {
             [self hidePreferences];
             [self initKimai];
-        }        
+        }
 #endif
         
     }
@@ -328,95 +443,45 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
-    
-    NSDate *now = [NSDate date];
+- (NSString *)formattedDurationStringFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
-                                                                       fromDate:activity.startDate
-                                                                         toDate:now
+                                                                       fromDate:fromDate
+                                                                         toDate:toDate
                                                                         options:0];
-    
     NSInteger hours = [dateComponents hour];
     NSInteger minutes = [dateComponents minute];
-   // NSInteger seconds = [dateComponents second];
+    // NSInteger seconds = [dateComponents second];
     
-    NSString *activityTime = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
+    NSString *formattedTime = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
     if (hours == 0) {
-        activityTime = [NSString stringWithFormat:@"%lim", minutes];
+        formattedTime = [NSString stringWithFormat:@"%lim", minutes];
     }
     
-    // total working hours today
-    NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
-    NSString *totalWorkingHoursToday = [self totalWorkingHoursTodayByAddingTimeInterval:activityDuration];
-    
-    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
+    return formattedTime;
 }
 
 
-- (void)reloadMenu {
+- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
 
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
-
+    NSDate *now = [NSDate date];
     
-    NSString *title = @"Kimai";
-    if (self.kimai.activeRecordings) {
-        
-        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop" action:@selector(stopAllActivities) keyEquivalent:@""];
-        [kimaiMenu addItem:stopMenuItem];
-        [kimaiMenu addItem:[NSMenuItem separatorItem]];
-
-        KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
-        title = [self statusBarTitleWithActivity:activeRecording];
-        
-        [self startTimer];
-    } else {
-        [self stopTimer];
-    }
-    [statusItem setTitle:title];
+    // current activity time
+    NSString *activityTime = [self formattedDurationStringFromDate:activity.startDate toDate:now];
     
-    
-    
-    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
-    for (KimaiTask *task in self.kimai.tasks) {
-        if ([task.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
-            [menuItem setRepresentedObject:task];
-            [menuItem setEnabled:YES];
-            [tasksMenu addItem:menuItem];
-        }
-    }
-    
+    // total working hours today
+    NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
+    NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday + activityDuration;
+    NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:totalWorkingDurationToday sinceDate:now];
+    NSString *totalWorkingHoursToday = [self formattedDurationStringFromDate:now toDate:nowPlusDuration];
 
-    
-    for (KimaiProject *project in self.kimai.projects) {
-        if ([project.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
-            [menuItem setRepresentedObject:project];
-            [menuItem setEnabled:YES];
-            [menuItem setSubmenu:[tasksMenu copy]];
-            [kimaiMenu addItem:menuItem];
-        }
-    }
-
-
-    [kimaiMenu addItem:[NSMenuItem separatorItem]];
-
-    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
-    [kimaiMenu addItem:preferencesMenuItem];
-
-    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
-    [kimaiMenu addItem:quitMenuItem];
-    
-    
-    [statusItem setMenu:kimaiMenu];
-
+    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
 }
 
 
 - (void)clickedMenuItem:(id)sender {
     if ([sender isKindOfClass:[NSMenuItem class]]) {
-       
+        
         NSMenuItem *menuItem = (NSMenuItem *)sender;
         KimaiTask *task = menuItem.representedObject;
         KimaiProject *project = menuItem.parentItem.representedObject;
@@ -440,56 +505,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         [self showAlertSheetWithError:error];
         [self reloadData];
     }];
-
+    
 }
 
 
 - (void)quitApplication {
     [NSApp terminate:self];
-}
-
-
-#pragma mark - KimaiDelegate
-
-- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
-    
-    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
-    
-    if (isServiceReachable.boolValue) {
-        
-        if (self.kimai.apiKey == nil) {
-            
-            if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
-
-                
-#if DEBUG
-                NSString *username = @"testuser";
-                NSString *password = @"test123";
-#else
-                NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
-                NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-#endif
-
-
-                [self.kimai authenticateWithUsername:username password:password success:^(id response) {
-                    [self reloadData];
-                } failure:^(NSError *error) {
-                    [self showAlertSheetWithError:error];
-                    [self reloadMenu];
-                }];
-                
-            } else {
-                [self showPreferences];
-            }
-
-        } else {
-            [self reloadData];
-        }
-
-    } else {
-        [statusItem setTitle:@"Offline"];
-    }
-
 }
 
 

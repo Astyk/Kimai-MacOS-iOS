@@ -8,7 +8,7 @@
         
         <item>
             <title>Version 1.0.4</title>
-            <enclosure url="http://fb.blockhausmedien.at/~vinzenzweber/kimai/Kimai_v1.0.4.zip" sparkle:version="1.0.4" length="600547" type="application/octet-stream" sparkle:dsaSignature="MEUCIGq+faUMG5LMJIYqpwNYJlAlCk9veJ/Fw7sQ8nwnAD06AiEAvdr4o5fdPW9A"/>
+            <enclosure url="http://fb.blockhausmedien.at/~vinzenzweber/kimai/Kimai_v1.0.4.zip" sparkle:version="1.0.4" length="615523" type="application/octet-stream" sparkle:dsaSignature="MEQCIEmuIbO9gyQltblWOEKhEkErVe3oF03UL+sD7kNUUjc7AiAU1eBdwZy19p5Z"/>
         </item>
                 
     </channel>

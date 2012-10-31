@@ -16,7 +16,6 @@
     NSTimer *_updateUserInterfaceTimer;
     NSTimer *_reloadDataTimer;
     KimaiLocationManager *locationManager;
-    NSDate *_screensaverStartedDate;
     NSTimeInterval _totalWorkingDurationToday;
 }
 @end
@@ -79,34 +78,46 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - Screensaver Notifications
+#pragma mark - Screensaver/Sleep Notifications
 
 
 - (void)initScreensaverNotificationObserver {
    
-    NSDistributedNotificationCenter *notificationCenter = [NSDistributedNotificationCenter defaultCenter];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screensaverStarted:)
-                               name:@"com.apple.screensaver.didstart"
-                             object:nil];
+    NSDistributedNotificationCenter *distributedNotificationCenter = [NSDistributedNotificationCenter defaultCenter];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screensaverStopped:)
-                               name:@"com.apple.screensaver.didstop"
-                             object:nil];
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screensaverStarted:)
+                                          name:@"com.apple.screensaver.didstart"
+                                        object:nil];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screenLocked:)
-                               name:@"com.apple.screenIsLocked"
-                             object:nil];
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screensaverStopped:)
+                                          name:@"com.apple.screensaver.didstop"
+                                        object:nil];
+    
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screenLocked:)
+                                          name:@"com.apple.screenIsLocked"
+                                        object:nil];
+    
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screenUnlocked:)
+                                          name:@"com.apple.screenIsUnlocked"
+                                        object:nil];
 
-    [notificationCenter addObserver:self
-                           selector:@selector(screenUnlocked:)
-                               name:@"com.apple.screenIsUnlocked"
-                             object:nil];
-
     
+    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+    
+    [workspaceNotificationCenter addObserver:self
+                                    selector:@selector(workspaceWillSleep:)
+                                        name:NSWorkspaceWillSleepNotification
+                                      object:nil];
+
+    [workspaceNotificationCenter addObserver:self
+                                    selector:@selector(workspaceDidWake:)
+                                        name:NSWorkspaceDidWakeNotification
+                                      object:nil];
 
 }
 
@@ -130,31 +141,85 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [notificationCenter removeObserver:self
                                   name:@"com.apple.screenIsUnlocked"
                                 object:nil];
+    
+    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+    
+    [workspaceNotificationCenter removeObserver:self
+                                           name:NSWorkspaceWillSleepNotification
+                                         object:nil];
+
+    [workspaceNotificationCenter removeObserver:self
+                                           name:NSWorkspaceDidWakeNotification
+                                         object:nil];
+
+}
+
+
+- (void)workspaceWillSleep:(NSNotification *)notification {
+    
+    NSLog(@"workspaceWillSleep");
+
+    // log date/time when system went to sleep
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"WorkspaceFellAsleepDateKey"];
+    [defaults synchronize];
+
+}
+
+
+- (void)workspaceDidWake:(NSNotification *)notification {
+   
+    NSLog(@"workspaceDidWake");
+    
+    NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
+    if (workspaceFellAsleepDate != nil) {
+        
+        NSDate *now = [NSDate date];
+        //NSTimeInterval workspaceAsleepDuration = [workspaceFellAsleepDate timeIntervalSinceDate:now];
+        
+        // if the user left his Mac for more than 10 minutes
+        // ask what he did during the time
+        //if (workspaceAsleepDuration > 60 * 10) {
+            
+            NSString *durationString = [self formattedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
+            NSLog(@"SLEEP: User was gone for %@!", durationString);
+            
+        //}
+    }
 
 }
 
 
 - (void)screensaverStarted:(NSNotification *)notification {
+    
     NSLog(@"screensaverStarted");
     
     // log date/time when screensaver started for later reference
-    _screensaverStartedDate = [NSDate date];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"ScreensaverStartedDateKey"];
+    [defaults synchronize];
+    
 }
 
 
 - (void)screensaverStopped:(NSNotification *)notification {
-    NSLog(@"screensaverStopped");
     
-    if (_screensaverStartedDate != nil) {
+    NSLog(@"screensaverStopped");
+
+    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
+    if (screensaverStartedDate != nil) {
         
         NSDate *now = [NSDate date];
-        NSTimeInterval screensaverActivateDuration = [_screensaverStartedDate timeIntervalSinceDate:now];
+        //NSTimeInterval screensaverActivateDuration = [screensaverStartedDate timeIntervalSinceDate:now];
         
         // if the user left his Mac for more than 10 minutes
         // ask what he did during the time
-        if (screensaverActivateDuration > 60 * 10) {
-             
-        }
+        //if (screensaverActivateDuration > 60 * 10) {
+            
+            NSString *durationString = [self formattedDurationStringFromDate:screensaverStartedDate toDate:now];
+            NSLog(@"SCREENSAVER: User was gone for %@!", durationString);
+
+        //}
     }
     
 }

@@ -48,7 +48,6 @@
 		BCA2A56716417BB3005F4C6C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */; };
 		BCA2A57316417BB3005F4C6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57216417BB3005F4C6C /* main.m */; };
-		BCA2A57716417BB3005F4C6C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57516417BB3005F4C6C /* Credits.rtf */; };
 		BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57916417BB3005F4C6C /* AppDelegate.m */; };
 		BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57B16417BB3005F4C6C /* MainMenu.xib */; };
 		BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */; };
@@ -149,7 +148,6 @@
 		BCA2A57016417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCA2A57216417BB3005F4C6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KimaiLoginHelper-Prefix.pch"; sourceTree = "<group>"; };
-		BCA2A57616417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BCA2A57816417BB3005F4C6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BCA2A57916417BB3005F4C6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BCA2A57C16417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -406,7 +404,6 @@
 				BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */,
 				BCA2A57216417BB3005F4C6C /* main.m */,
 				BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */,
-				BCA2A57516417BB3005F4C6C /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -500,7 +497,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */,
-				BCA2A57716417BB3005F4C6C /* Credits.rtf in Resources */,
 				BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,14 +574,6 @@
 				BCA2A57016417BB3005F4C6C /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		BCA2A57516417BB3005F4C6C /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BCA2A57616417BB3005F4C6C /* en */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 		BCA2A57B16417BB3005F4C6C /* MainMenu.xib */ = {

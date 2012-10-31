@@ -604,11 +604,11 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)startReloadDataTimer {
     
-    _updateUserInterfaceTimer = [NSTimer scheduledTimerWithTimeInterval:60*60*30 // 30 minutes
-                                                                 target:self
-                                                               selector:@selector(reloadData)
-                                                               userInfo:nil
-                                                                repeats:YES];
+    _reloadDataTimer = [NSTimer scheduledTimerWithTimeInterval:60*60*30 // 30 minutes
+                                                        target:self
+                                                      selector:@selector(reloadData)
+                                                      userInfo:nil
+                                                       repeats:YES];
 
 }
 

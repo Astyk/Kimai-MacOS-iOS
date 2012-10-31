@@ -256,6 +256,10 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)reloadData {
     
+    [statusItem setTitle:@"Loading..."];
+    [statusItem setEnabled:NO];
+    
+    
     [self.kimai reloadAllContentWithSuccess:^(id response) {
         
 #if DEBUG
@@ -446,6 +450,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     
     [statusItem setMenu:kimaiMenu];
+    [statusItem setEnabled:YES];
     
 }
 

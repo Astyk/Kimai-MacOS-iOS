@@ -20,14 +20,13 @@
 @property (nonatomic, strong) KSReachability* reachability;
 
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSMenu *mainMenu;
 
 @property (weak) IBOutlet NSTextField *kimaiURLTextField;
 @property (weak) IBOutlet NSTextField *usernameTextField;
 @property (weak) IBOutlet NSSecureTextField *passwordTextField;
+@property (weak) IBOutlet NSButton *loginCheckButton;
 
 @property (strong) Kimai *kimai;
-
 
 - (IBAction)storePreferences:(id)sender;
 

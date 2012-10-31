@@ -16,3 +16,6 @@
 [submodule "mac/LetsMove"]
 	path = mac/LetsMove
 	url = https://github.com/potionfactory/LetsMove.git
+[submodule "mac/StartAtLoginController"]
+	path = mac/StartAtLoginController
+	url = https://github.com/alexzielenski/StartAtLoginController.git

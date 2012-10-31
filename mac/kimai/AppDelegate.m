@@ -52,7 +52,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
-    [statusItem setTitle:@"Kimai"];
+    [statusItem setTitle:@"Loading..."];
+    [statusItem setEnabled:NO];
 
     
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
@@ -424,6 +425,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     // RELOAD DATA
     NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
+    [reloadMenuItem setEnabled:self.kimai.apiKey != nil];
     [kimaiMenu addItem:reloadMenuItem];
     
     

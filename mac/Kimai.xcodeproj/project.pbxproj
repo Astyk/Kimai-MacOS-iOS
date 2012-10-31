@@ -43,6 +43,15 @@
 		BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D3162F1B7B00886EBC /* KimaiProject.m */; };
 		BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D7162F228B00886EBC /* KimaiObject.m */; };
 		BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815DA162F22C000886EBC /* KimaiTask.m */; };
+		BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A5551641799E005F4C6C /* StartAtLoginController.m */; };
+		BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */; };
+		BCA2A56716417BB3005F4C6C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
+		BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */; };
+		BCA2A57316417BB3005F4C6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57216417BB3005F4C6C /* main.m */; };
+		BCA2A57716417BB3005F4C6C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57516417BB3005F4C6C /* Credits.rtf */; };
+		BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57916417BB3005F4C6C /* AppDelegate.m */; };
+		BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57B16417BB3005F4C6C /* MainMenu.xib */; };
+		BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +62,16 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BC6F4F9B16411BA2000ACD96 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A58116417BCC005F4C6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +138,21 @@
 		BC9815D7162F228B00886EBC /* KimaiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiObject.m; sourceTree = "<group>"; };
 		BC9815D9162F22C000886EBC /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
 		BC9815DA162F22C000886EBC /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
+		BCA2A5541641799E005F4C6C /* StartAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartAtLoginController.h; sourceTree = "<group>"; };
+		BCA2A5551641799E005F4C6C /* StartAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartAtLoginController.m; sourceTree = "<group>"; };
+		BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KimaiLoginHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA2A56916417BB3005F4C6C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		BCA2A56A16417BB3005F4C6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BCA2A56B16417BB3005F4C6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BCA2A56E16417BB3005F4C6C /* KimaiLoginHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KimaiLoginHelper-Info.plist"; sourceTree = "<group>"; };
+		BCA2A57016417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BCA2A57216417BB3005F4C6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KimaiLoginHelper-Prefix.pch"; sourceTree = "<group>"; };
+		BCA2A57616417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		BCA2A57816417BB3005F4C6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BCA2A57916417BB3005F4C6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BCA2A57C16417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */,
 				BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */,
 				BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */,
 				BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */,
@@ -134,6 +169,14 @@
 				BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */,
 				BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */,
 				BC6F4F9916411B5C000ACD96 /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56216417BB3005F4C6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A56716417BB3005F4C6C /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +219,7 @@
 		BC6F4F9F164123DC000ACD96 /* Sparkle */ = {
 			isa = PBXGroup;
 			children = (
+				BC6F4F9816411B5C000ACD96 /* Sparkle.framework */,
 				BC6F4F9C16411F24000ACD96 /* appcast.xml */,
 				BC6F4F9D164123BF000ACD96 /* dsa_pub.pem */,
 			);
@@ -224,6 +268,7 @@
 			children = (
 				BC6F4F9F164123DC000ACD96 /* Sparkle */,
 				BC928EE9162C3A8200685547 /* Kimai */,
+				BCA2A56C16417BB3005F4C6C /* KimaiLoginHelper */,
 				BC928EE2162C3A8200685547 /* Frameworks */,
 				BC928EE0162C3A8200685547 /* Products */,
 			);
@@ -233,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				BC928EDF162C3A8200685547 /* Kimai.app */,
+				BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,12 +286,13 @@
 		BC928EE2162C3A8200685547 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCA2A5511641799E005F4C6C /* StartAtLoginController */,
 				BC46C8E7163E8BC600C9520D /* LetsMove */,
 				BC87F1421639767E001BDF87 /* KSReachability */,
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC4B4D34162DC467000AE55E /* JSONKit */,
 				BC87F0DC16306E07001BDF87 /* RHKeychain */,
-				BC6F4F9816411B5C000ACD96 /* Sparkle.framework */,
+				BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */,
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
 				BC87F0DA16306DEB001BDF87 /* Security.framework */,
 				BC87F0FD163967F2001BDF87 /* CoreLocation.framework */,
@@ -255,6 +302,7 @@
 				BC87F18516397A85001BDF87 /* SystemConfiguration.framework */,
 				BC87F19B16398291001BDF87 /* CoreWLAN.framework */,
 				BC928EE3162C3A8200685547 /* Cocoa.framework */,
+				BCA2A56816417BB3005F4C6C /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -321,6 +369,48 @@
 			path = Kimai;
 			sourceTree = "<group>";
 		};
+		BCA2A5511641799E005F4C6C /* StartAtLoginController */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A5541641799E005F4C6C /* StartAtLoginController.h */,
+				BCA2A5551641799E005F4C6C /* StartAtLoginController.m */,
+			);
+			path = StartAtLoginController;
+			sourceTree = "<group>";
+		};
+		BCA2A56816417BB3005F4C6C /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A56916417BB3005F4C6C /* AppKit.framework */,
+				BCA2A56A16417BB3005F4C6C /* CoreData.framework */,
+				BCA2A56B16417BB3005F4C6C /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		BCA2A56C16417BB3005F4C6C /* KimaiLoginHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A57816417BB3005F4C6C /* AppDelegate.h */,
+				BCA2A57916417BB3005F4C6C /* AppDelegate.m */,
+				BCA2A57B16417BB3005F4C6C /* MainMenu.xib */,
+				BCA2A56D16417BB3005F4C6C /* Supporting Files */,
+			);
+			path = KimaiLoginHelper;
+			sourceTree = "<group>";
+		};
+		BCA2A56D16417BB3005F4C6C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A56E16417BB3005F4C6C /* KimaiLoginHelper-Info.plist */,
+				BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */,
+				BCA2A57216417BB3005F4C6C /* main.m */,
+				BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */,
+				BCA2A57516417BB3005F4C6C /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -332,6 +422,7 @@
 				BC928EDC162C3A8200685547 /* Frameworks */,
 				BC928EDD162C3A8200685547 /* Resources */,
 				BC6F4F9A16411B97000ACD96 /* CopyFiles */,
+				BCA2A58116417BCC005F4C6C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -340,6 +431,23 @@
 			name = Kimai;
 			productName = kimai;
 			productReference = BC928EDF162C3A8200685547 /* Kimai.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BCA2A56416417BB3005F4C6C /* KimaiLoginHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA2A57E16417BB3005F4C6C /* Build configuration list for PBXNativeTarget "KimaiLoginHelper" */;
+			buildPhases = (
+				BCA2A56116417BB3005F4C6C /* Sources */,
+				BCA2A56216417BB3005F4C6C /* Frameworks */,
+				BCA2A56316417BB3005F4C6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KimaiLoginHelper;
+			productName = KimaiLoginHelper;
+			productReference = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -367,6 +475,7 @@
 			projectRoot = "";
 			targets = (
 				BC928EDE162C3A8200685547 /* Kimai */,
+				BCA2A56416417BB3005F4C6C /* KimaiLoginHelper */,
 			);
 		};
 /* End PBXProject section */
@@ -383,6 +492,16 @@
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
 				BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */,
 				BC6F4F9E164123BF000ACD96 /* dsa_pub.pem in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56316417BB3005F4C6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */,
+				BCA2A57716417BB3005F4C6C /* Credits.rtf in Resources */,
+				BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +532,16 @@
 				BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */,
 				BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */,
 				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
+				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56116417BB3005F4C6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A57316417BB3005F4C6C /* main.m in Sources */,
+				BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +568,30 @@
 			isa = PBXVariantGroup;
 			children = (
 				BC928EF9162C3A8200685547 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA2A57016417BB3005F4C6C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BCA2A57516417BB3005F4C6C /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA2A57616417BB3005F4C6C /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		BCA2A57B16417BB3005F4C6C /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA2A57C16417BB3005F4C6C /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -539,6 +692,32 @@
 			};
 			name = Release;
 		};
+		BCA2A57F16417BB3005F4C6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
+				INFOPLIST_FILE = "KimaiLoginHelper/KimaiLoginHelper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BCA2A58016417BB3005F4C6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
+				INFOPLIST_FILE = "KimaiLoginHelper/KimaiLoginHelper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -559,6 +738,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		BCA2A57E16417BB3005F4C6C /* Build configuration list for PBXNativeTarget "KimaiLoginHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA2A57F16417BB3005F4C6C /* Debug */,
+				BCA2A58016417BB3005F4C6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

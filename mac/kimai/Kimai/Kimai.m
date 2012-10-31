@@ -335,9 +335,7 @@
             
             [self reloadActiveRecordingWithSuccess:^(id response) {
                 [self stopAllActivityRecordingsWithSuccess:successHandler failure:failureHandler];
-            } failure:^(NSError *error) {
-                [self stopAllActivityRecordingsWithSuccess:successHandler failure:failureHandler];
-            }];
+            } failure:failureHandler];
             
         } failure:^(NSError *error) {
             NSLog(@"%@", error);
@@ -449,7 +447,14 @@
 
 
 - (void)_mapMethod:(NSString *)method toClass:(Class)kimaiObjectClass success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
-    [self _mapMethod:method withParameters:@[self.apiKey]
+    
+    if (self.apiKey == nil && failureHandler) {
+        failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"Not authenticated yet!" forKey:@"NSLocalizedDescriptionKey"]]);
+        return;
+    }
+    
+    [self _mapMethod:method
+      withParameters:@[self.apiKey]
              toClass:kimaiObjectClass
              success:successHandler
              failure:failureHandler];

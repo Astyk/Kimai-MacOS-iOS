@@ -14,6 +14,7 @@
 
 @interface AppDelegate () {
     NSTimer *_updateUserInterfaceTimer;
+    NSTimer *_reloadDataTimer;
     KimaiLocationManager *locationManager;
     NSDate *_screensaverStartedDate;
     NSTimeInterval _totalWorkingDurationToday;
@@ -61,7 +62,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     //locationManager = [KimaiLocationManager sharedManager];
 
-    [self initKimai];
+    [self initKimai];    
+    [self startReloadDataTimer];
+
 }
 
 
@@ -256,6 +259,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)reloadData {
     
+    
+    if (self.kimai.isServiceReachable == NO) {
+        return;
+    }
+    
+    
     [statusItem setTitle:@"Loading..."];
     [statusItem setEnabled:NO];
     
@@ -335,7 +344,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     if (self.kimai.activeRecordings) {
         
         // STOP ALL ACTIVE TASKS
-        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop Running Tasks" action:@selector(stopAllActivities) keyEquivalent:@""];
+        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop" action:@selector(stopAllActivities) keyEquivalent:@""];
         [kimaiMenu addItem:stopMenuItem];
         
         // SEPERATOR
@@ -382,7 +391,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
     
     // TOTAL WORKING HOURS TODAY
-    NSMenuItem *totalWorkingHoursMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Total %@", totalWorkingHoursToday] action:nil keyEquivalent:@""];
+    NSMenuItem *totalWorkingHoursMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Today %@", totalWorkingHoursToday] action:nil keyEquivalent:@""];
     [totalWorkingHoursMenuItem setEnabled:NO];
     [kimaiMenu addItem:totalWorkingHoursMenuItem];
 
@@ -588,7 +597,18 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - Update User Interface NSTimer
+#pragma mark - NSTimer
+
+
+- (void)startReloadDataTimer {
+    
+    _updateUserInterfaceTimer = [NSTimer scheduledTimerWithTimeInterval:60*60*30 // 30 minutes
+                                                                 target:self
+                                                               selector:@selector(reloadData)
+                                                               userInfo:nil
+                                                                repeats:YES];
+
+}
 
 
 - (void)startTimer {

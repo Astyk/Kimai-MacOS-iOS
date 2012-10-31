@@ -14,6 +14,9 @@
 		BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
+		BC6F4F9916411B5C000ACD96 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6F4F9816411B5C000ACD96 /* Sparkle.framework */; };
+		BC6F4F9B16411BA2000ACD96 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC6F4F9816411B5C000ACD96 /* Sparkle.framework */; };
+		BC6F4F9E164123BF000ACD96 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = BC6F4F9D164123BF000ACD96 /* dsa_pub.pem */; };
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
@@ -42,6 +45,19 @@
 		BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815DA162F22C000886EBC /* KimaiTask.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BC6F4F9A16411B97000ACD96 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BC6F4F9B16411BA2000ACD96 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BC35792C162DC10600F1BFAE /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
 		BC35792D162DC10600F1BFAE /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
@@ -58,6 +74,9 @@
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
 		BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
+		BC6F4F9816411B5C000ACD96 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Sparkle/Sparkle.framework; sourceTree = "<group>"; };
+		BC6F4F9C16411F24000ACD96 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = appcast.xml; path = Sparkle/appcast.xml; sourceTree = "<group>"; };
+		BC6F4F9D164123BF000ACD96 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Sparkle/dsa_pub.pem; sourceTree = "<group>"; };
 		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
 		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
 		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
@@ -114,6 +133,7 @@
 				BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */,
 				BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */,
 				BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */,
+				BC6F4F9916411B5C000ACD96 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +172,15 @@
 			);
 			path = JSONKit;
 			sourceTree = SOURCE_ROOT;
+		};
+		BC6F4F9F164123DC000ACD96 /* Sparkle */ = {
+			isa = PBXGroup;
+			children = (
+				BC6F4F9C16411F24000ACD96 /* appcast.xml */,
+				BC6F4F9D164123BF000ACD96 /* dsa_pub.pem */,
+			);
+			name = Sparkle;
+			sourceTree = "<group>";
 		};
 		BC87F0DC16306E07001BDF87 /* RHKeychain */ = {
 			isa = PBXGroup;
@@ -193,6 +222,7 @@
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
+				BC6F4F9F164123DC000ACD96 /* Sparkle */,
 				BC928EE9162C3A8200685547 /* Kimai */,
 				BC928EE2162C3A8200685547 /* Frameworks */,
 				BC928EE0162C3A8200685547 /* Products */,
@@ -215,6 +245,7 @@
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC4B4D34162DC467000AE55E /* JSONKit */,
 				BC87F0DC16306E07001BDF87 /* RHKeychain */,
+				BC6F4F9816411B5C000ACD96 /* Sparkle.framework */,
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
 				BC87F0DA16306DEB001BDF87 /* Security.framework */,
 				BC87F0FD163967F2001BDF87 /* CoreLocation.framework */,
@@ -300,6 +331,7 @@
 				BC928EDB162C3A8200685547 /* Sources */,
 				BC928EDC162C3A8200685547 /* Frameworks */,
 				BC928EDD162C3A8200685547 /* Resources */,
+				BC6F4F9A16411B97000ACD96 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -350,6 +382,7 @@
 				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
 				BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */,
+				BC6F4F9E164123BF000ACD96 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +504,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Desktop/Sparkle 1.5b6/With Garbage Collection\"",
+					"\"$(SRCROOT)/Sparkle\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
@@ -486,6 +524,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Desktop/Sparkle 1.5b6/With Garbage Collection\"",
+					"\"$(SRCROOT)/Sparkle\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";

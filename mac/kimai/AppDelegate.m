@@ -7,12 +7,13 @@
 //
 
 #import "AppDelegate.h"
+#import <Sparkle/Sparkle.h>
 #import "PFMoveApplication.h"
 #import "RHKeychain.h"
 #import "KimaiLocationManager.h"
 
 @interface AppDelegate () {
-    NSTimer *_trainingTimer;
+    NSTimer *_updateUserInterfaceTimer;
     KimaiLocationManager *locationManager;
     NSDate *_screensaverStartedDate;
     NSTimeInterval _totalWorkingDurationToday;
@@ -324,6 +325,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
     
+    NSString *totalWorkingHoursToday = @"0m";
     
     NSString *title = @"Kimai";
     if (self.kimai.activeRecordings) {
@@ -337,7 +339,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
         KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
         title = [self statusBarTitleWithActivity:activeRecording];
-        
+        totalWorkingHoursToday = [self totalWorkingDurationTodayWithCurrentActivity:activeRecording];
+
         [self startTimer];
     } else {
         [self stopTimer];
@@ -372,6 +375,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     // SEPERATOR
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
+    
+    // TOTAL WORKING HOURS TODAY
+    NSMenuItem *totalWorkingHoursMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Total %@", totalWorkingHoursToday] action:nil keyEquivalent:@""];
+    [totalWorkingHoursMenuItem setEnabled:NO];
+    [kimaiMenu addItem:totalWorkingHoursMenuItem];
 
     
     // TODAY TASK HISTORY
@@ -410,7 +419,17 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         NSMenuItem *launchWebsiteMenuItem = [[NSMenuItem alloc] initWithTitle:@"Launch Kimai Website" action:@selector(launchKimaiWebsite) keyEquivalent:@""];
         [kimaiMenu addItem:launchWebsiteMenuItem];
     }
+
     
+    // SEPERATOR
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+
+    
+    // SOFTWARE UPDATE
+    NSMenuItem *checkUpdatesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Software Update..." action:@selector(checkForUpdates:) keyEquivalent:@""];
+    [checkUpdatesMenuItem setTarget:[SUUpdater sharedUpdater]];
+    [kimaiMenu addItem:checkUpdatesMenuItem];
+
     
     // PREFERENCES
     NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
@@ -488,20 +507,27 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
-
+- (NSString *)totalWorkingDurationTodayWithCurrentActivity:(KimaiActiveRecording *)activity {
+    
     NSDate *now = [NSDate date];
-    
-    // current activity time
-    NSString *activityTime = [self formattedDurationStringFromDate:activity.startDate toDate:now];
-    
-    // total working hours today
     NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
     NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday + activityDuration;
     NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:totalWorkingDurationToday sinceDate:now];
     NSString *totalWorkingHoursToday = [self formattedDurationStringFromDate:now toDate:nowPlusDuration];
 
-    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
+    return totalWorkingHoursToday;
+}
+
+
+- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
+
+    NSDate *now = [NSDate date];
+    NSString *activityTime = [self formattedDurationStringFromDate:activity.startDate toDate:now];
+    //NSString *totalWorkingHoursToday = [self totalWorkingDurationTodayWithActivity:activity];
+
+//    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
+    return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, activityTime];
+
 }
 
 
@@ -557,32 +583,32 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - NSTimer
+#pragma mark - Update User Interface NSTimer
 
 
 - (void)startTimer {
     
-    if (_trainingTimer != nil) {
+    if (_updateUserInterfaceTimer != nil) {
         return;
     }
     
     [self timerUpdate];
     
-    _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:20.0
+    _updateUserInterfaceTimer = [NSTimer scheduledTimerWithTimeInterval:20.0
                                                       target:self
                                                     selector:@selector(timerUpdate)
                                                     userInfo:nil
                                                      repeats:YES];
     
     // enable UI updates also when scrollview is scrolling
-    //[[NSRunLoop mainRunLoop] addTimer:_trainingTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:_updateUserInterfaceTimer forMode:NSRunLoopCommonModes];
     
 }
 
 
 - (void)stopTimer {
-    [_trainingTimer invalidate];
-    _trainingTimer = nil;
+    [_updateUserInterfaceTimer invalidate];
+    _updateUserInterfaceTimer = nil;
 }
 
 

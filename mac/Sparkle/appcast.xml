@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Kimai</title>
+        <link>http://fb.blockhausmedien.at/~vinzenzweber/kimai/appcast.xml</link>
+        <description>Most recent changes with links to updates.</description>
+        <language>en</language>
+        
+        <item>
+            <title>Version 1.0.4</title>
+            <enclosure url="http://fb.blockhausmedien.at/~vinzenzweber/kimai/Kimai_v1.0.4.zip" sparkle:version="1.0.4" length="600547" type="application/octet-stream" sparkle:dsaSignature="MEUCIGq+faUMG5LMJIYqpwNYJlAlCk9veJ/Fw7sQ8nwnAD06AiEAvdr4o5fdPW9A"/>
+        </item>
+                
+    </channel>
+</rss>

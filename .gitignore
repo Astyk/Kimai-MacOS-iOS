@@ -1,3 +1,6 @@
+# ignore sparkle private signing key
+dsa_priv.pem
+
 # xcode noise
 ._*
 .Spotlight-V100

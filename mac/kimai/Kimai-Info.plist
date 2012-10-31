@@ -32,5 +32,13 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>http://fb.blockhausmedien.at/~vinzenzweber/kimai/appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUShowReleaseNotes</key>
+	<false/>
 </dict>
 </plist>

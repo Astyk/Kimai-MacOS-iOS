@@ -581,40 +581,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [statusItem setTitle:title];
     
     
-    // TASKS
-    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
-    for (KimaiTask *task in self.kimai.tasks) {
-        if ([task.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
-            [menuItem setRepresentedObject:task];
-            [menuItem setEnabled:YES];
-            [tasksMenu addItem:menuItem];
-        }
-    }
-    
-    
-    // PROJECTS
-    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
-    for (KimaiProject *project in self.kimai.projects) {
-        if ([project.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
-            [menuItem setRepresentedObject:project];
-            [menuItem setEnabled:YES];
-            [menuItem setSubmenu:[tasksMenu copy]];
-            [projectsMenu addItem:menuItem];
-        }
-    }
-    
-    
-    // ALL PROJECTS
-    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:@selector(clickedMenuItem:) keyEquivalent:@""];
-    [allProjectsMenuItem setSubmenu:projectsMenu];
-    [kimaiMenu addItem:allProjectsMenuItem];
-    
-    
-    /////////////////////////////////////////////////////////////////////////////////
-    [kimaiMenu addItem:[NSMenuItem separatorItem]];
-
     
     // TOTAL WORKING HOURS TODAY
     NSString *workingHoursToday = [self formatedWorkingDuration:_totalWorkingDurationToday withCurrentActivity:activeRecordingOrNil];
@@ -655,8 +621,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     // MOST USED PROJECTS/TASKS
     for (KimaiTimesheetRecord *groupedRecord in _groupedTimesheetRecordsForLastSevenDays) {
         
-        //NSString *durationString = [self formatedDurationStringFromTimeInterval:groupedRecord.duration.doubleValue];
-        NSString *recordTitle = [NSString stringWithFormat:@"%@ (%@)", groupedRecord.projectName, groupedRecord.activityName];
+        NSString *durationString = [self formatedDurationStringFromTimeInterval:groupedRecord.duration.doubleValue];
+        NSString *recordTitle = [NSString stringWithFormat:@"%@ (%@) %@", groupedRecord.projectName, groupedRecord.activityName, durationString];
         
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:recordTitle action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
         [menuItem setRepresentedObject:groupedRecord];
@@ -670,6 +636,41 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
     
     
+    // TASKS
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    for (KimaiTask *task in self.kimai.tasks) {
+        if ([task.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
+            [menuItem setRepresentedObject:task];
+            [menuItem setEnabled:YES];
+            [tasksMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // PROJECTS
+    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
+    for (KimaiProject *project in self.kimai.projects) {
+        if ([project.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
+            [menuItem setRepresentedObject:project];
+            [menuItem setEnabled:YES];
+            [menuItem setSubmenu:[tasksMenu copy]];
+            [projectsMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // ALL PROJECTS
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:@selector(clickedMenuItem:) keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:projectsMenu];
+    [kimaiMenu addItem:allProjectsMenuItem];
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+    
+
     // RELOAD DATA
     NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
     [reloadMenuItem setEnabled:self.kimai.apiKey != nil];

@@ -87,7 +87,7 @@
 							<string key="NSFrame">{{101, 185}, {289, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1047415423"/>
+							<reference key="NSNextKeyView" ref="230322436"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="223181123">
@@ -160,7 +160,7 @@
 							<string key="NSFrame">{{98, 74}, {295, 41}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="230322436"/>
+							<reference key="NSNextKeyView" ref="928038650"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="900678296">
@@ -250,7 +250,7 @@
 							<string key="NSFrame">{{101, 123}, {289, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="1047415423"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSecureTextFieldCell" key="NSCell" id="546352192">
@@ -307,7 +307,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="147066851"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -1260,7 +1260,7 @@
 							<object class="IBUserDefinedRuntimeAttribute">
 								<string key="typeIdentifier">com.apple.InterfaceBuilder.userDefinedRuntimeAttributeType.string</string>
 								<string key="keyPath">identifier</string>
-								<string key="value">org.kimai.KimaiLoginHelper</string>
+								<string key="value">org.kimai.timetracker.helper</string>
 							</object>
 						</array>
 					</object>

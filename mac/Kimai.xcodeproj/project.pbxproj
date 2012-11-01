@@ -90,6 +90,7 @@
 		BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SymlinksAndAliases.m"; path = "LetsMove/NSString+SymlinksAndAliases.m"; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Kimai.entitlements; path = Kimai/Kimai.entitlements; sourceTree = SOURCE_ROOT; };
 		BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
 		BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
 		BC6F4F9816411B5C000ACD96 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Sparkle/Sparkle.framework; sourceTree = "<group>"; };
@@ -144,7 +145,7 @@
 		BCA2A56916417BB3005F4C6C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		BCA2A56A16417BB3005F4C6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BCA2A56B16417BB3005F4C6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		BCA2A56E16417BB3005F4C6C /* KimaiLoginHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KimaiLoginHelper-Info.plist"; sourceTree = "<group>"; };
+		BCA2A56E16417BB3005F4C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA2A57016417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCA2A57216417BB3005F4C6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KimaiLoginHelper-Prefix.pch"; sourceTree = "<group>"; };
@@ -308,6 +309,7 @@
 		BC928EE9162C3A8200685547 /* Kimai */ = {
 			isa = PBXGroup;
 			children = (
+				BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */,
 				BC928EF5162C3A8200685547 /* AppDelegate.h */,
 				BC928EF6162C3A8200685547 /* AppDelegate.m */,
 				BC928EF8162C3A8200685547 /* MainMenu.xib */,
@@ -400,7 +402,7 @@
 		BCA2A56D16417BB3005F4C6C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BCA2A56E16417BB3005F4C6C /* KimaiLoginHelper-Info.plist */,
+				BCA2A56E16417BB3005F4C6C /* Info.plist */,
 				BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */,
 				BCA2A57216417BB3005F4C6C /* main.m */,
 				BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */,
@@ -643,6 +645,7 @@
 		BC928F01162C3A8200685547 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -663,8 +666,10 @@
 		BC928F02162C3A8200685547 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../Desktop/Sparkle 1.5b6/With Garbage Collection\"",
@@ -683,11 +688,15 @@
 		BCA2A57F16417BB3005F4C6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
-				INFOPLIST_FILE = "KimaiLoginHelper/KimaiLoginHelper-Info.plist";
+				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C5CDCB2D-8C67-4E5E-8F4A-352ED68190B8";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -696,11 +705,15 @@
 		BCA2A58016417BB3005F4C6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
-				INFOPLIST_FILE = "KimaiLoginHelper/KimaiLoginHelper-Info.plist";
+				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C5CDCB2D-8C67-4E5E-8F4A-352ED68190B8";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -734,6 +747,7 @@
 				BCA2A58016417BB3005F4C6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

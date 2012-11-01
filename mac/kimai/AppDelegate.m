@@ -31,6 +31,20 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+    
+    
+#ifndef DEBUG
+    // check for other instances
+    NSString *bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    NSArray *running = [[NSWorkspace sharedWorkspace] runningApplications];
+    for (NSRunningApplication *app in running) {
+        if ([[app bundleIdentifier] isEqualToString:bundleIdentifier]) {
+            NSLog(@"An instance of Kimai is already running!");
+            [NSApp terminate:nil];
+        }
+    }
+#endif
+
 	// Offer to the move the Application if necessary.
 	// Note that if the user chooses to move the application,
 	// this call will never return. Therefore you can suppress
@@ -403,10 +417,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)reloadMenu {
     
     NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
-    
-    NSString *totalWorkingHoursToday = @"0m";
-    
+    KimaiActiveRecording *activeRecordingOrNil = nil;
     NSString *title = @"Kimai";
+    
     if (self.kimai.activeRecordings) {
         
         // STOP ALL ACTIVE TASKS
@@ -416,9 +429,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         // SEPERATOR
         [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
-        KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
-        title = [self statusBarTitleWithActivity:activeRecording];
-        totalWorkingHoursToday = [self totalWorkingDurationTodayWithCurrentActivity:activeRecording];
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+        title = [self statusBarTitleWithActivity:activeRecordingOrNil];
 
         [self startTimer];
     } else {
@@ -426,7 +438,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     }
     [statusItem setTitle:title];
     
-    
+
     
     // TASKS
     NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
@@ -457,6 +469,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
     
     // TOTAL WORKING HOURS TODAY
+    NSString *totalWorkingHoursToday = [self totalWorkingDurationTodayWithCurrentActivity:activeRecordingOrNil];
     NSMenuItem *totalWorkingHoursMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Today %@", totalWorkingHoursToday] action:nil keyEquivalent:@""];
     [totalWorkingHoursMenuItem setEnabled:NO];
     [kimaiMenu addItem:totalWorkingHoursMenuItem];
@@ -591,8 +604,14 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (NSString *)totalWorkingDurationTodayWithCurrentActivity:(KimaiActiveRecording *)activity {
     
     NSDate *now = [NSDate date];
-    NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
-    NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday + activityDuration;
+    
+    NSTimeInterval totalWorkingDurationToday = _totalWorkingDurationToday;
+    
+    if (activity != nil) {
+        NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
+         totalWorkingDurationToday += activityDuration;
+    }
+    
     NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:totalWorkingDurationToday sinceDate:now];
     NSString *totalWorkingHoursToday = [self formattedDurationStringFromDate:now toDate:nowPlusDuration];
 

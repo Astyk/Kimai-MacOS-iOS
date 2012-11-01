@@ -67,4 +67,8 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 - (void)stopAllActivityRecordingsWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 - (void)stopActivityRecording:(KimaiActiveRecording *)activity success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;
 
+
+- (KimaiTask *)taskWithID:(NSNumber *)activityID;
+- (KimaiProject *)projectWithID:(NSNumber *)projectID;
+
 @end

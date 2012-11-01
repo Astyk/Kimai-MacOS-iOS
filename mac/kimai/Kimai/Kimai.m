@@ -438,6 +438,34 @@
 }
 
 
+#pragma mark - Map ID to Object
+
+
+- (KimaiTask *)taskWithID:(NSNumber *)activityID {
+    
+    if (self.tasks) {
+        NSArray *filteredTasks = [self.projects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"activityID = %@", activityID]];
+        if (filteredTasks && filteredTasks.count == 1) {
+            return [filteredTasks objectAtIndex:0];
+        }
+    }
+    
+    return nil;
+}
+
+
+- (KimaiProject *)projectWithID:(NSNumber *)projectID {
+
+    if (self.projects) {
+        NSArray *filteredProjects = [self.projects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"projectID = %@", projectID]];
+        if (filteredProjects && filteredProjects.count == 1) {
+            return [filteredProjects objectAtIndex:0];
+        }
+    }
+    
+    return nil;
+}
+
 
 #pragma mark - Private
 

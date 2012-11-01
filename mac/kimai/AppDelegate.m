@@ -17,6 +17,7 @@
     NSTimer *_reloadDataTimer;
     KimaiLocationManager *locationManager;
     NSTimeInterval _totalWorkingDurationToday;
+    NSMutableArray *_groupedTimesheetRecordsForLastSevenDays;
 }
 @end
 
@@ -295,7 +296,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
 }
 
-
+/*
 - (void)_testTimeSheets {
     
     KimaiTimesheetRecord *newRecord = [[KimaiTimesheetRecord alloc] init];
@@ -329,7 +330,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     }];    
 
 }
-
+*/
 
 - (void)reloadData {
     
@@ -343,25 +344,54 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [statusItem setEnabled:NO];
     
     
+    KimaiFailureHandler failureHandler = ^(NSError *error) {
+        [self showAlertSheetWithError:error];
+        [self reloadMenu];
+    };
+    
+    
     [self.kimai reloadAllContentWithSuccess:^(id response) {
         
 #if DEBUG
         //[self.kimai logAllData];
         //[self _testTimeSheets];
-        
-        [self _filterProjectListByMostUsedFirst];
 #endif
-
-        // recalculate total working duration for today
-        NSNumber *duration = [self.kimai.todayTimesheetRecords valueForKeyPath:@"@sum.duration"];
-        _totalWorkingDurationToday = duration.doubleValue;
-
-        [self reloadMenu];
         
-    } failure:^(NSError *error) {
-        [self showAlertSheetWithError:error];
-        [self reloadMenu];
-    }];
+        [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
+            
+            // recalculate total working duration for today
+            NSNumber *duration = [self.kimai.todayTimesheetRecords valueForKeyPath:@"@sum.duration"];
+            _totalWorkingDurationToday = duration.doubleValue;
+            
+            [self reloadMenu];
+            
+        } failure:failureHandler];
+
+    } failure:failureHandler];
+    
+}
+
+
+- (void)reloadMostUsedProjectsAndTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    NSDate *endDate = [NSDate date];
+    NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*7]; // last 7 days or 100 records
+    
+    [self.kimai reloadTimesheetWithStartDate:startDate
+                                     endDate:endDate
+                                  limitStart:[NSNumber numberWithInt:0]
+                                  limitCount:[NSNumber numberWithInt:100]
+                                     success:^(id response) {
+                                         
+                                         // filter out the 5 longest used projects/tasks
+                                         _groupedTimesheetRecordsForLastSevenDays = [self groupedTimesheetRecordsByProjectAndActivity:(NSArray *)response maxTimesheetRecords:5];
+                                         
+                                         if (successHandler) {
+                                             successHandler(_groupedTimesheetRecordsForLastSevenDays);
+                                         }
+                                         
+                                     }
+                                     failure:failureHandler];
     
 }
 
@@ -414,7 +444,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 #pragma mark - KimaiTimesheetRecord Filter
 
 
-- (NSMutableArray *)groupedTimesheetRecordsByProjectAndActivity:(NSArray *)timesheetRecords {
+- (NSMutableArray *)groupedTimesheetRecordsByProjectAndActivity:(NSArray *)timesheetRecords maxTimesheetRecords:(int)maxTimesheetRecords {
     
     NSMutableArray *groupedTimesheetRecords = [NSMutableArray array];
     NSMutableArray *mutableTimesheetRecords = [NSMutableArray arrayWithArray:timesheetRecords];
@@ -450,35 +480,15 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     // sort the records by duration
     NSSortDescriptor *durationSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"duration" ascending:NO];
     [groupedTimesheetRecords sortUsingDescriptors:[NSArray arrayWithObject:durationSortDescriptor]];
+    
+    // remove objects to return a limited array
+    if (maxTimesheetRecords > 0) {
+        while (groupedTimesheetRecords.count > maxTimesheetRecords) {
+            [groupedTimesheetRecords removeLastObject];
+        }
+    }
 
     return groupedTimesheetRecords;
-}
-
-
-- (void)_filterProjectListByMostUsedFirst {
-
-    NSDate *endDate = [NSDate date];
-    NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*7]; // last 7 days or 100 records
-    
-    [self.kimai reloadTimesheetWithStartDate:startDate
-                                     endDate:endDate
-                                  limitStart:[NSNumber numberWithInt:0]
-                                  limitCount:[NSNumber numberWithInt:100]
-                                     success:^(id response) {
-                                         
-                                         NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:(NSArray *)response];
-
-                                         // log them to the console
-                                         for (KimaiTimesheetRecord *groupedRecord in groupedTimesheetRecords) {
-                                             NSString *durationString = [self formatedDurationStringFromTimeInterval:groupedRecord.duration.doubleValue];
-                                             NSLog(@"%@ - %@ - %@", groupedRecord.projectName, groupedRecord.activityName, durationString);
-                                         }
-                                         
-                                     }
-                                     failure:^(NSError *error) {
-                                         NSLog(@"%@", error);
-                                     }];
-
 }
 
 
@@ -548,6 +558,20 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
 
     
+    // MOST USED PROJECTS/TASKS
+    for (KimaiTimesheetRecord *groupedRecord in _groupedTimesheetRecordsForLastSevenDays) {
+        
+        //NSString *durationString = [self formatedDurationStringFromTimeInterval:groupedRecord.duration.doubleValue];
+        NSString *recordTitle = [NSString stringWithFormat:@"%@ - %@", groupedRecord.projectName, groupedRecord.activityName];
+        
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:recordTitle action:@selector(clickedGroupedTimesheetRecord:) keyEquivalent:@""];
+        [menuItem setRepresentedObject:groupedRecord];
+        [menuItem setEnabled:YES];
+        [kimaiMenu addItem:menuItem];
+
+    }
+    
+    
     // TASKS
     NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
     for (KimaiTask *task in self.kimai.tasks) {
@@ -561,15 +585,22 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     
     // PROJECTS
+    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
     for (KimaiProject *project in self.kimai.projects) {
         if ([project.visible boolValue] == YES) {
             NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
             [menuItem setRepresentedObject:project];
             [menuItem setEnabled:YES];
             [menuItem setSubmenu:[tasksMenu copy]];
-            [kimaiMenu addItem:menuItem];
+            [projectsMenu addItem:menuItem];
         }
     }
+    
+    
+    // ALL PROJECTS
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:@selector(clickedMenuItem:) keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:projectsMenu];
+    [kimaiMenu addItem:allProjectsMenuItem];
     
     
     // SEPERATOR
@@ -586,7 +617,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     // TODAY TASK HISTORY
     if (self.kimai.todayTimesheetRecords) {
         
-        NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:self.kimai.todayTimesheetRecords];
+        NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:self.kimai.todayTimesheetRecords maxTimesheetRecords:0];
         
         for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
 
@@ -713,6 +744,26 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 //    return [NSString stringWithFormat:@"%@ - %@ - %@ / %@", activity.projectName, activity.activityName, activityTime, totalWorkingHoursToday];
     return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, activityTime];
 
+}
+
+
+- (void)clickedGroupedTimesheetRecord:(id)sender {
+    if ([sender isKindOfClass:[NSMenuItem class]]) {
+        
+        NSMenuItem *menuItem = (NSMenuItem *)sender;
+        
+        KimaiTimesheetRecord *record = menuItem.representedObject;
+        record.project = [self.kimai projectWithID:record.projectID];
+        record.task = [self.kimai taskWithID:record.activityID];
+        
+        [self.kimai startProject:record.project withTask:record.task success:^(id response) {
+            [self reloadData];
+        } failure:^(NSError *error) {
+            [self showAlertSheetWithError:error];
+            [self reloadData];
+        }];
+        
+    }
 }
 
 

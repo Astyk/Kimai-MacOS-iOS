@@ -139,7 +139,7 @@
 
     NSLog(@"TIMESHEET:");
     
-    for (KimaiTimesheetRecord *record in self.timesheetRecords) {
+    for (KimaiTimesheetRecord *record in self.todayTimesheetRecords) {
         NSLog(@"%@", record);
     }
 
@@ -380,7 +380,15 @@
                                endDate:endDate
                             limitStart:[NSNumber numberWithInt:0]
                             limitCount:[NSNumber numberWithInt:100]
-                               success:successHandler
+                               success:^(id response) {
+                                   
+                                   self.todayTimesheetRecords = response;
+                                   
+                                   if (successHandler) {
+                                       successHandler(response);
+                                   }
+                                   
+                               }
                                failure:failureHandler];
 }
 
@@ -392,15 +400,8 @@
     [self _mapMethod:@"getTimesheet"
       withParameters:@[self.apiKey, startDate.description, endDate.description, cleared, limitStart, limitCount]
              toClass:[KimaiTimesheetRecord class]
-             success:^(id response) {
-        
-        self.timesheetRecords = response;
-        
-        if (successHandler) {
-            successHandler(response);
-        }
-        
-    } failure:failureHandler];
+             success:successHandler
+             failure:failureHandler];
     
 }
 
@@ -410,13 +411,8 @@
     [self _mapMethod:@"getTimesheetRecord"
       withParameters:@[self.apiKey, timesheetRecordID]
              toClass:[KimaiTimesheetRecord class]
-             success:^(id response) {
-
-        if (successHandler) {
-            successHandler(response);
-        }
-        
-    } failure:failureHandler];
+             success:successHandler
+             failure:failureHandler];
     
 }
 

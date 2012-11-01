@@ -37,7 +37,8 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 @property (nonatomic, strong) NSArray *projects;
 @property (nonatomic, strong) NSArray *tasks;
 @property (nonatomic, strong) NSArray *activeRecordings;
-@property (nonatomic, strong) NSArray *timesheetRecords;
+
+@property (nonatomic, strong) NSArray *todayTimesheetRecords;
 
 @property (nonatomic, strong) KSReachability *reachability;
 @property (nonatomic, readonly) BOOL isServiceReachable;

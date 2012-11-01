@@ -331,14 +331,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
--(void)recalculateTotalWorkingDurationToday {
-    _totalWorkingDurationToday = 0;
-    for (KimaiTimesheetRecord *record in self.kimai.todayTimesheetRecords) {
-        _totalWorkingDurationToday += record.duration.doubleValue;
-    }
-}
-
-
 - (void)reloadData {
     
     
@@ -359,7 +351,11 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         
         [self _filterProjectListByMostUsedFirst];
 #endif
-        [self recalculateTotalWorkingDurationToday];
+
+        // recalculate total working duration for today
+        NSNumber *duration = [self.kimai.todayTimesheetRecords valueForKeyPath:@"@sum.duration"];
+        _totalWorkingDurationToday = duration.doubleValue;
+
         [self reloadMenu];
         
     } failure:^(NSError *error) {
@@ -415,6 +411,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
+#pragma mark - KimaiTimesheetRecord Filter
+
+
 - (NSMutableArray *)groupedTimesheetRecordsByProjectAndActivity:(NSArray *)timesheetRecords {
     
     NSMutableArray *groupedTimesheetRecords = [NSMutableArray array];
@@ -459,7 +458,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)_filterProjectListByMostUsedFirst {
 
     NSDate *endDate = [NSDate date];
-    NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*5]; // last 5 days
+    NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*7]; // last 7 days or 100 records
     
     [self.kimai reloadTimesheetWithStartDate:startDate
                                      endDate:endDate

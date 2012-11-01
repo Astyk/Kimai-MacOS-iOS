@@ -444,7 +444,7 @@
 - (KimaiTask *)taskWithID:(NSNumber *)activityID {
     
     if (self.tasks) {
-        NSArray *filteredTasks = [self.projects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"activityID = %@", activityID]];
+        NSArray *filteredTasks = [self.tasks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"activityID = %@", activityID]];
         if (filteredTasks && filteredTasks.count == 1) {
             return [filteredTasks objectAtIndex:0];
         }

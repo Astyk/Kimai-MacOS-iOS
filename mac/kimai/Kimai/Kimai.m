@@ -113,6 +113,31 @@
 }
 
 
+#pragma mark - Time Calculation
+
+
+/**
+ * Today morning at 00:00
+ */
+- (NSDate *)today {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comps = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                     fromDate:[NSDate date]];
+    return [cal dateFromComponents:comps];
+}
+
+
+/**
+ * Yesterday morning at 00:00
+ */
+- (NSDate *)yesterday {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:-1];
+    return [cal dateByAddingComponents:components toDate:[self today] options:0];
+}
+
+
 
 #pragma mark - API
 
@@ -139,7 +164,7 @@
 
     NSLog(@"TIMESHEET:");
     
-    for (KimaiTimesheetRecord *record in self.todayTimesheetRecords) {
+    for (KimaiTimesheetRecord *record in self.timesheetRecordsToday) {
         NSLog(@"%@", record);
     }
 
@@ -167,7 +192,11 @@
 
             [self reloadActiveRecordingWithSuccess:^(id response) {
                 
-                [self reloadCurrentDayTimesheetWithSuccess:successHandler failure:failureHandler];
+                [self getTimesheetTodayWithSuccess:^(id response) {
+                    
+                    [self getTimesheetYesterdayWithSuccess:successHandler failure:failureHandler];
+                
+                } failure:failureHandler];
                 
             } failure:failureHandler];
 
@@ -367,33 +396,52 @@
 #pragma mark getTimesheet
 
 
-- (void)reloadCurrentDayTimesheetWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+- (void)getTimesheetTodayWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
 
-    // FROM TODAY 00:00 UNTIL NOW
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
-                                          fromDate:[NSDate date]];
-    NSDate *startDate = [cal dateFromComponents:components];
+    NSDate *startDate = [self today];
     NSDate *endDate = [NSDate date];
     
-    [self reloadTimesheetWithStartDate:startDate
-                               endDate:endDate
-                            limitStart:[NSNumber numberWithInt:0]
-                            limitCount:[NSNumber numberWithInt:100]
-                               success:^(id response) {
-                                   
-                                   self.todayTimesheetRecords = response;
-                                   
-                                   if (successHandler) {
-                                       successHandler(response);
-                                   }
-                                   
-                               }
-                               failure:failureHandler];
+    [self getTimesheetWithStartDate:startDate
+                            endDate:endDate
+                            success:^(id response) {
+                                
+                                self.timesheetRecordsToday = response;
+                                
+                                if (successHandler) {
+                                    successHandler(response);
+                                }
+                                
+                            }
+                            failure:failureHandler];
 }
 
 
-- (void)reloadTimesheetWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate limitStart:(NSNumber *)limitStart limitCount:(NSNumber *)limitCount success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+- (void)getTimesheetYesterdayWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    NSDate *startDate = [self yesterday];
+    NSDate *endDate = [NSDate dateWithTimeInterval:60*60*24 sinceDate:startDate];
+    
+    [self getTimesheetWithStartDate:startDate
+                            endDate:endDate
+                            success:^(id response) {
+                                
+                                self.timesheetRecordsYesterday = response;
+                                
+                                if (successHandler) {
+                                    successHandler(response);
+                                }
+                                
+                            }
+                            failure:failureHandler];
+}
+
+
+- (void)getTimesheetWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    [self getTimesheetWithStartDate:startDate endDate:endDate limitStart:[NSNumber numberWithInt:0] limitCount:[NSNumber numberWithInt:100] success:successHandler failure:failureHandler];
+}
+
+
+- (void)getTimesheetWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate limitStart:(NSNumber *)limitStart limitCount:(NSNumber *)limitCount success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
 
     NSNumber *cleared = [NSNumber numberWithInt:0]; // -1 no filtering, 0 uncleared only, 1 cleared only
 

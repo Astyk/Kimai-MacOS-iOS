@@ -16,10 +16,9 @@
     NSTimer *_updateUserInterfaceTimer;
     NSTimer *_reloadDataTimer;
     KimaiLocationManager *locationManager;
-    NSTimeInterval _totalWorkingDurationToday;
-    NSTimeInterval _totalWorkingDurationWeek;
+    
     NSArray *_timesheetRecordsForLastSevenDays;
-    NSMutableArray *_groupedTimesheetRecordsForLastSevenDays;
+
 }
 @end
 
@@ -360,17 +359,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 #endif
         
         [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
-            
-            // recalculate total working duration for today
-            NSNumber *todayDuration = [self.kimai.todayTimesheetRecords valueForKeyPath:@"@sum.duration"];
-            _totalWorkingDurationToday = todayDuration.doubleValue;
-            
-            // recalculate total working duration for the last 7 days
-            NSNumber *weekDuration = [_timesheetRecordsForLastSevenDays valueForKeyPath:@"@sum.duration"];
-            _totalWorkingDurationWeek = weekDuration.doubleValue;
-            
+        
             [self reloadMenu];
-            
+
         } failure:failureHandler];
 
     } failure:failureHandler];
@@ -383,25 +374,21 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     NSDate *endDate = [NSDate date];
     NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*7]; // last 7 days or 100 records
     
-    [self.kimai reloadTimesheetWithStartDate:startDate
-                                     endDate:endDate
-                                  limitStart:[NSNumber numberWithInt:0]
-                                  limitCount:[NSNumber numberWithInt:100]
-                                     success:^(id response) {
-                                         
-                                         _timesheetRecordsForLastSevenDays = (NSArray *)response;
-                                         
-                                         // filter out the 5 longest used projects/tasks
-                                         _groupedTimesheetRecordsForLastSevenDays = [self groupedTimesheetRecordsByProjectAndActivity:_timesheetRecordsForLastSevenDays maxTimesheetRecords:5];
-                                         
-                                         if (successHandler) {
-                                             successHandler(_groupedTimesheetRecordsForLastSevenDays);
-                                         }
-                                         
-                                     }
-                                     failure:failureHandler];
+    [self.kimai getTimesheetWithStartDate:startDate
+                                  endDate:endDate
+                                  success:^(id response) {
+                                      
+                                      _timesheetRecordsForLastSevenDays = (NSArray *)response;
+                                      
+                                      if (successHandler) {
+                                          successHandler(nil);
+                                      }
+                                      
+                                  }
+                                  failure:failureHandler];
     
 }
+
 
 
 #pragma mark - KimaiDelegate
@@ -582,57 +569,25 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     
     
-    // TOTAL WORKING HOURS TODAY
-    NSString *workingHoursToday = [self formatedWorkingDuration:_totalWorkingDurationToday withCurrentActivity:activeRecordingOrNil];
-    NSMenuItem *workingHoursTodayMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Today %@", workingHoursToday] action:nil keyEquivalent:@""];
-    [workingHoursTodayMenuItem setEnabled:NO];
-    [kimaiMenu addItem:workingHoursTodayMenuItem];
+    // TODAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Today"
+                        timesheetRecords:self.kimai.timesheetRecordsToday
+                         currentActivity:activeRecordingOrNil];
 
-    
-    // TODAY TASK HISTORY
-    if (self.kimai.todayTimesheetRecords) {
-        
-        NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:self.kimai.todayTimesheetRecords maxTimesheetRecords:0];
-        
-        for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
 
-            NSString *activityTime = [self formatedDurationStringFromTimeInterval:record.duration.doubleValue];
-            NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
-            [menuItem setRepresentedObject:record];
-            [menuItem setEnabled:YES];
-            [kimaiMenu addItem:menuItem];
-            
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////
-        [kimaiMenu addItem:[NSMenuItem separatorItem]];
-    }
-
+    // YESTERDAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Yesterday"
+                        timesheetRecords:self.kimai.timesheetRecordsYesterday
+                         currentActivity:nil];
     
     
     // TOTAL WORKING HOURS LAST 7 DAYS
-    NSString *workingHoursWeek = [self formatedWorkingDuration:_totalWorkingDurationWeek withCurrentActivity:activeRecordingOrNil];
-    NSMenuItem *workingHoursWeekMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Week %@", workingHoursWeek] action:nil keyEquivalent:@""];
-    [workingHoursWeekMenuItem setEnabled:NO];
-    [kimaiMenu addItem:workingHoursWeekMenuItem];
-    
-    
-    // MOST USED PROJECTS/TASKS
-    for (KimaiTimesheetRecord *groupedRecord in _groupedTimesheetRecordsForLastSevenDays) {
-        
-        NSString *durationString = [self formatedDurationStringFromTimeInterval:groupedRecord.duration.doubleValue];
-        NSString *recordTitle = [NSString stringWithFormat:@"%@ (%@) %@", groupedRecord.projectName, groupedRecord.activityName, durationString];
-        
-        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:recordTitle action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
-        [menuItem setRepresentedObject:groupedRecord];
-        [menuItem setEnabled:YES];
-        [kimaiMenu addItem:menuItem];
-        
-    }
-    
-    ///////////////////////////////////////////////////////////////////////////////
-    [kimaiMenu addItem:[NSMenuItem separatorItem]];
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Week"
+                        timesheetRecords:_timesheetRecordsForLastSevenDays
+                         currentActivity:nil];
 
     
     
@@ -710,6 +665,40 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     [statusItem setMenu:kimaiMenu];
     [statusItem setEnabled:YES];
+    
+}
+
+
+- (void)addMenuItemTaskHistoryWithMenu:(NSMenu *)menu title:(NSString *)title timesheetRecords:(NSArray *)timesheetRecords currentActivity:(KimaiActiveRecording *)activity {
+    
+    if (timesheetRecords == nil || timesheetRecords.count == 0) {
+        return;
+    }
+    
+    // recalculate total working duration
+    NSNumber *totalWorkingHours = [timesheetRecords valueForKeyPath:@"@sum.duration"];
+    NSString *totalWorkingHoursString = [self formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
+    
+    NSMenuItem *titleMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", title, totalWorkingHoursString] action:nil keyEquivalent:@""];
+    [titleMenuItem setEnabled:NO];
+    [menu addItem:titleMenuItem];
+    
+    
+    NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:timesheetRecords maxTimesheetRecords:7];
+    
+    for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
+        
+        NSString *activityTime = [self formatedDurationStringFromTimeInterval:record.duration.doubleValue];
+        NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
+        [menuItem setRepresentedObject:record];
+        [menuItem setEnabled:YES];
+        [menu addItem:menuItem];
+        
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    [menu addItem:[NSMenuItem separatorItem]];
     
 }
 

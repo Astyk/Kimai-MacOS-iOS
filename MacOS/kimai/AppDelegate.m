@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <Sparkle/Sparkle.h>
 #import "PFMoveApplication.h"
-#import "RHKeychain.h"
+#import "SSKeychain.h"
 #import "KimaiLocationManager.h"
 
 @interface AppDelegate () {
@@ -20,6 +20,10 @@
     NSArray *_timesheetRecordsForLastSevenDays;
 
 }
+
+typedef void (^KeychainSuccessHandler)(NSString *username, NSString *password, NSString *kimaiServerURL);
+typedef void (^KeychainFailureHandler)(NSError *error);
+
 @end
 
 
@@ -27,6 +31,7 @@
 @implementation AppDelegate
 
 static NSString *SERVICENAME = @"org.kimai.timetracker";
+
 
 
 #pragma mark - NSApplicationDelegate
@@ -271,30 +276,22 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)initKimai {
     
-    if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
+    [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
         
-#if DEBUG
-        NSString *kimaiServerURL = @"http://localhost/kimai";
-        NSString *username = @"testuser";
-        NSString *password = @"test123";
-#else
-        NSString *kimaiServerURL = RHKeychainGetGenericComment(NULL, SERVICENAME);
-        NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
-        NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-#endif
-
-        // init Kimai
         [self.kimaiURLTextField setStringValue:kimaiServerURL];
         [self.usernameTextField setStringValue:username];
         [self.passwordTextField setStringValue:password];
-        
+
         self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
         self.kimai.delegate = self;
         
-    } else {
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@", error);
         [self showPreferences];
-    }
-    
+        
+    }];
+        
 }
 
 /*
@@ -401,18 +398,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     if (isServiceReachable.boolValue) {
         
         if (self.kimai.apiKey == nil) {
+
             
-            if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
-                
-                
-#if DEBUG
-                NSString *username = @"testuser";
-                NSString *password = @"test123";
-#else
-                NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
-                NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-#endif
-                
+            [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
                 
                 [self.kimai authenticateWithUsername:username password:password success:^(id response) {
                     [self reloadData];
@@ -420,10 +408,14 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
                     [self showAlertSheetWithError:error];
                     [self reloadMenu];
                 }];
+
+            } failure:^(NSError *error) {
                 
-            } else {
+                NSLog(@"%@", error);
                 [self showPreferences];
-            }
+                
+            }];
+
             
         } else {
             [self reloadData];
@@ -433,6 +425,78 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         [statusItem setTitle:@"Offline"];
     }
     
+}
+
+
+#pragma mark - Credentials
+
+
+- (void)loadCredentialsWithSuccess:(KeychainSuccessHandler)successHandler failure:(KeychainFailureHandler)failureHandler {
+    
+/*
+#if DEBUG
+    if (successHandler) {
+        successHandler(@"testuser1", @"test123", @"https://timetracker.blockhausmedien.at");
+    }
+    return;
+#endif
+*/
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSError *error = nil;
+    
+    NSString *kimaiServerURL = [standardUserDefaults stringForKey:@"KimaiServerURLKey"];
+    NSString *username = nil;
+    NSString *password = nil;
+    
+    NSArray *allAccounts = [SSKeychain accountsForService:SERVICENAME error:&error];
+    if (allAccounts != nil && allAccounts.count > 0) {
+        
+        NSDictionary *account = [allAccounts objectAtIndex:0];
+        
+        // to be backwards compatible, should be removed in some future release
+        NSString *kimaiURLOrNil = [account valueForKey:@"icmt"];
+        if (kimaiServerURL == nil && kimaiURLOrNil != nil && [NSURL URLWithString:kimaiURLOrNil] != nil) {
+            kimaiServerURL = kimaiURLOrNil;
+        }
+        
+        username = [account valueForKey:@"acct"];
+        if (username == nil) {
+            NSLog(@"Could not get username from keychain!");
+        } else {
+            
+            password = [SSKeychain passwordForService:SERVICENAME account:username error:&error];
+            if (password == nil) {
+                NSLog(@"Could not get password from keychain!");
+            }
+            
+        }
+        
+    } else {
+        NSLog(@"No credentials in keychain!");
+    }
+    
+    if ((kimaiServerURL == nil || username == nil || password == nil) && failureHandler) {
+        failureHandler(error);
+    } else if (successHandler) {
+        successHandler(username, password, kimaiServerURL);
+    }
+    
+}
+
+
+- (void)storeKimaiServerURL:(NSString *)kimaiServerUrl username:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    [standardUserDefaults setValue:kimaiServerUrl forKey:@"KimaiServerURLKey"];
+    
+    NSError *error = nil;
+    if (([SSKeychain setPassword:password forService:SERVICENAME account:username error:&error] == NO || error != nil) && failureHandler) {
+        failureHandler(error);
+    } else if (successHandler) {
+        successHandler(nil);
+    }
+
 }
 
 
@@ -722,18 +786,14 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
             return;
         }
         
-        
-        if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME) == NO) {
-            RHKeychainAddGenericEntry(NULL, SERVICENAME);
-        }
-        
 #ifndef DEBUG
-        if (RHKeychainSetGenericUsername(NULL, SERVICENAME, username) &&
-            RHKeychainSetGenericPassword(NULL, SERVICENAME, password) &&
-            RHKeychainSetGenericComment(NULL, SERVICENAME, kimaiServerURL)) {
+        [self storeKimaiServerURL:kimaiServerURL username:username password:password success:^(id response) {
             [self hidePreferences];
             [self initKimai];
-        }
+        } failure:^(NSError *error) {
+            [self showAlertSheetWithError:error];
+            [self reloadMenu];
+        }];
 #endif
         
     }

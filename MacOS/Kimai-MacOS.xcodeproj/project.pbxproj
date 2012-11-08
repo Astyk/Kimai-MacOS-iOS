@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
+		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
 		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
 		BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -20,7 +21,6 @@
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
 		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
-		BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0E216306E07001BDF87 /* RHKeychain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */; };
 		BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0FD163967F2001BDF87 /* CoreLocation.framework */; };
 		BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE7162C3A8200685547 /* CoreData.framework */; };
@@ -82,6 +82,8 @@
 		BC35792E162DC10600F1BFAE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
 		BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
+		BC3AC595164BB83500794C05 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		BC3AC596164BB83500794C05 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
 		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
 		BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFMoveApplication.h; path = LetsMove/PFMoveApplication.h; sourceTree = "<group>"; };
@@ -101,8 +103,6 @@
 		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
 		BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kimai-Prefix.pch"; sourceTree = "<group>"; };
 		BC87F0DA16306DEB001BDF87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		BC87F0E116306E07001BDF87 /* RHKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHKeychain.h; sourceTree = "<group>"; };
-		BC87F0E216306E07001BDF87 /* RHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHKeychain.m; sourceTree = "<group>"; };
 		BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunningApplicationsController.h; path = ApplicationObserver/RunningApplicationsController.h; sourceTree = "<group>"; };
 		BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunningApplicationsController.m; path = ApplicationObserver/RunningApplicationsController.m; sourceTree = "<group>"; };
 		BC87F0FD163967F2001BDF87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -195,6 +195,16 @@
 			path = "Demiurgic-JSON-RPC/DSJSONRPC";
 			sourceTree = SOURCE_ROOT;
 		};
+		BC3AC58F164BB83500794C05 /* sskeychain */ = {
+			isa = PBXGroup;
+			children = (
+				BC3AC595164BB83500794C05 /* SSKeychain.h */,
+				BC3AC596164BB83500794C05 /* SSKeychain.m */,
+			);
+			name = sskeychain;
+			path = ../iOS/sskeychain;
+			sourceTree = "<group>";
+		};
 		BC46C8E7163E8BC600C9520D /* LetsMove */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,16 +234,6 @@
 			);
 			name = Sparkle;
 			sourceTree = "<group>";
-		};
-		BC87F0DC16306E07001BDF87 /* RHKeychain */ = {
-			isa = PBXGroup;
-			children = (
-				BC87F0E116306E07001BDF87 /* RHKeychain.h */,
-				BC87F0E216306E07001BDF87 /* RHKeychain.m */,
-			);
-			name = RHKeychain;
-			path = RHKeychain/RHKeychain;
-			sourceTree = SOURCE_ROOT;
 		};
 		BC87F0F316314107001BDF87 /* ApplicationObserver */ = {
 			isa = PBXGroup;
@@ -290,7 +290,7 @@
 				BC87F1421639767E001BDF87 /* KSReachability */,
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC4B4D34162DC467000AE55E /* JSONKit */,
-				BC87F0DC16306E07001BDF87 /* RHKeychain */,
+				BC3AC58F164BB83500794C05 /* sskeychain */,
 				BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */,
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
 				BC87F0DA16306DEB001BDF87 /* Security.framework */,
@@ -522,7 +522,6 @@
 				BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */,
 				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
 				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
-				BC87F0E516306E07001BDF87 /* RHKeychain.m in Sources */,
 				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
 				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
 				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
@@ -531,6 +530,7 @@
 				BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */,
 				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
 				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
+				BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

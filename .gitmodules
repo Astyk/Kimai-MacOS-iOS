@@ -4,9 +4,6 @@
 [submodule "mac/JSONKit"]
 	path = mac/JSONKit
 	url = https://github.com/johnezang/JSONKit.git
-[submodule "mac/RHKeychain"]
-	path = mac/RHKeychain
-	url = https://github.com/heardrwt/RHKeychain.git
 [submodule "mac/KSReachability"]
 	path = mac/KSReachability
 	url = https://github.com/kstenerud/KSReachability.git

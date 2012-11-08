@@ -458,7 +458,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "blockhaus medienagentur";
 			};
-			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */;
+			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -722,7 +722,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai" */ = {
+		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC928EFE162C3A8200685547 /* Debug */,

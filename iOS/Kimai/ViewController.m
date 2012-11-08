@@ -62,11 +62,13 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         NSString *username = [allAccounts objectAtIndex:0];
         if (username == nil) {
             NSLog(@"Could not get username from keychain!");
-        }
-        
-        NSString *password = [SSKeychain passwordForService:SERVICENAME account:username error:&error];
-        if (password == nil) {
-            NSLog(@"Could not get password from keychain!");
+        } else {
+            
+            NSString *password = [SSKeychain passwordForService:SERVICENAME account:username error:&error];
+            if (password == nil) {
+                NSLog(@"Could not get password from keychain!");
+            }
+            
         }
         
     } else {
@@ -84,6 +86,14 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (void)setKimaiServerURL:(NSString *)kimaiServerUrl username:(NSString *)username password:(NSString *)password {
     
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    [standardUserDefaults setValue:kimaiServerUrl forKey:@"KimaiServerURLKey"];
+    
+    NSError *error = nil;
+    if ([SSKeychain setPassword:password forService:SERVICENAME account:username error:&error] == NO) {
+        standardFailureHandler(error);
+    }
+    
 }
 
 
@@ -98,9 +108,10 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         self.kimai.delegate = self;
 
     } failure:^(NSError *error) {
-        if ([error code] == SSKeychainErrorNotFound) {
-            NSLog(@"Password not found");
-        }
+
+        NSLog(@"%@", error);
+        // display login screen
+    
     }];
     
 }

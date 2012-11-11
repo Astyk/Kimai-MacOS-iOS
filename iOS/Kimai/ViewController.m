@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "KSReachability.h"
 #import "SSKeychain.h"
+#import "TasksViewController.h"
 
 
 @interface ViewController ()
@@ -287,13 +288,9 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    KimaiProject *project = [self.kimai.projects objectAtIndex:indexPath.row];
+    TasksViewController *detailViewController = [[TasksViewController alloc] initWithKimai:self.kimai project:project];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

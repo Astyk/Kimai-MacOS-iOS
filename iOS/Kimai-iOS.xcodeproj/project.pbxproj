@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC262DBA1650415900E974AF /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DB81650415900E974AF /* TasksViewController.m */; };
 		BC5A3F3F164AF530003FCCD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F3E164AF530003FCCD4 /* UIKit.framework */; };
 		BC5A3F41164AF530003FCCD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F40164AF530003FCCD4 /* Foundation.framework */; };
 		BC5A3F43164AF530003FCCD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F42164AF530003FCCD4 /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC262DB71650415900E974AF /* TasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksViewController.h; sourceTree = "<group>"; };
+		BC262DB81650415900E974AF /* TasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksViewController.m; sourceTree = "<group>"; };
 		BC5A3F3A164AF530003FCCD4 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5A3F3E164AF530003FCCD4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC5A3F40164AF530003FCCD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -145,6 +148,8 @@
 				BC5A3F57164AF530003FCCD4 /* ViewController.m */,
 				BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */,
 				BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */,
+				BC262DB71650415900E974AF /* TasksViewController.h */,
+				BC262DB81650415900E974AF /* TasksViewController.m */,
 				BCC3B0F81650012800317FCE /* Kimai */,
 				BCC3B10F1650013C00317FCE /* DSJSONRPC */,
 				BCC3B11D1650015900317FCE /* JSONKit */,
@@ -316,6 +321,7 @@
 				BCC3B1181650013C00317FCE /* DSJSONRPCError.m in Sources */,
 				BCC3B1231650015900317FCE /* JSONKit.m in Sources */,
 				BCC3B15A1650016700317FCE /* KSReachability.m in Sources */,
+				BC262DBA1650415900E974AF /* TasksViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

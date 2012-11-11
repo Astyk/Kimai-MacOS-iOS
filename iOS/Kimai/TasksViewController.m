@@ -7,6 +7,7 @@
 //
 
 #import "TasksViewController.h"
+#import "SVProgressHUD.h"
 
 @interface TasksViewController ()
 
@@ -19,6 +20,7 @@
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
+        self.title = project.name;
         self.kimai = kimai;
         self.project = project;
     }
@@ -115,13 +117,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+    KimaiTask *task = [self.kimai.tasks objectAtIndex:indexPath.row];
+    
+    [self.kimai startProject:self.project withTask:task success:^(id response) {
+        [SVProgressHUD showSuccessWithStatus:@"Project started!"];
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+
 }
 
 @end

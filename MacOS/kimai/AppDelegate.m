@@ -11,7 +11,10 @@
 #import "PFMoveApplication.h"
 #import "SSKeychain.h"
 #import "KimaiLocationManager.h"
-#import "TimeFormatter.h"
+#import "TransparentWindow.h"
+#import "BMTimeFormatter.h"
+#import "BMCredentials.h"
+
 
 @interface AppDelegate () {
     NSTimer *_updateUserInterfaceTimer;
@@ -22,8 +25,8 @@
 
 }
 
-typedef void (^KeychainSuccessHandler)(NSString *username, NSString *password, NSString *kimaiServerURL);
-typedef void (^KeychainFailureHandler)(NSError *error);
+
+@property (strong) TransparentWindow *transparentWindow;
 
 @end
 
@@ -205,7 +208,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         // ask what he did during the time
         //if (workspaceAsleepDuration > 60 * 10) {
             
-            NSString *durationString = [TimeFormatter formatedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
+            NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
             NSLog(@"SLEEP: User was gone for %@!", durationString);
             
         //}
@@ -240,7 +243,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         // ask what he did during the time
         //if (screensaverActivateDuration > 60 * 10) {
             
-            NSString *durationString = [TimeFormatter formatedDurationStringFromDate:screensaverStartedDate toDate:now];
+            NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:screensaverStartedDate toDate:now];
             NSLog(@"SCREENSAVER: User was gone for %@!", durationString);
 
         //}
@@ -277,22 +280,22 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)initKimai {
     
-    [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
+    [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
         
-        [self.kimaiURLTextField setStringValue:kimaiServerURL];
+        [self.kimaiURLTextField setStringValue:serviceURL];
         [self.usernameTextField setStringValue:username];
         [self.passwordTextField setStringValue:password];
-
-        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
+        
+        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:serviceURL]];
         self.kimai.delegate = self;
         
     } failure:^(NSError *error) {
         
         NSLog(@"%@", error);
         [self showPreferences];
-        
+
     }];
-        
+    
 }
 
 /*
@@ -400,8 +403,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         
         if (self.kimai.apiKey == nil) {
 
-            
-            [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
+            [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
                 
                 [self.kimai authenticateWithUsername:username password:password success:^(id response) {
                     [self reloadData];
@@ -414,10 +416,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
                 
                 NSLog(@"%@", error);
                 [self showPreferences];
-                
-            }];
 
-            
+            }];
+                        
         } else {
             [self reloadData];
         }
@@ -426,78 +427,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         [statusItem setTitle:@"Offline"];
     }
     
-}
-
-
-#pragma mark - Credentials
-
-
-- (void)loadCredentialsWithSuccess:(KeychainSuccessHandler)successHandler failure:(KeychainFailureHandler)failureHandler {
-    
-/*
-#if DEBUG
-    if (successHandler) {
-        successHandler(@"testuser1", @"test123", @"https://timetracker.blockhausmedien.at");
-    }
-    return;
-#endif
-*/
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSError *error = nil;
-    
-    NSString *kimaiServerURL = [standardUserDefaults stringForKey:@"KimaiServerURLKey"];
-    NSString *username = nil;
-    NSString *password = nil;
-    
-    NSArray *allAccounts = [SSKeychain accountsForService:SERVICENAME error:&error];
-    if (allAccounts != nil && allAccounts.count > 0) {
-        
-        NSDictionary *account = [allAccounts objectAtIndex:0];
-        
-        // to be backwards compatible, should be removed in some future release
-        NSString *kimaiURLOrNil = [account valueForKey:@"icmt"];
-        if (kimaiServerURL == nil && kimaiURLOrNil != nil && [NSURL URLWithString:kimaiURLOrNil] != nil) {
-            kimaiServerURL = kimaiURLOrNil;
-        }
-        
-        username = [account valueForKey:@"acct"];
-        if (username == nil) {
-            NSLog(@"Could not get username from keychain!");
-        } else {
-            
-            password = [SSKeychain passwordForService:SERVICENAME account:username error:&error];
-            if (password == nil) {
-                NSLog(@"Could not get password from keychain!");
-            }
-            
-        }
-        
-    } else {
-        NSLog(@"No credentials in keychain!");
-    }
-    
-    if ((kimaiServerURL == nil || username == nil || password == nil) && failureHandler) {
-        failureHandler(error);
-    } else if (successHandler) {
-        successHandler(username, password, kimaiServerURL);
-    }
-    
-}
-
-
-- (void)storeKimaiServerURL:(NSString *)kimaiServerUrl username:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setValue:kimaiServerUrl forKey:@"KimaiServerURLKey"];
-    
-    NSError *error = nil;
-    if (([SSKeychain setPassword:password forService:SERVICENAME account:username error:&error] == NO || error != nil) && failureHandler) {
-        failureHandler(error);
-    } else if (successHandler) {
-        successHandler(nil);
-    }
-
 }
 
 
@@ -690,7 +619,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     // recalculate total working duration
     NSNumber *totalWorkingHours = [timesheetRecords valueForKeyPath:@"@sum.duration"];
-    NSString *totalWorkingHoursString = [TimeFormatter formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
+    NSString *totalWorkingHoursString = [BMTimeFormatter formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
     
     NSMenuItem *titleMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", title, totalWorkingHoursString] action:nil keyEquivalent:@""];
     [titleMenuItem setEnabled:NO];
@@ -701,7 +630,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
         
-        NSString *activityTime = [TimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
+        NSString *activityTime = [BMTimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
         NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
         [menuItem setRepresentedObject:record];
@@ -735,8 +664,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
             return;
         }
         
+        
 #ifndef DEBUG
-        [self storeKimaiServerURL:kimaiServerURL username:username password:password success:^(id response) {
+        [BMCredentials storeServiceURL:kimaiServerURL username:username password:password servicename:SERVICENAME success:^{
             [self hidePreferences];
             [self initKimai];
         } failure:^(NSError *error) {
@@ -752,7 +682,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
     NSDate *now = [NSDate date];
-    NSString *activityTime = [TimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
+    NSString *activityTime = [BMTimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
     return [NSString stringWithFormat:@"%@ (%@) %@", activity.projectName, activity.activityName, activityTime];
 }
 
@@ -809,6 +739,42 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (void)quitApplication {
     [NSApp terminate:self];
+}
+
+
+- (void)discoverScreens
+{
+    NSScreen *screen;
+	NSArray *screens = [NSScreen screens];
+	NSLog(@"Found %lu screens.", [screens count]);
+    
+	for (int i = 0; i < [screens count]; i++)
+	{
+		NSScreen *aScreen = [screens objectAtIndex:i];
+		NSString *mainScreen;
+		if (i == 0)
+		{
+			mainScreen = @"[Main screen]";
+			screen = aScreen;
+		}
+		else
+		{
+			mainScreen = @"";
+		}
+		
+        
+        NSLog(@"Screen %d: Resolution: %@ %@", i, [[aScreen deviceDescription] objectForKey:NSDeviceSize], mainScreen);
+        NSRect rect = [aScreen visibleFrame];
+        NSLog(@"Visible Frame: %@", NSStringFromRect(rect));
+
+        NSValue *screenSizeValue = [[aScreen deviceDescription] objectForKey:NSDeviceSize];
+        CGSize screenSize = screenSizeValue.sizeValue;
+        CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+
+        self.transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:aScreen];
+        [self.transparentWindow makeKeyAndOrderFront:NSApp];
+
+	}
 }
 
 

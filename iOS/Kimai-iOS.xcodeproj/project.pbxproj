@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		BC262DBA1650415900E974AF /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DB81650415900E974AF /* TasksViewController.m */; };
+		BC262DCD16504C9200E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DCB16504C9200E974AF /* BMCredentials.m */; };
+		BC262DCE16504C9200E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DCC16504C9200E974AF /* BMTimeFormatter.m */; };
+		BC262DD41650521800E974AF /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC262DD11650521800E974AF /* SVProgressHUD.bundle */; };
+		BC262DD51650521800E974AF /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DD31650521800E974AF /* SVProgressHUD.m */; };
+		BC262DD71650522900E974AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC262DD61650522900E974AF /* QuartzCore.framework */; };
+		BC262DDE16505A7700E974AF /* kimai_play_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DD916505A7700E974AF /* kimai_play_deactivated.png */; };
+		BC262DDF16505A7700E974AF /* kimai_play_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDA16505A7700E974AF /* kimai_play_selected.png */; };
+		BC262DE016505A7700E974AF /* kimai_play_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDB16505A7700E974AF /* kimai_play_unselected.png */; };
+		BC262DE116505A7700E974AF /* kimai_stop_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDC16505A7700E974AF /* kimai_stop_selected.png */; };
+		BC262DE216505A7700E974AF /* kimai_stop_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDD16505A7700E974AF /* kimai_stop_unselected.png */; };
+		BC262DE416505F7400E974AF /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DE316505F7400E974AF /* Icon.png */; };
 		BC5A3F3F164AF530003FCCD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F3E164AF530003FCCD4 /* UIKit.framework */; };
 		BC5A3F41164AF530003FCCD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F40164AF530003FCCD4 /* Foundation.framework */; };
 		BC5A3F43164AF530003FCCD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F42164AF530003FCCD4 /* CoreGraphics.framework */; };
@@ -41,6 +52,20 @@
 /* Begin PBXFileReference section */
 		BC262DB71650415900E974AF /* TasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksViewController.h; sourceTree = "<group>"; };
 		BC262DB81650415900E974AF /* TasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksViewController.m; sourceTree = "<group>"; };
+		BC262DC916504C9200E974AF /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMCredentials.h; path = ../../MacOS/kimai/BMCredentials.h; sourceTree = "<group>"; };
+		BC262DCA16504C9200E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMTimeFormatter.h; path = ../../MacOS/kimai/BMTimeFormatter.h; sourceTree = "<group>"; };
+		BC262DCB16504C9200E974AF /* BMCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMCredentials.m; path = ../../MacOS/kimai/BMCredentials.m; sourceTree = "<group>"; };
+		BC262DCC16504C9200E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMTimeFormatter.m; path = ../../MacOS/kimai/BMTimeFormatter.m; sourceTree = "<group>"; };
+		BC262DD11650521800E974AF /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		BC262DD21650521800E974AF /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		BC262DD31650521800E974AF /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		BC262DD61650522900E974AF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BC262DD916505A7700E974AF /* kimai_play_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_deactivated.png; sourceTree = "<group>"; };
+		BC262DDA16505A7700E974AF /* kimai_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_selected.png; sourceTree = "<group>"; };
+		BC262DDB16505A7700E974AF /* kimai_play_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_unselected.png; sourceTree = "<group>"; };
+		BC262DDC16505A7700E974AF /* kimai_stop_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_selected.png; sourceTree = "<group>"; };
+		BC262DDD16505A7700E974AF /* kimai_stop_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_unselected.png; sourceTree = "<group>"; };
+		BC262DE316505F7400E974AF /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC5A3F3A164AF530003FCCD4 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5A3F3E164AF530003FCCD4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC5A3F40164AF530003FCCD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC262DD71650522900E974AF /* QuartzCore.framework in Frameworks */,
 				BC5A41E2164AF8C4003FCCD4 /* Security.framework in Frameworks */,
 				BC5A41E0164AF863003FCCD4 /* CoreLocation.framework in Frameworks */,
 				BC5A41DE164AF846003FCCD4 /* MapKit.framework in Frameworks */,
@@ -108,6 +134,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC262DCF16504C9800E974AF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BC262DC916504C9200E974AF /* BMCredentials.h */,
+				BC262DCB16504C9200E974AF /* BMCredentials.m */,
+				BC262DCA16504C9200E974AF /* BMTimeFormatter.h */,
+				BC262DCC16504C9200E974AF /* BMTimeFormatter.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		BC262DD01650521800E974AF /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				BC262DD11650521800E974AF /* SVProgressHUD.bundle */,
+				BC262DD21650521800E974AF /* SVProgressHUD.h */,
+				BC262DD31650521800E974AF /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD/SVProgressHUD;
+			sourceTree = SOURCE_ROOT;
+		};
+		BC262DD816505A7700E974AF /* kimai_icons */ = {
+			isa = PBXGroup;
+			children = (
+				BC262DD916505A7700E974AF /* kimai_play_deactivated.png */,
+				BC262DDA16505A7700E974AF /* kimai_play_selected.png */,
+				BC262DDB16505A7700E974AF /* kimai_play_unselected.png */,
+				BC262DDC16505A7700E974AF /* kimai_stop_selected.png */,
+				BC262DDD16505A7700E974AF /* kimai_stop_unselected.png */,
+			);
+			name = kimai_icons;
+			path = ../../graphics/kimai_icons;
+			sourceTree = "<group>";
+		};
 		BC5A3F2F164AF530003FCCD4 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +189,7 @@
 		BC5A3F3D164AF530003FCCD4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC262DD61650522900E974AF /* QuartzCore.framework */,
 				BC5A41E1164AF8C4003FCCD4 /* Security.framework */,
 				BC5A41DD164AF846003FCCD4 /* MapKit.framework */,
 				BC5A41DF164AF863003FCCD4 /* CoreLocation.framework */,
@@ -150,11 +212,14 @@
 				BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */,
 				BC262DB71650415900E974AF /* TasksViewController.h */,
 				BC262DB81650415900E974AF /* TasksViewController.m */,
+				BC262DCF16504C9800E974AF /* Helper */,
+				BC262DD816505A7700E974AF /* kimai_icons */,
 				BCC3B0F81650012800317FCE /* Kimai */,
 				BCC3B10F1650013C00317FCE /* DSJSONRPC */,
 				BCC3B11D1650015900317FCE /* JSONKit */,
 				BCC3B1251650016700317FCE /* KSReachability */,
 				BC5A420E164AFA38003FCCD4 /* sskeychain */,
+				BC262DD01650521800E974AF /* SVProgressHUD */,
 				BC5A3F45164AF530003FCCD4 /* Supporting Files */,
 			);
 			path = Kimai;
@@ -167,6 +232,7 @@
 				BC5A3F47164AF530003FCCD4 /* InfoPlist.strings */,
 				BC5A3F4A164AF530003FCCD4 /* main.m */,
 				BC5A3F4C164AF530003FCCD4 /* Kimai-Prefix.pch */,
+				BC262DE316505F7400E974AF /* Icon.png */,
 				BC5A3F50164AF530003FCCD4 /* Default.png */,
 				BC5A3F52164AF530003FCCD4 /* Default@2x.png */,
 				BC5A3F54164AF530003FCCD4 /* Default-568h@2x.png */,
@@ -296,6 +362,13 @@
 				BC5A3F55164AF530003FCCD4 /* Default-568h@2x.png in Resources */,
 				BC5A3F5B164AF530003FCCD4 /* ViewController_iPhone.xib in Resources */,
 				BC5A3F5E164AF530003FCCD4 /* ViewController_iPad.xib in Resources */,
+				BC262DD41650521800E974AF /* SVProgressHUD.bundle in Resources */,
+				BC262DDE16505A7700E974AF /* kimai_play_deactivated.png in Resources */,
+				BC262DDF16505A7700E974AF /* kimai_play_selected.png in Resources */,
+				BC262DE016505A7700E974AF /* kimai_play_unselected.png in Resources */,
+				BC262DE116505A7700E974AF /* kimai_stop_selected.png in Resources */,
+				BC262DE216505A7700E974AF /* kimai_stop_unselected.png in Resources */,
+				BC262DE416505F7400E974AF /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +395,9 @@
 				BCC3B1231650015900317FCE /* JSONKit.m in Sources */,
 				BCC3B15A1650016700317FCE /* KSReachability.m in Sources */,
 				BC262DBA1650415900E974AF /* TasksViewController.m in Sources */,
+				BC262DCD16504C9200E974AF /* BMCredentials.m in Sources */,
+				BC262DCE16504C9200E974AF /* BMTimeFormatter.m in Sources */,
+				BC262DD51650521800E974AF /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

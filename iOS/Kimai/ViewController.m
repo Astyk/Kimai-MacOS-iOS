@@ -10,6 +10,9 @@
 #import "KSReachability.h"
 #import "SSKeychain.h"
 #import "TasksViewController.h"
+#import "BMCredentials.h"
+#import "SVProgressHUD.h"
+#import "BMTimeFormatter.h"
 
 
 @interface ViewController ()
@@ -26,6 +29,9 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
+
+    [SVProgressHUD dismiss];
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
 };
@@ -35,7 +41,14 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 {
     [super viewDidLoad];
 
+
     [self initKimai];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,77 +58,6 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 }
 
 
-#pragma mark - Credentials
-
-
-- (void)loadCredentialsWithSuccess:(KeychainSuccessHandler)successHandler failure:(KeychainFailureHandler)failureHandler {
-    
-    /*
-     #if DEBUG
-     if (successHandler) {
-     successHandler(@"testuser1", @"test123", @"https://timetracker.blockhausmedien.at");
-     }
-     return;
-     #endif
-     */
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSError *error = nil;
-    
-    NSString *kimaiServerURL = [standardUserDefaults stringForKey:@"KimaiServerURLKey"];
-    NSString *username = nil;
-    NSString *password = nil;
-    
-    NSArray *allAccounts = [SSKeychain accountsForService:SERVICENAME error:&error];
-    if (allAccounts != nil && allAccounts.count > 0) {
-        
-        NSDictionary *account = [allAccounts objectAtIndex:0];
-        
-        // to be backwards compatible, should be removed in some future release
-        NSString *kimaiURLOrNil = [account valueForKey:@"icmt"];
-        if (kimaiServerURL == nil && kimaiURLOrNil != nil && [NSURL URLWithString:kimaiURLOrNil] != nil) {
-            kimaiServerURL = kimaiURLOrNil;
-        }
-        
-        username = [account valueForKey:@"acct"];
-        if (username == nil) {
-            NSLog(@"Could not get username from keychain!");
-        } else {
-            
-            password = [SSKeychain passwordForService:SERVICENAME account:username error:&error];
-            if (password == nil) {
-                NSLog(@"Could not get password from keychain!");
-            }
-            
-        }
-        
-    } else {
-        NSLog(@"No credentials in keychain!");
-    }
-    
-    if ((kimaiServerURL == nil || username == nil || password == nil) && failureHandler) {
-        failureHandler(error);
-    } else if (successHandler) {
-        successHandler(username, password, kimaiServerURL);
-    }
-    
-}
-
-
-- (void)storeKimaiServerURL:(NSString *)kimaiServerUrl username:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setValue:kimaiServerUrl forKey:@"KimaiServerURLKey"];
-    
-    NSError *error = nil;
-    if (([SSKeychain setPassword:password forService:SERVICENAME account:username error:&error] == NO || error != nil) && failureHandler) {
-        failureHandler(error);
-    } else if (successHandler) {
-        successHandler(nil);
-    }
-    
-}
-
 
 
 #pragma mark - Kimai
@@ -123,15 +65,15 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (void)initKimai {
     
-    [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
-
-        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
+    [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
+    
+        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:serviceURL]];
         self.kimai.delegate = self;
 
     } failure:^(NSError *error) {
-
-        [self showLoginView];
         
+        [self showLoginView];
+
     }];
     
 }
@@ -143,11 +85,29 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         return;
     }
     
+    [SVProgressHUD showWithStatus:@"Loading ..."];
+
     [self.kimai reloadAllContentWithSuccess:^(id response) {
+
+        [SVProgressHUD dismiss];
 
         [self.tableView reloadData];
 
     } failure:standardFailureHandler];
+    
+}
+
+
+- (void)stopAllActivities {
+    
+    [SVProgressHUD showWithStatus:@"Stopping task ..."];
+    
+    [self.kimai stopAllActivityRecordingsWithSuccess:^(id response) {
+        [self reloadData];
+    } failure:^(NSError *error) {
+        standardFailureHandler(error);
+        [self reloadData];
+    }];
     
 }
 
@@ -157,24 +117,29 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (void)reachabilityChanged:(NSNumber *)isServiceReachable {
     
-    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
+    NSString *status = (isServiceReachable.boolValue) ? @"ONLINE" : @"OFFLINE";
     
+    //[SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Kimai is %@", status]];
+
+    NSLog(@"Reachability changed to %@", status);
+    
+
     if (isServiceReachable.boolValue) {
         
         if (self.kimai.apiKey == nil) {
             
-            [self loadCredentialsWithSuccess:^(NSString *username, NSString *password, NSString *kimaiServerURL) {
+            [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
                 
                 [self.kimai authenticateWithUsername:username password:password success:^(id response) {
                     [self reloadData];
                 } failure:standardFailureHandler];
-                
+
             } failure:^(NSError *error) {
-
-                [self showLoginView];
                 
-            }];
+                [self showLoginView];
 
+            }];
+            
         } else {
             [self reloadData];
         }
@@ -205,28 +170,53 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (IBAction)loginClicked:(id)sender {
     
-    [self storeKimaiServerURL:self.kimaiServerURLTextField.text username:self.usernameTextField.text password:self.passwordTextField.text success:^(id response) {
-        
+    [SVProgressHUD showWithStatus:@"Logging in ..."];
+    
+    [BMCredentials storeServiceURL:self.kimaiServerURLTextField.text username:self.usernameTextField.text password:self.passwordTextField.text servicename:SERVICENAME success:^{
+
         [self initKimai];
         [self dismissLoginView];
-        
+
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
-    
+
+}
+
+- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
+    NSDate *now = [NSDate date];
+    NSString *activityTime = [BMTimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
+    return [NSString stringWithFormat:@"%@ (%@) %@", activity.projectName, activity.activityName, activityTime];
 }
 
 
-
 #pragma mark - Table view data source
-
+/*
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0: return @"Projects";
+    }
+    return @"";
+}
+*/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    int sections = 0;
+    
+    sections += (self.kimai.activeRecordings != nil && self.kimai.activeRecordings.count > 0);
+    sections += (self.kimai.projects != nil && self.kimai.projects.count > 0);
+    
+    return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
+    if (section == 0 && self.kimai.activeRecordings != nil && self.kimai.activeRecordings.count > 0) {
+        return 1;
+    }
+
     return self.kimai.projects.count;
 }
 
@@ -239,8 +229,21 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    KimaiProject *project = [self.kimai.projects objectAtIndex:indexPath.row];
-    cell.textLabel.text = project.name;
+    if (indexPath.section == 0 && self.kimai.activeRecordings != nil && self.kimai.activeRecordings.count > 0) {
+        
+        KimaiActiveRecording *record = [self.kimai.activeRecordings objectAtIndex:0];
+        cell.textLabel.text = [self statusBarTitleWithActivity:record];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.imageView.image = [UIImage imageNamed:@"kimai_stop_selected.png"];
+        
+    } else {
+        
+        KimaiProject *project = [self.kimai.projects objectAtIndex:indexPath.row];
+        cell.textLabel.text = project.name;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.imageView.image = nil;
+        
+    }
     
     return cell;
 }
@@ -288,9 +291,18 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    KimaiProject *project = [self.kimai.projects objectAtIndex:indexPath.row];
-    TasksViewController *detailViewController = [[TasksViewController alloc] initWithKimai:self.kimai project:project];
-    [self.navigationController pushViewController:detailViewController animated:YES];
+
+    if (indexPath.section == 0 && self.kimai.activeRecordings != nil && self.kimai.activeRecordings.count > 0) {
+        
+        [self stopAllActivities];
+        
+    } else {
+        
+        KimaiProject *project = [self.kimai.projects objectAtIndex:indexPath.row];
+        TasksViewController *detailViewController = [[TasksViewController alloc] initWithKimai:self.kimai project:project];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+
+    }
 }
 
 @end

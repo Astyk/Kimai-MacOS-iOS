@@ -1,16 +1,16 @@
 //
-//  TimeFormatter.m
-//  Kimai-MacOS
+//  BMTimeFormatter.m
+//  Kimai
 //
 //  Created by Vinzenz-Emanuel Weber on 11.11.12.
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "TimeFormatter.h"
+#import "BMTimeFormatter.h"
 
 
 
-@implementation TimeFormatter
+@implementation BMTimeFormatter
 
 
 + (NSString *)formatedDurationStringWithHours:(NSInteger)hours minutes:(NSInteger)minutes {
@@ -31,7 +31,7 @@
                                                                          toDate:toDate
                                                                         options:0];
     
-    return [TimeFormatter formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
+    return [BMTimeFormatter formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
 }
 
 
@@ -43,7 +43,7 @@
                                                                          toDate:[now dateByAddingTimeInterval:interval]
                                                                         options:0];
     
-    return [TimeFormatter formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
+    return [BMTimeFormatter formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
 }
 
 
@@ -57,7 +57,7 @@
     }
     
     NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:timeInterval sinceDate:now];
-    NSString *totalWorkingHoursToday = [TimeFormatter formatedDurationStringFromDate:now toDate:nowPlusDuration];
+    NSString *totalWorkingHoursToday = [BMTimeFormatter formatedDurationStringFromDate:now toDate:nowPlusDuration];
     
     return totalWorkingHoursToday;
 }

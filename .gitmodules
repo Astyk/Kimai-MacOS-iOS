@@ -19,3 +19,6 @@
 [submodule "iOS/sskeychain"]
 	path = iOS/sskeychain
 	url = https://github.com/soffes/sskeychain.git
+[submodule "iOS/SVProgressHUD"]
+	path = iOS/SVProgressHUD
+	url = https://github.com/samvermette/SVProgressHUD.git

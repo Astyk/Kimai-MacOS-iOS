@@ -22,6 +22,8 @@
         self.viewController = [[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
     }
 
+    self.viewController.title = @"Kimai";
+    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     
     self.window.rootViewController = self.navigationController;

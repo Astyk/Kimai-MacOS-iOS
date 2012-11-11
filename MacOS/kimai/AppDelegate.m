@@ -11,6 +11,7 @@
 #import "PFMoveApplication.h"
 #import "SSKeychain.h"
 #import "KimaiLocationManager.h"
+#import "TimeFormatter.h"
 
 @interface AppDelegate () {
     NSTimer *_updateUserInterfaceTimer;
@@ -204,7 +205,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         // ask what he did during the time
         //if (workspaceAsleepDuration > 60 * 10) {
             
-            NSString *durationString = [self formatedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
+            NSString *durationString = [TimeFormatter formatedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
             NSLog(@"SLEEP: User was gone for %@!", durationString);
             
         //}
@@ -239,7 +240,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         // ask what he did during the time
         //if (screensaverActivateDuration > 60 * 10) {
             
-            NSString *durationString = [self formatedDurationStringFromDate:screensaverStartedDate toDate:now];
+            NSString *durationString = [TimeFormatter formatedDurationStringFromDate:screensaverStartedDate toDate:now];
             NSLog(@"SCREENSAVER: User was gone for %@!", durationString);
 
         //}
@@ -551,58 +552,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - Time Formatting
-
-
-- (NSString *)formatedDurationStringWithHours:(NSInteger)hours minutes:(NSInteger)minutes {
-    
-    NSString *formatedTime = [NSString stringWithFormat:@"%lih %lim", hours, minutes];
-    if (hours == 0) {
-        formatedTime = [NSString stringWithFormat:@"%lim", minutes];
-    }
-    
-    return formatedTime;
-}
-
-
-- (NSString *)formatedDurationStringFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
-    
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit
-                                                                       fromDate:fromDate
-                                                                         toDate:toDate
-                                                                        options:0];
-    
-    return [self formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
-}
-
-
-- (NSString *)formatedDurationStringFromTimeInterval:(NSTimeInterval)interval {
-    
-    NSDate *now = [NSDate date];
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit
-                                                                       fromDate:now
-                                                                         toDate:[now dateByAddingTimeInterval:interval]
-                                                                        options:0];
-    
-    return [self formatedDurationStringWithHours:[dateComponents hour] minutes:[dateComponents minute]];
-}
-
-
-- (NSString *)formatedWorkingDuration:(NSTimeInterval)timeInterval withCurrentActivity:(KimaiActiveRecording *)activity {
-    
-    NSDate *now = [NSDate date];
-    
-    if (activity != nil) {
-        NSTimeInterval activityDuration = [now timeIntervalSinceDate:activity.startDate];
-        timeInterval += activityDuration;
-    }
-    
-    NSDate *nowPlusDuration = [NSDate dateWithTimeInterval:timeInterval sinceDate:now];
-    NSString *totalWorkingHoursToday = [self formatedDurationStringFromDate:now toDate:nowPlusDuration];
-    
-    return totalWorkingHoursToday;
-}
-
 
 #pragma mark - User Interface
 
@@ -741,7 +690,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     // recalculate total working duration
     NSNumber *totalWorkingHours = [timesheetRecords valueForKeyPath:@"@sum.duration"];
-    NSString *totalWorkingHoursString = [self formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
+    NSString *totalWorkingHoursString = [TimeFormatter formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
     
     NSMenuItem *titleMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", title, totalWorkingHoursString] action:nil keyEquivalent:@""];
     [titleMenuItem setEnabled:NO];
@@ -752,7 +701,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
         
-        NSString *activityTime = [self formatedDurationStringFromTimeInterval:record.duration.doubleValue];
+        NSString *activityTime = [TimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
         NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
         [menuItem setRepresentedObject:record];
@@ -803,7 +752,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 - (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
     NSDate *now = [NSDate date];
-    NSString *activityTime = [self formatedDurationStringFromDate:activity.startDate toDate:now];
+    NSString *activityTime = [TimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
     return [NSString stringWithFormat:@"%@ (%@) %@", activity.projectName, activity.activityName, activityTime];
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC262DC4165045D300E974AF /* TimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC3165045D300E974AF /* TimeFormatter.m */; };
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
 		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
@@ -77,6 +78,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC262DC2165045D300E974AF /* TimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatter.h; sourceTree = "<group>"; };
+		BC262DC3165045D300E974AF /* TimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatter.m; sourceTree = "<group>"; };
 		BC35792C162DC10600F1BFAE /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
 		BC35792D162DC10600F1BFAE /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
 		BC35792E162DC10600F1BFAE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
@@ -319,6 +322,8 @@
 				BC928F22162C3BA500685547 /* StatusBar */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
 				BC87F0F316314107001BDF87 /* ApplicationObserver */,
+				BC262DC2165045D300E974AF /* TimeFormatter.h */,
+				BC262DC3165045D300E974AF /* TimeFormatter.m */,
 			);
 			name = Kimai;
 			path = kimai;
@@ -531,6 +536,7 @@
 				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
 				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
 				BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */,
+				BC262DC4165045D300E974AF /* TimeFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

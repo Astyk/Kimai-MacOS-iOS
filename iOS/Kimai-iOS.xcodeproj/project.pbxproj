@@ -19,77 +19,22 @@
 		BC5A3F58164AF530003FCCD4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A3F57164AF530003FCCD4 /* ViewController.m */; };
 		BC5A3F5B164AF530003FCCD4 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */; };
 		BC5A3F5E164AF530003FCCD4 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */; };
-		BC5A4112164AF6C4003FCCD4 /* DOAutocompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40A0164AF6C4003FCCD4 /* DOAutocompleteTextField.m */; };
-		BC5A4113164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40A2164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.m */; };
-		BC5A4114164AF6C4003FCCD4 /* NSMutableArray+MoveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40A4164AF6C4003FCCD4 /* NSMutableArray+MoveObject.m */; };
-		BC5A4115164AF6C4003FCCD4 /* QAutoEntryElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40A6164AF6C4003FCCD4 /* QAutoEntryElement.m */; };
-		BC5A4116164AF6C4003FCCD4 /* QAutoEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40A8164AF6C4003FCCD4 /* QAutoEntryTableViewCell.m */; };
-		BC5A4117164AF6C4003FCCD4 /* QBadgeElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40AA164AF6C4003FCCD4 /* QBadgeElement.m */; };
-		BC5A4118164AF6C4003FCCD4 /* QBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40AC164AF6C4003FCCD4 /* QBadgeLabel.m */; };
-		BC5A4119164AF6C4003FCCD4 /* QBadgeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40AE164AF6C4003FCCD4 /* QBadgeTableCell.m */; };
-		BC5A411A164AF6C4003FCCD4 /* QBindingEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40B0164AF6C4003FCCD4 /* QBindingEvaluator.m */; };
-		BC5A411B164AF6C4003FCCD4 /* QBooleanElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40B2164AF6C4003FCCD4 /* QBooleanElement.m */; };
-		BC5A411C164AF6C4003FCCD4 /* QButtonElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40B4164AF6C4003FCCD4 /* QButtonElement.m */; };
-		BC5A411D164AF6C4003FCCD4 /* QDateEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40B6164AF6C4003FCCD4 /* QDateEntryTableViewCell.m */; };
-		BC5A411E164AF6C4003FCCD4 /* QDateTimeElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40B8164AF6C4003FCCD4 /* QDateTimeElement.m */; };
-		BC5A411F164AF6C4003FCCD4 /* QDateTimeInlineElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40BA164AF6C4003FCCD4 /* QDateTimeInlineElement.m */; };
-		BC5A4120164AF6C4003FCCD4 /* QDecimalElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40BC164AF6C4003FCCD4 /* QDecimalElement.m */; };
-		BC5A4121164AF6C4003FCCD4 /* QDecimalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40BE164AF6C4003FCCD4 /* QDecimalTableViewCell.m */; };
-		BC5A4122164AF6C4003FCCD4 /* QDynamicDataSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40C0164AF6C4003FCCD4 /* QDynamicDataSection.m */; };
-		BC5A4123164AF6C4003FCCD4 /* QElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40C2164AF6C4003FCCD4 /* QElement.m */; };
-		BC5A4124164AF6C4003FCCD4 /* QEmptyListElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40C4164AF6C4003FCCD4 /* QEmptyListElement.m */; };
-		BC5A4125164AF6C4003FCCD4 /* QEntryElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40C6164AF6C4003FCCD4 /* QEntryElement.m */; };
-		BC5A4126164AF6C4003FCCD4 /* QEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40C8164AF6C4003FCCD4 /* QEntryTableViewCell.m */; };
-		BC5A4127164AF6C4003FCCD4 /* QFloatElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40CA164AF6C4003FCCD4 /* QFloatElement.m */; };
-		BC5A4128164AF6C4003FCCD4 /* QLabelElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40CC164AF6C4003FCCD4 /* QLabelElement.m */; };
-		BC5A4129164AF6C4003FCCD4 /* QLoadingElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40CE164AF6C4003FCCD4 /* QLoadingElement.m */; };
-		BC5A412A164AF6C4003FCCD4 /* QMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40D0164AF6C4003FCCD4 /* QMapAnnotation.m */; };
-		BC5A412B164AF6C4003FCCD4 /* QMapElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40D2164AF6C4003FCCD4 /* QMapElement.m */; };
-		BC5A412C164AF6C4003FCCD4 /* QMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40D4164AF6C4003FCCD4 /* QMapViewController.m */; };
-		BC5A412D164AF6C4003FCCD4 /* QMultilineElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40D6164AF6C4003FCCD4 /* QMultilineElement.m */; };
-		BC5A412E164AF6C4003FCCD4 /* QMultilineTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40D8164AF6C4003FCCD4 /* QMultilineTextViewController.m */; };
-		BC5A412F164AF6C4003FCCD4 /* QPickerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40DA164AF6C4003FCCD4 /* QPickerElement.m */; };
-		BC5A4130164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40DC164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.m */; };
-		BC5A4131164AF6C4003FCCD4 /* QPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40DE164AF6C4003FCCD4 /* QPickerTableViewCell.m */; };
-		BC5A4132164AF6C4003FCCD4 /* QRadioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40E1164AF6C4003FCCD4 /* QRadioElement.m */; };
-		BC5A4133164AF6C4003FCCD4 /* QRadioItemElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40E3164AF6C4003FCCD4 /* QRadioItemElement.m */; };
-		BC5A4134164AF6C4003FCCD4 /* QRadioSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40E5164AF6C4003FCCD4 /* QRadioSection.m */; };
-		BC5A4135164AF6C4003FCCD4 /* QRootBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40E7164AF6C4003FCCD4 /* QRootBuilder.m */; };
-		BC5A4136164AF6C4003FCCD4 /* QRootElement+JsonBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40E9164AF6C4003FCCD4 /* QRootElement+JsonBuilder.m */; };
-		BC5A4137164AF6C4003FCCD4 /* QRootElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40EB164AF6C4003FCCD4 /* QRootElement.m */; };
-		BC5A4138164AF6C4003FCCD4 /* QSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40ED164AF6C4003FCCD4 /* QSection.m */; };
-		BC5A4139164AF6C4003FCCD4 /* QSegmentedElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40EF164AF6C4003FCCD4 /* QSegmentedElement.m */; };
-		BC5A413A164AF6C4003FCCD4 /* QSelectItemElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40F1164AF6C4003FCCD4 /* QSelectItemElement.m */; };
-		BC5A413B164AF6C4003FCCD4 /* QSelectSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40F3164AF6C4003FCCD4 /* QSelectSection.m */; };
-		BC5A413C164AF6C4003FCCD4 /* QSortingSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40F5164AF6C4003FCCD4 /* QSortingSection.m */; };
-		BC5A413D164AF6C4003FCCD4 /* QTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40F7164AF6C4003FCCD4 /* QTableViewCell.m */; };
-		BC5A413E164AF6C4003FCCD4 /* QTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40F9164AF6C4003FCCD4 /* QTextElement.m */; };
-		BC5A413F164AF6C4003FCCD4 /* QTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40FB164AF6C4003FCCD4 /* QTextField.m */; };
-		BC5A4140164AF6C4003FCCD4 /* QuickDialogController+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A40FE164AF6C4003FCCD4 /* QuickDialogController+Helpers.m */; };
-		BC5A4141164AF6C4003FCCD4 /* QuickDialogController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4100164AF6C4003FCCD4 /* QuickDialogController+Loading.m */; };
-		BC5A4142164AF6C4003FCCD4 /* QuickDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4102164AF6C4003FCCD4 /* QuickDialogController.m */; };
-		BC5A4143164AF6C4003FCCD4 /* QuickDialogDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4104164AF6C4003FCCD4 /* QuickDialogDataSource.m */; };
-		BC5A4144164AF6C4003FCCD4 /* QuickDialogTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4108164AF6C4003FCCD4 /* QuickDialogTableDelegate.m */; };
-		BC5A4145164AF6C4003FCCD4 /* QuickDialogTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A410A164AF6C4003FCCD4 /* QuickDialogTableView.m */; };
-		BC5A4146164AF6C4003FCCD4 /* QuickDialogWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A410C164AF6C4003FCCD4 /* QuickDialogWebController.m */; };
-		BC5A4147164AF6C4003FCCD4 /* QWebElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A410F164AF6C4003FCCD4 /* QWebElement.m */; };
-		BC5A4148164AF6C4003FCCD4 /* QWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4111164AF6C4003FCCD4 /* QWebViewController.m */; };
-		BC5A419D164AF6EF003FCCD4 /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A415F164AF6EF003FCCD4 /* DSJSONRPC.m */; };
-		BC5A419E164AF6EF003FCCD4 /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4161164AF6EF003FCCD4 /* DSJSONRPCError.m */; };
-		BC5A41A2164AF6EF003FCCD4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4168164AF6EF003FCCD4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BC5A41B1164AF6EF003FCCD4 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A418A164AF6EF003FCCD4 /* KSReachability.m */; };
-		BC5A41CC164AF726003FCCD4 /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41BF164AF726003FCCD4 /* Kimai.m */; };
-		BC5A41CD164AF726003FCCD4 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41C1164AF726003FCCD4 /* KimaiActiveRecording.m */; };
-		BC5A41CE164AF726003FCCD4 /* KimaiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41C3164AF726003FCCD4 /* KimaiObject.m */; };
-		BC5A41CF164AF726003FCCD4 /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41C5164AF726003FCCD4 /* KimaiProject.m */; };
-		BC5A41D0164AF726003FCCD4 /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41C7164AF726003FCCD4 /* KimaiTask.m */; };
-		BC5A41D1164AF726003FCCD4 /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41C9164AF726003FCCD4 /* KimaiTimesheetRecord.m */; };
-		BC5A41D2164AF726003FCCD4 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A41CB164AF726003FCCD4 /* KimaiUser.m */; };
 		BC5A41DC164AF82F003FCCD4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DB164AF82F003FCCD4 /* SystemConfiguration.framework */; };
 		BC5A41DE164AF846003FCCD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DD164AF846003FCCD4 /* MapKit.framework */; };
 		BC5A41E0164AF863003FCCD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DF164AF863003FCCD4 /* CoreLocation.framework */; };
 		BC5A41E2164AF8C4003FCCD4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41E1164AF8C4003FCCD4 /* Security.framework */; };
 		BC5A4227164AFA38003FCCD4 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4215164AFA38003FCCD4 /* SSKeychain.m */; };
+		BCC3B1071650012800317FCE /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FA1650012800317FCE /* Kimai.m */; };
+		BCC3B1081650012800317FCE /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */; };
+		BCC3B1091650012800317FCE /* KimaiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FE1650012800317FCE /* KimaiObject.m */; };
+		BCC3B10A1650012800317FCE /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1001650012800317FCE /* KimaiProject.m */; };
+		BCC3B10B1650012800317FCE /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1021650012800317FCE /* KimaiTask.m */; };
+		BCC3B10C1650012800317FCE /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */; };
+		BCC3B10D1650012800317FCE /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1061650012800317FCE /* KimaiUser.m */; };
+		BCC3B1171650013C00317FCE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1121650013C00317FCE /* DSJSONRPC.m */; };
+		BCC3B1181650013C00317FCE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1141650013C00317FCE /* DSJSONRPCError.m */; };
+		BCC3B1231650015900317FCE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1201650015900317FCE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BCC3B15A1650016700317FCE /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1451650016700317FCE /* KSReachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,151 +55,36 @@
 		BC5A3F57164AF530003FCCD4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BC5A3F5A164AF530003FCCD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		BC5A3F5D164AF530003FCCD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		BC5A409F164AF6C4003FCCD4 /* DOAutocompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOAutocompleteTextField.h; sourceTree = "<group>"; };
-		BC5A40A0164AF6C4003FCCD4 /* DOAutocompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOAutocompleteTextField.m; sourceTree = "<group>"; };
-		BC5A40A1164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+IMSExtensions.h"; sourceTree = "<group>"; };
-		BC5A40A2164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+IMSExtensions.m"; sourceTree = "<group>"; };
-		BC5A40A3164AF6C4003FCCD4 /* NSMutableArray+MoveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MoveObject.h"; sourceTree = "<group>"; };
-		BC5A40A4164AF6C4003FCCD4 /* NSMutableArray+MoveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+MoveObject.m"; sourceTree = "<group>"; };
-		BC5A40A5164AF6C4003FCCD4 /* QAutoEntryElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAutoEntryElement.h; sourceTree = "<group>"; };
-		BC5A40A6164AF6C4003FCCD4 /* QAutoEntryElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAutoEntryElement.m; sourceTree = "<group>"; };
-		BC5A40A7164AF6C4003FCCD4 /* QAutoEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAutoEntryTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40A8164AF6C4003FCCD4 /* QAutoEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAutoEntryTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40A9164AF6C4003FCCD4 /* QBadgeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeElement.h; sourceTree = "<group>"; };
-		BC5A40AA164AF6C4003FCCD4 /* QBadgeElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeElement.m; sourceTree = "<group>"; };
-		BC5A40AB164AF6C4003FCCD4 /* QBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeLabel.h; sourceTree = "<group>"; };
-		BC5A40AC164AF6C4003FCCD4 /* QBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeLabel.m; sourceTree = "<group>"; };
-		BC5A40AD164AF6C4003FCCD4 /* QBadgeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeTableCell.h; sourceTree = "<group>"; };
-		BC5A40AE164AF6C4003FCCD4 /* QBadgeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeTableCell.m; sourceTree = "<group>"; };
-		BC5A40AF164AF6C4003FCCD4 /* QBindingEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBindingEvaluator.h; sourceTree = "<group>"; };
-		BC5A40B0164AF6C4003FCCD4 /* QBindingEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBindingEvaluator.m; sourceTree = "<group>"; };
-		BC5A40B1164AF6C4003FCCD4 /* QBooleanElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBooleanElement.h; sourceTree = "<group>"; };
-		BC5A40B2164AF6C4003FCCD4 /* QBooleanElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBooleanElement.m; sourceTree = "<group>"; };
-		BC5A40B3164AF6C4003FCCD4 /* QButtonElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QButtonElement.h; sourceTree = "<group>"; };
-		BC5A40B4164AF6C4003FCCD4 /* QButtonElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QButtonElement.m; sourceTree = "<group>"; };
-		BC5A40B5164AF6C4003FCCD4 /* QDateEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateEntryTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40B6164AF6C4003FCCD4 /* QDateEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateEntryTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40B7164AF6C4003FCCD4 /* QDateTimeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateTimeElement.h; sourceTree = "<group>"; };
-		BC5A40B8164AF6C4003FCCD4 /* QDateTimeElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateTimeElement.m; sourceTree = "<group>"; };
-		BC5A40B9164AF6C4003FCCD4 /* QDateTimeInlineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateTimeInlineElement.h; sourceTree = "<group>"; };
-		BC5A40BA164AF6C4003FCCD4 /* QDateTimeInlineElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateTimeInlineElement.m; sourceTree = "<group>"; };
-		BC5A40BB164AF6C4003FCCD4 /* QDecimalElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDecimalElement.h; sourceTree = "<group>"; };
-		BC5A40BC164AF6C4003FCCD4 /* QDecimalElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDecimalElement.m; sourceTree = "<group>"; };
-		BC5A40BD164AF6C4003FCCD4 /* QDecimalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDecimalTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40BE164AF6C4003FCCD4 /* QDecimalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDecimalTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40BF164AF6C4003FCCD4 /* QDynamicDataSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDynamicDataSection.h; sourceTree = "<group>"; };
-		BC5A40C0164AF6C4003FCCD4 /* QDynamicDataSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDynamicDataSection.m; sourceTree = "<group>"; };
-		BC5A40C1164AF6C4003FCCD4 /* QElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QElement.h; sourceTree = "<group>"; };
-		BC5A40C2164AF6C4003FCCD4 /* QElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QElement.m; sourceTree = "<group>"; };
-		BC5A40C3164AF6C4003FCCD4 /* QEmptyListElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QEmptyListElement.h; sourceTree = "<group>"; };
-		BC5A40C4164AF6C4003FCCD4 /* QEmptyListElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QEmptyListElement.m; sourceTree = "<group>"; };
-		BC5A40C5164AF6C4003FCCD4 /* QEntryElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QEntryElement.h; sourceTree = "<group>"; };
-		BC5A40C6164AF6C4003FCCD4 /* QEntryElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QEntryElement.m; sourceTree = "<group>"; };
-		BC5A40C7164AF6C4003FCCD4 /* QEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QEntryTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40C8164AF6C4003FCCD4 /* QEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QEntryTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40C9164AF6C4003FCCD4 /* QFloatElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFloatElement.h; sourceTree = "<group>"; };
-		BC5A40CA164AF6C4003FCCD4 /* QFloatElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFloatElement.m; sourceTree = "<group>"; };
-		BC5A40CB164AF6C4003FCCD4 /* QLabelElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLabelElement.h; sourceTree = "<group>"; };
-		BC5A40CC164AF6C4003FCCD4 /* QLabelElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLabelElement.m; sourceTree = "<group>"; };
-		BC5A40CD164AF6C4003FCCD4 /* QLoadingElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLoadingElement.h; sourceTree = "<group>"; };
-		BC5A40CE164AF6C4003FCCD4 /* QLoadingElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLoadingElement.m; sourceTree = "<group>"; };
-		BC5A40CF164AF6C4003FCCD4 /* QMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapAnnotation.h; sourceTree = "<group>"; };
-		BC5A40D0164AF6C4003FCCD4 /* QMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapAnnotation.m; sourceTree = "<group>"; };
-		BC5A40D1164AF6C4003FCCD4 /* QMapElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapElement.h; sourceTree = "<group>"; };
-		BC5A40D2164AF6C4003FCCD4 /* QMapElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapElement.m; sourceTree = "<group>"; };
-		BC5A40D3164AF6C4003FCCD4 /* QMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapViewController.h; sourceTree = "<group>"; };
-		BC5A40D4164AF6C4003FCCD4 /* QMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapViewController.m; sourceTree = "<group>"; };
-		BC5A40D5164AF6C4003FCCD4 /* QMultilineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMultilineElement.h; sourceTree = "<group>"; };
-		BC5A40D6164AF6C4003FCCD4 /* QMultilineElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMultilineElement.m; sourceTree = "<group>"; };
-		BC5A40D7164AF6C4003FCCD4 /* QMultilineTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMultilineTextViewController.h; sourceTree = "<group>"; };
-		BC5A40D8164AF6C4003FCCD4 /* QMultilineTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMultilineTextViewController.m; sourceTree = "<group>"; };
-		BC5A40D9164AF6C4003FCCD4 /* QPickerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPickerElement.h; sourceTree = "<group>"; };
-		BC5A40DA164AF6C4003FCCD4 /* QPickerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPickerElement.m; sourceTree = "<group>"; };
-		BC5A40DB164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPickerTabDelimitedStringParser.h; sourceTree = "<group>"; };
-		BC5A40DC164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPickerTabDelimitedStringParser.m; sourceTree = "<group>"; };
-		BC5A40DD164AF6C4003FCCD4 /* QPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPickerTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40DE164AF6C4003FCCD4 /* QPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPickerTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40DF164AF6C4003FCCD4 /* QPickerValueParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPickerValueParser.h; sourceTree = "<group>"; };
-		BC5A40E0164AF6C4003FCCD4 /* QRadioElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioElement.h; sourceTree = "<group>"; };
-		BC5A40E1164AF6C4003FCCD4 /* QRadioElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioElement.m; sourceTree = "<group>"; };
-		BC5A40E2164AF6C4003FCCD4 /* QRadioItemElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioItemElement.h; sourceTree = "<group>"; };
-		BC5A40E3164AF6C4003FCCD4 /* QRadioItemElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioItemElement.m; sourceTree = "<group>"; };
-		BC5A40E4164AF6C4003FCCD4 /* QRadioSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioSection.h; sourceTree = "<group>"; };
-		BC5A40E5164AF6C4003FCCD4 /* QRadioSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioSection.m; sourceTree = "<group>"; };
-		BC5A40E6164AF6C4003FCCD4 /* QRootBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRootBuilder.h; sourceTree = "<group>"; };
-		BC5A40E7164AF6C4003FCCD4 /* QRootBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRootBuilder.m; sourceTree = "<group>"; };
-		BC5A40E8164AF6C4003FCCD4 /* QRootElement+JsonBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QRootElement+JsonBuilder.h"; sourceTree = "<group>"; };
-		BC5A40E9164AF6C4003FCCD4 /* QRootElement+JsonBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QRootElement+JsonBuilder.m"; sourceTree = "<group>"; };
-		BC5A40EA164AF6C4003FCCD4 /* QRootElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRootElement.h; sourceTree = "<group>"; };
-		BC5A40EB164AF6C4003FCCD4 /* QRootElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRootElement.m; sourceTree = "<group>"; };
-		BC5A40EC164AF6C4003FCCD4 /* QSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSection.h; sourceTree = "<group>"; };
-		BC5A40ED164AF6C4003FCCD4 /* QSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSection.m; sourceTree = "<group>"; };
-		BC5A40EE164AF6C4003FCCD4 /* QSegmentedElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSegmentedElement.h; sourceTree = "<group>"; };
-		BC5A40EF164AF6C4003FCCD4 /* QSegmentedElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSegmentedElement.m; sourceTree = "<group>"; };
-		BC5A40F0164AF6C4003FCCD4 /* QSelectItemElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSelectItemElement.h; sourceTree = "<group>"; };
-		BC5A40F1164AF6C4003FCCD4 /* QSelectItemElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSelectItemElement.m; sourceTree = "<group>"; };
-		BC5A40F2164AF6C4003FCCD4 /* QSelectSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSelectSection.h; sourceTree = "<group>"; };
-		BC5A40F3164AF6C4003FCCD4 /* QSelectSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSelectSection.m; sourceTree = "<group>"; };
-		BC5A40F4164AF6C4003FCCD4 /* QSortingSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSortingSection.h; sourceTree = "<group>"; };
-		BC5A40F5164AF6C4003FCCD4 /* QSortingSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSortingSection.m; sourceTree = "<group>"; };
-		BC5A40F6164AF6C4003FCCD4 /* QTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTableViewCell.h; sourceTree = "<group>"; };
-		BC5A40F7164AF6C4003FCCD4 /* QTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTableViewCell.m; sourceTree = "<group>"; };
-		BC5A40F8164AF6C4003FCCD4 /* QTextElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTextElement.h; sourceTree = "<group>"; };
-		BC5A40F9164AF6C4003FCCD4 /* QTextElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTextElement.m; sourceTree = "<group>"; };
-		BC5A40FA164AF6C4003FCCD4 /* QTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTextField.h; sourceTree = "<group>"; };
-		BC5A40FB164AF6C4003FCCD4 /* QTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTextField.m; sourceTree = "<group>"; };
-		BC5A40FC164AF6C4003FCCD4 /* QuickDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialog.h; sourceTree = "<group>"; };
-		BC5A40FD164AF6C4003FCCD4 /* QuickDialogController+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickDialogController+Helpers.h"; sourceTree = "<group>"; };
-		BC5A40FE164AF6C4003FCCD4 /* QuickDialogController+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QuickDialogController+Helpers.m"; sourceTree = "<group>"; };
-		BC5A40FF164AF6C4003FCCD4 /* QuickDialogController+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickDialogController+Loading.h"; sourceTree = "<group>"; };
-		BC5A4100164AF6C4003FCCD4 /* QuickDialogController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QuickDialogController+Loading.m"; sourceTree = "<group>"; };
-		BC5A4101164AF6C4003FCCD4 /* QuickDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogController.h; sourceTree = "<group>"; };
-		BC5A4102164AF6C4003FCCD4 /* QuickDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogController.m; sourceTree = "<group>"; };
-		BC5A4103164AF6C4003FCCD4 /* QuickDialogDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogDataSource.h; sourceTree = "<group>"; };
-		BC5A4104164AF6C4003FCCD4 /* QuickDialogDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogDataSource.m; sourceTree = "<group>"; };
-		BC5A4105164AF6C4003FCCD4 /* QuickDialogEntryElementDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogEntryElementDelegate.h; sourceTree = "<group>"; };
-		BC5A4106164AF6C4003FCCD4 /* QuickDialogStyleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogStyleProvider.h; sourceTree = "<group>"; };
-		BC5A4107164AF6C4003FCCD4 /* QuickDialogTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogTableDelegate.h; sourceTree = "<group>"; };
-		BC5A4108164AF6C4003FCCD4 /* QuickDialogTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogTableDelegate.m; sourceTree = "<group>"; };
-		BC5A4109164AF6C4003FCCD4 /* QuickDialogTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogTableView.h; sourceTree = "<group>"; };
-		BC5A410A164AF6C4003FCCD4 /* QuickDialogTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogTableView.m; sourceTree = "<group>"; };
-		BC5A410B164AF6C4003FCCD4 /* QuickDialogWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogWebController.h; sourceTree = "<group>"; };
-		BC5A410C164AF6C4003FCCD4 /* QuickDialogWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogWebController.m; sourceTree = "<group>"; };
-		BC5A410D164AF6C4003FCCD4 /* quickform-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "quickform-Prefix.pch"; sourceTree = "<group>"; };
-		BC5A410E164AF6C4003FCCD4 /* QWebElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebElement.h; sourceTree = "<group>"; };
-		BC5A410F164AF6C4003FCCD4 /* QWebElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebElement.m; sourceTree = "<group>"; };
-		BC5A4110164AF6C4003FCCD4 /* QWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebViewController.h; sourceTree = "<group>"; };
-		BC5A4111164AF6C4003FCCD4 /* QWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebViewController.m; sourceTree = "<group>"; };
-		BC5A415D164AF6EF003FCCD4 /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
-		BC5A415E164AF6EF003FCCD4 /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
-		BC5A415F164AF6EF003FCCD4 /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
-		BC5A4160164AF6EF003FCCD4 /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
-		BC5A4161164AF6EF003FCCD4 /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
-		BC5A4167164AF6EF003FCCD4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		BC5A4168164AF6EF003FCCD4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		BC5A416C164AF6EF003FCCD4 /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
-		BC5A4189164AF6EF003FCCD4 /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
-		BC5A418A164AF6EF003FCCD4 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
-		BC5A41BE164AF726003FCCD4 /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
-		BC5A41BF164AF726003FCCD4 /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
-		BC5A41C0164AF726003FCCD4 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
-		BC5A41C1164AF726003FCCD4 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
-		BC5A41C2164AF726003FCCD4 /* KimaiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiObject.h; sourceTree = "<group>"; };
-		BC5A41C3164AF726003FCCD4 /* KimaiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiObject.m; sourceTree = "<group>"; };
-		BC5A41C4164AF726003FCCD4 /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
-		BC5A41C5164AF726003FCCD4 /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
-		BC5A41C6164AF726003FCCD4 /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
-		BC5A41C7164AF726003FCCD4 /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
-		BC5A41C8164AF726003FCCD4 /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
-		BC5A41C9164AF726003FCCD4 /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
-		BC5A41CA164AF726003FCCD4 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
-		BC5A41CB164AF726003FCCD4 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
 		BC5A41DB164AF82F003FCCD4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC5A41DD164AF846003FCCD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BC5A41DF164AF863003FCCD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BC5A41E1164AF8C4003FCCD4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC5A4214164AFA38003FCCD4 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		BC5A4215164AFA38003FCCD4 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		BCC3B0F91650012800317FCE /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
+		BCC3B0FA1650012800317FCE /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
+		BCC3B0FB1650012800317FCE /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
+		BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
+		BCC3B0FD1650012800317FCE /* KimaiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiObject.h; sourceTree = "<group>"; };
+		BCC3B0FE1650012800317FCE /* KimaiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiObject.m; sourceTree = "<group>"; };
+		BCC3B0FF1650012800317FCE /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
+		BCC3B1001650012800317FCE /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
+		BCC3B1011650012800317FCE /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
+		BCC3B1021650012800317FCE /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
+		BCC3B1031650012800317FCE /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
+		BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
+		BCC3B1051650012800317FCE /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
+		BCC3B1061650012800317FCE /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
+		BCC3B1101650013C00317FCE /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
+		BCC3B1111650013C00317FCE /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
+		BCC3B1121650013C00317FCE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
+		BCC3B1131650013C00317FCE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
+		BCC3B1141650013C00317FCE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
+		BCC3B11F1650015900317FCE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		BCC3B1201650015900317FCE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		BCC3B1271650016700317FCE /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
+		BCC3B1441650016700317FCE /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
+		BCC3B1451650016700317FCE /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,11 +145,10 @@
 				BC5A3F57164AF530003FCCD4 /* ViewController.m */,
 				BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */,
 				BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */,
-				BC5A41BD164AF726003FCCD4 /* Kimai */,
-				BC5A415C164AF6EF003FCCD4 /* DSJSONRPC */,
-				BC5A4165164AF6EF003FCCD4 /* JSONKit */,
-				BC5A416A164AF6EF003FCCD4 /* KSReachability */,
-				BC5A409E164AF6C4003FCCD4 /* quickdialog */,
+				BCC3B0F81650012800317FCE /* Kimai */,
+				BCC3B10F1650013C00317FCE /* DSJSONRPC */,
+				BCC3B11D1650015900317FCE /* JSONKit */,
+				BCC3B1251650016700317FCE /* KSReachability */,
 				BC5A420E164AFA38003FCCD4 /* sskeychain */,
 				BC5A3F45164AF530003FCCD4 /* Supporting Files */,
 			);
@@ -340,185 +169,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BC5A409E164AF6C4003FCCD4 /* quickdialog */ = {
-			isa = PBXGroup;
-			children = (
-				BC5A409F164AF6C4003FCCD4 /* DOAutocompleteTextField.h */,
-				BC5A40A0164AF6C4003FCCD4 /* DOAutocompleteTextField.m */,
-				BC5A40A1164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.h */,
-				BC5A40A2164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.m */,
-				BC5A40A3164AF6C4003FCCD4 /* NSMutableArray+MoveObject.h */,
-				BC5A40A4164AF6C4003FCCD4 /* NSMutableArray+MoveObject.m */,
-				BC5A40A5164AF6C4003FCCD4 /* QAutoEntryElement.h */,
-				BC5A40A6164AF6C4003FCCD4 /* QAutoEntryElement.m */,
-				BC5A40A7164AF6C4003FCCD4 /* QAutoEntryTableViewCell.h */,
-				BC5A40A8164AF6C4003FCCD4 /* QAutoEntryTableViewCell.m */,
-				BC5A40A9164AF6C4003FCCD4 /* QBadgeElement.h */,
-				BC5A40AA164AF6C4003FCCD4 /* QBadgeElement.m */,
-				BC5A40AB164AF6C4003FCCD4 /* QBadgeLabel.h */,
-				BC5A40AC164AF6C4003FCCD4 /* QBadgeLabel.m */,
-				BC5A40AD164AF6C4003FCCD4 /* QBadgeTableCell.h */,
-				BC5A40AE164AF6C4003FCCD4 /* QBadgeTableCell.m */,
-				BC5A40AF164AF6C4003FCCD4 /* QBindingEvaluator.h */,
-				BC5A40B0164AF6C4003FCCD4 /* QBindingEvaluator.m */,
-				BC5A40B1164AF6C4003FCCD4 /* QBooleanElement.h */,
-				BC5A40B2164AF6C4003FCCD4 /* QBooleanElement.m */,
-				BC5A40B3164AF6C4003FCCD4 /* QButtonElement.h */,
-				BC5A40B4164AF6C4003FCCD4 /* QButtonElement.m */,
-				BC5A40B5164AF6C4003FCCD4 /* QDateEntryTableViewCell.h */,
-				BC5A40B6164AF6C4003FCCD4 /* QDateEntryTableViewCell.m */,
-				BC5A40B7164AF6C4003FCCD4 /* QDateTimeElement.h */,
-				BC5A40B8164AF6C4003FCCD4 /* QDateTimeElement.m */,
-				BC5A40B9164AF6C4003FCCD4 /* QDateTimeInlineElement.h */,
-				BC5A40BA164AF6C4003FCCD4 /* QDateTimeInlineElement.m */,
-				BC5A40BB164AF6C4003FCCD4 /* QDecimalElement.h */,
-				BC5A40BC164AF6C4003FCCD4 /* QDecimalElement.m */,
-				BC5A40BD164AF6C4003FCCD4 /* QDecimalTableViewCell.h */,
-				BC5A40BE164AF6C4003FCCD4 /* QDecimalTableViewCell.m */,
-				BC5A40BF164AF6C4003FCCD4 /* QDynamicDataSection.h */,
-				BC5A40C0164AF6C4003FCCD4 /* QDynamicDataSection.m */,
-				BC5A40C1164AF6C4003FCCD4 /* QElement.h */,
-				BC5A40C2164AF6C4003FCCD4 /* QElement.m */,
-				BC5A40C3164AF6C4003FCCD4 /* QEmptyListElement.h */,
-				BC5A40C4164AF6C4003FCCD4 /* QEmptyListElement.m */,
-				BC5A40C5164AF6C4003FCCD4 /* QEntryElement.h */,
-				BC5A40C6164AF6C4003FCCD4 /* QEntryElement.m */,
-				BC5A40C7164AF6C4003FCCD4 /* QEntryTableViewCell.h */,
-				BC5A40C8164AF6C4003FCCD4 /* QEntryTableViewCell.m */,
-				BC5A40C9164AF6C4003FCCD4 /* QFloatElement.h */,
-				BC5A40CA164AF6C4003FCCD4 /* QFloatElement.m */,
-				BC5A40CB164AF6C4003FCCD4 /* QLabelElement.h */,
-				BC5A40CC164AF6C4003FCCD4 /* QLabelElement.m */,
-				BC5A40CD164AF6C4003FCCD4 /* QLoadingElement.h */,
-				BC5A40CE164AF6C4003FCCD4 /* QLoadingElement.m */,
-				BC5A40CF164AF6C4003FCCD4 /* QMapAnnotation.h */,
-				BC5A40D0164AF6C4003FCCD4 /* QMapAnnotation.m */,
-				BC5A40D1164AF6C4003FCCD4 /* QMapElement.h */,
-				BC5A40D2164AF6C4003FCCD4 /* QMapElement.m */,
-				BC5A40D3164AF6C4003FCCD4 /* QMapViewController.h */,
-				BC5A40D4164AF6C4003FCCD4 /* QMapViewController.m */,
-				BC5A40D5164AF6C4003FCCD4 /* QMultilineElement.h */,
-				BC5A40D6164AF6C4003FCCD4 /* QMultilineElement.m */,
-				BC5A40D7164AF6C4003FCCD4 /* QMultilineTextViewController.h */,
-				BC5A40D8164AF6C4003FCCD4 /* QMultilineTextViewController.m */,
-				BC5A40D9164AF6C4003FCCD4 /* QPickerElement.h */,
-				BC5A40DA164AF6C4003FCCD4 /* QPickerElement.m */,
-				BC5A40DB164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.h */,
-				BC5A40DC164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.m */,
-				BC5A40DD164AF6C4003FCCD4 /* QPickerTableViewCell.h */,
-				BC5A40DE164AF6C4003FCCD4 /* QPickerTableViewCell.m */,
-				BC5A40DF164AF6C4003FCCD4 /* QPickerValueParser.h */,
-				BC5A40E0164AF6C4003FCCD4 /* QRadioElement.h */,
-				BC5A40E1164AF6C4003FCCD4 /* QRadioElement.m */,
-				BC5A40E2164AF6C4003FCCD4 /* QRadioItemElement.h */,
-				BC5A40E3164AF6C4003FCCD4 /* QRadioItemElement.m */,
-				BC5A40E4164AF6C4003FCCD4 /* QRadioSection.h */,
-				BC5A40E5164AF6C4003FCCD4 /* QRadioSection.m */,
-				BC5A40E6164AF6C4003FCCD4 /* QRootBuilder.h */,
-				BC5A40E7164AF6C4003FCCD4 /* QRootBuilder.m */,
-				BC5A40E8164AF6C4003FCCD4 /* QRootElement+JsonBuilder.h */,
-				BC5A40E9164AF6C4003FCCD4 /* QRootElement+JsonBuilder.m */,
-				BC5A40EA164AF6C4003FCCD4 /* QRootElement.h */,
-				BC5A40EB164AF6C4003FCCD4 /* QRootElement.m */,
-				BC5A40EC164AF6C4003FCCD4 /* QSection.h */,
-				BC5A40ED164AF6C4003FCCD4 /* QSection.m */,
-				BC5A40EE164AF6C4003FCCD4 /* QSegmentedElement.h */,
-				BC5A40EF164AF6C4003FCCD4 /* QSegmentedElement.m */,
-				BC5A40F0164AF6C4003FCCD4 /* QSelectItemElement.h */,
-				BC5A40F1164AF6C4003FCCD4 /* QSelectItemElement.m */,
-				BC5A40F2164AF6C4003FCCD4 /* QSelectSection.h */,
-				BC5A40F3164AF6C4003FCCD4 /* QSelectSection.m */,
-				BC5A40F4164AF6C4003FCCD4 /* QSortingSection.h */,
-				BC5A40F5164AF6C4003FCCD4 /* QSortingSection.m */,
-				BC5A40F6164AF6C4003FCCD4 /* QTableViewCell.h */,
-				BC5A40F7164AF6C4003FCCD4 /* QTableViewCell.m */,
-				BC5A40F8164AF6C4003FCCD4 /* QTextElement.h */,
-				BC5A40F9164AF6C4003FCCD4 /* QTextElement.m */,
-				BC5A40FA164AF6C4003FCCD4 /* QTextField.h */,
-				BC5A40FB164AF6C4003FCCD4 /* QTextField.m */,
-				BC5A40FC164AF6C4003FCCD4 /* QuickDialog.h */,
-				BC5A40FD164AF6C4003FCCD4 /* QuickDialogController+Helpers.h */,
-				BC5A40FE164AF6C4003FCCD4 /* QuickDialogController+Helpers.m */,
-				BC5A40FF164AF6C4003FCCD4 /* QuickDialogController+Loading.h */,
-				BC5A4100164AF6C4003FCCD4 /* QuickDialogController+Loading.m */,
-				BC5A4101164AF6C4003FCCD4 /* QuickDialogController.h */,
-				BC5A4102164AF6C4003FCCD4 /* QuickDialogController.m */,
-				BC5A4103164AF6C4003FCCD4 /* QuickDialogDataSource.h */,
-				BC5A4104164AF6C4003FCCD4 /* QuickDialogDataSource.m */,
-				BC5A4105164AF6C4003FCCD4 /* QuickDialogEntryElementDelegate.h */,
-				BC5A4106164AF6C4003FCCD4 /* QuickDialogStyleProvider.h */,
-				BC5A4107164AF6C4003FCCD4 /* QuickDialogTableDelegate.h */,
-				BC5A4108164AF6C4003FCCD4 /* QuickDialogTableDelegate.m */,
-				BC5A4109164AF6C4003FCCD4 /* QuickDialogTableView.h */,
-				BC5A410A164AF6C4003FCCD4 /* QuickDialogTableView.m */,
-				BC5A410B164AF6C4003FCCD4 /* QuickDialogWebController.h */,
-				BC5A410C164AF6C4003FCCD4 /* QuickDialogWebController.m */,
-				BC5A410D164AF6C4003FCCD4 /* quickform-Prefix.pch */,
-				BC5A410E164AF6C4003FCCD4 /* QWebElement.h */,
-				BC5A410F164AF6C4003FCCD4 /* QWebElement.m */,
-				BC5A4110164AF6C4003FCCD4 /* QWebViewController.h */,
-				BC5A4111164AF6C4003FCCD4 /* QWebViewController.m */,
-			);
-			name = quickdialog;
-			path = QuickDialog/quickdialog;
-			sourceTree = SOURCE_ROOT;
-		};
-		BC5A415C164AF6EF003FCCD4 /* DSJSONRPC */ = {
-			isa = PBXGroup;
-			children = (
-				BC5A415D164AF6EF003FCCD4 /* DSARCHelpers.h */,
-				BC5A415E164AF6EF003FCCD4 /* DSJSONRPC.h */,
-				BC5A415F164AF6EF003FCCD4 /* DSJSONRPC.m */,
-				BC5A4160164AF6EF003FCCD4 /* DSJSONRPCError.h */,
-				BC5A4161164AF6EF003FCCD4 /* DSJSONRPCError.m */,
-			);
-			name = DSJSONRPC;
-			path = "../../mac/Demiurgic-JSON-RPC/DSJSONRPC";
-			sourceTree = "<group>";
-		};
-		BC5A4165164AF6EF003FCCD4 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				BC5A4167164AF6EF003FCCD4 /* JSONKit.h */,
-				BC5A4168164AF6EF003FCCD4 /* JSONKit.m */,
-			);
-			name = JSONKit;
-			path = ../../mac/JSONKit;
-			sourceTree = "<group>";
-		};
-		BC5A416A164AF6EF003FCCD4 /* KSReachability */ = {
-			isa = PBXGroup;
-			children = (
-				BC5A416C164AF6EF003FCCD4 /* ARCSafe_MemMgmt.h */,
-				BC5A4189164AF6EF003FCCD4 /* KSReachability.h */,
-				BC5A418A164AF6EF003FCCD4 /* KSReachability.m */,
-			);
-			name = KSReachability;
-			path = ../../mac/KSReachability;
-			sourceTree = "<group>";
-		};
-		BC5A41BD164AF726003FCCD4 /* Kimai */ = {
-			isa = PBXGroup;
-			children = (
-				BC5A41BE164AF726003FCCD4 /* Kimai.h */,
-				BC5A41BF164AF726003FCCD4 /* Kimai.m */,
-				BC5A41C0164AF726003FCCD4 /* KimaiActiveRecording.h */,
-				BC5A41C1164AF726003FCCD4 /* KimaiActiveRecording.m */,
-				BC5A41C2164AF726003FCCD4 /* KimaiObject.h */,
-				BC5A41C3164AF726003FCCD4 /* KimaiObject.m */,
-				BC5A41C4164AF726003FCCD4 /* KimaiProject.h */,
-				BC5A41C5164AF726003FCCD4 /* KimaiProject.m */,
-				BC5A41C6164AF726003FCCD4 /* KimaiTask.h */,
-				BC5A41C7164AF726003FCCD4 /* KimaiTask.m */,
-				BC5A41C8164AF726003FCCD4 /* KimaiTimesheetRecord.h */,
-				BC5A41C9164AF726003FCCD4 /* KimaiTimesheetRecord.m */,
-				BC5A41CA164AF726003FCCD4 /* KimaiUser.h */,
-				BC5A41CB164AF726003FCCD4 /* KimaiUser.m */,
-			);
-			name = Kimai;
-			path = ../../mac/kimai/Kimai;
-			sourceTree = "<group>";
-		};
 		BC5A420E164AFA38003FCCD4 /* sskeychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +177,62 @@
 			);
 			path = sskeychain;
 			sourceTree = SOURCE_ROOT;
+		};
+		BCC3B0F81650012800317FCE /* Kimai */ = {
+			isa = PBXGroup;
+			children = (
+				BCC3B0F91650012800317FCE /* Kimai.h */,
+				BCC3B0FA1650012800317FCE /* Kimai.m */,
+				BCC3B0FB1650012800317FCE /* KimaiActiveRecording.h */,
+				BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */,
+				BCC3B0FD1650012800317FCE /* KimaiObject.h */,
+				BCC3B0FE1650012800317FCE /* KimaiObject.m */,
+				BCC3B0FF1650012800317FCE /* KimaiProject.h */,
+				BCC3B1001650012800317FCE /* KimaiProject.m */,
+				BCC3B1011650012800317FCE /* KimaiTask.h */,
+				BCC3B1021650012800317FCE /* KimaiTask.m */,
+				BCC3B1031650012800317FCE /* KimaiTimesheetRecord.h */,
+				BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */,
+				BCC3B1051650012800317FCE /* KimaiUser.h */,
+				BCC3B1061650012800317FCE /* KimaiUser.m */,
+			);
+			name = Kimai;
+			path = ../../MacOS/kimai/Kimai;
+			sourceTree = "<group>";
+		};
+		BCC3B10F1650013C00317FCE /* DSJSONRPC */ = {
+			isa = PBXGroup;
+			children = (
+				BCC3B1101650013C00317FCE /* DSARCHelpers.h */,
+				BCC3B1111650013C00317FCE /* DSJSONRPC.h */,
+				BCC3B1121650013C00317FCE /* DSJSONRPC.m */,
+				BCC3B1131650013C00317FCE /* DSJSONRPCError.h */,
+				BCC3B1141650013C00317FCE /* DSJSONRPCError.m */,
+			);
+			name = DSJSONRPC;
+			path = "../../MacOS/Demiurgic-JSON-RPC/DSJSONRPC";
+			sourceTree = "<group>";
+		};
+		BCC3B11D1650015900317FCE /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				BCC3B11F1650015900317FCE /* JSONKit.h */,
+				BCC3B1201650015900317FCE /* JSONKit.m */,
+			);
+			name = JSONKit;
+			path = ../../MacOS/JSONKit;
+			sourceTree = "<group>";
+		};
+		BCC3B1251650016700317FCE /* KSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				BCC3B1271650016700317FCE /* ARCSafe_MemMgmt.h */,
+				BCC3B1441650016700317FCE /* KSReachability.h */,
+				BCC3B1451650016700317FCE /* KSReachability.m */,
+			);
+			name = KSReachability;
+			path = ../../MacOS/KSReachability;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -598,73 +304,18 @@
 				BC5A3F4B164AF530003FCCD4 /* main.m in Sources */,
 				BC5A3F4F164AF530003FCCD4 /* AppDelegate.m in Sources */,
 				BC5A3F58164AF530003FCCD4 /* ViewController.m in Sources */,
-				BC5A4112164AF6C4003FCCD4 /* DOAutocompleteTextField.m in Sources */,
-				BC5A4113164AF6C4003FCCD4 /* NSMutableArray+IMSExtensions.m in Sources */,
-				BC5A4114164AF6C4003FCCD4 /* NSMutableArray+MoveObject.m in Sources */,
-				BC5A4115164AF6C4003FCCD4 /* QAutoEntryElement.m in Sources */,
-				BC5A4116164AF6C4003FCCD4 /* QAutoEntryTableViewCell.m in Sources */,
-				BC5A4117164AF6C4003FCCD4 /* QBadgeElement.m in Sources */,
-				BC5A4118164AF6C4003FCCD4 /* QBadgeLabel.m in Sources */,
-				BC5A4119164AF6C4003FCCD4 /* QBadgeTableCell.m in Sources */,
-				BC5A411A164AF6C4003FCCD4 /* QBindingEvaluator.m in Sources */,
-				BC5A411B164AF6C4003FCCD4 /* QBooleanElement.m in Sources */,
-				BC5A411C164AF6C4003FCCD4 /* QButtonElement.m in Sources */,
-				BC5A411D164AF6C4003FCCD4 /* QDateEntryTableViewCell.m in Sources */,
-				BC5A411E164AF6C4003FCCD4 /* QDateTimeElement.m in Sources */,
-				BC5A411F164AF6C4003FCCD4 /* QDateTimeInlineElement.m in Sources */,
-				BC5A4120164AF6C4003FCCD4 /* QDecimalElement.m in Sources */,
-				BC5A4121164AF6C4003FCCD4 /* QDecimalTableViewCell.m in Sources */,
-				BC5A4122164AF6C4003FCCD4 /* QDynamicDataSection.m in Sources */,
-				BC5A4123164AF6C4003FCCD4 /* QElement.m in Sources */,
-				BC5A4124164AF6C4003FCCD4 /* QEmptyListElement.m in Sources */,
-				BC5A4125164AF6C4003FCCD4 /* QEntryElement.m in Sources */,
-				BC5A4126164AF6C4003FCCD4 /* QEntryTableViewCell.m in Sources */,
-				BC5A4127164AF6C4003FCCD4 /* QFloatElement.m in Sources */,
-				BC5A4128164AF6C4003FCCD4 /* QLabelElement.m in Sources */,
-				BC5A4129164AF6C4003FCCD4 /* QLoadingElement.m in Sources */,
-				BC5A412A164AF6C4003FCCD4 /* QMapAnnotation.m in Sources */,
-				BC5A412B164AF6C4003FCCD4 /* QMapElement.m in Sources */,
-				BC5A412C164AF6C4003FCCD4 /* QMapViewController.m in Sources */,
-				BC5A412D164AF6C4003FCCD4 /* QMultilineElement.m in Sources */,
-				BC5A412E164AF6C4003FCCD4 /* QMultilineTextViewController.m in Sources */,
-				BC5A412F164AF6C4003FCCD4 /* QPickerElement.m in Sources */,
-				BC5A4130164AF6C4003FCCD4 /* QPickerTabDelimitedStringParser.m in Sources */,
-				BC5A4131164AF6C4003FCCD4 /* QPickerTableViewCell.m in Sources */,
-				BC5A4132164AF6C4003FCCD4 /* QRadioElement.m in Sources */,
-				BC5A4133164AF6C4003FCCD4 /* QRadioItemElement.m in Sources */,
-				BC5A4134164AF6C4003FCCD4 /* QRadioSection.m in Sources */,
-				BC5A4135164AF6C4003FCCD4 /* QRootBuilder.m in Sources */,
-				BC5A4136164AF6C4003FCCD4 /* QRootElement+JsonBuilder.m in Sources */,
-				BC5A4137164AF6C4003FCCD4 /* QRootElement.m in Sources */,
-				BC5A4138164AF6C4003FCCD4 /* QSection.m in Sources */,
-				BC5A4139164AF6C4003FCCD4 /* QSegmentedElement.m in Sources */,
-				BC5A413A164AF6C4003FCCD4 /* QSelectItemElement.m in Sources */,
-				BC5A413B164AF6C4003FCCD4 /* QSelectSection.m in Sources */,
-				BC5A413C164AF6C4003FCCD4 /* QSortingSection.m in Sources */,
-				BC5A413D164AF6C4003FCCD4 /* QTableViewCell.m in Sources */,
-				BC5A413E164AF6C4003FCCD4 /* QTextElement.m in Sources */,
-				BC5A413F164AF6C4003FCCD4 /* QTextField.m in Sources */,
-				BC5A4140164AF6C4003FCCD4 /* QuickDialogController+Helpers.m in Sources */,
-				BC5A4141164AF6C4003FCCD4 /* QuickDialogController+Loading.m in Sources */,
-				BC5A4142164AF6C4003FCCD4 /* QuickDialogController.m in Sources */,
-				BC5A4143164AF6C4003FCCD4 /* QuickDialogDataSource.m in Sources */,
-				BC5A4144164AF6C4003FCCD4 /* QuickDialogTableDelegate.m in Sources */,
-				BC5A4145164AF6C4003FCCD4 /* QuickDialogTableView.m in Sources */,
-				BC5A4146164AF6C4003FCCD4 /* QuickDialogWebController.m in Sources */,
-				BC5A4147164AF6C4003FCCD4 /* QWebElement.m in Sources */,
-				BC5A4148164AF6C4003FCCD4 /* QWebViewController.m in Sources */,
-				BC5A419D164AF6EF003FCCD4 /* DSJSONRPC.m in Sources */,
-				BC5A419E164AF6EF003FCCD4 /* DSJSONRPCError.m in Sources */,
-				BC5A41A2164AF6EF003FCCD4 /* JSONKit.m in Sources */,
-				BC5A41B1164AF6EF003FCCD4 /* KSReachability.m in Sources */,
-				BC5A41CC164AF726003FCCD4 /* Kimai.m in Sources */,
-				BC5A41CD164AF726003FCCD4 /* KimaiActiveRecording.m in Sources */,
-				BC5A41CE164AF726003FCCD4 /* KimaiObject.m in Sources */,
-				BC5A41CF164AF726003FCCD4 /* KimaiProject.m in Sources */,
-				BC5A41D0164AF726003FCCD4 /* KimaiTask.m in Sources */,
-				BC5A41D1164AF726003FCCD4 /* KimaiTimesheetRecord.m in Sources */,
-				BC5A41D2164AF726003FCCD4 /* KimaiUser.m in Sources */,
 				BC5A4227164AFA38003FCCD4 /* SSKeychain.m in Sources */,
+				BCC3B1071650012800317FCE /* Kimai.m in Sources */,
+				BCC3B1081650012800317FCE /* KimaiActiveRecording.m in Sources */,
+				BCC3B1091650012800317FCE /* KimaiObject.m in Sources */,
+				BCC3B10A1650012800317FCE /* KimaiProject.m in Sources */,
+				BCC3B10B1650012800317FCE /* KimaiTask.m in Sources */,
+				BCC3B10C1650012800317FCE /* KimaiTimesheetRecord.m in Sources */,
+				BCC3B10D1650012800317FCE /* KimaiUser.m in Sources */,
+				BCC3B1171650013C00317FCE /* DSJSONRPC.m in Sources */,
+				BCC3B1181650013C00317FCE /* DSJSONRPCError.m in Sources */,
+				BCC3B1231650015900317FCE /* JSONKit.m in Sources */,
+				BCC3B15A1650016700317FCE /* KSReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

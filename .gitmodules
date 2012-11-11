@@ -16,9 +16,6 @@
 [submodule "mac/StartAtLoginController"]
 	path = mac/StartAtLoginController
 	url = https://github.com/alexzielenski/StartAtLoginController.git
-[submodule "iOS/QuickDialog"]
-	path = iOS/QuickDialog
-	url = https://github.com/escoz/QuickDialog.git
 [submodule "iOS/sskeychain"]
 	path = iOS/sskeychain
 	url = https://github.com/soffes/sskeychain.git

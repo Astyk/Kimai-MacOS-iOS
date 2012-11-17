@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */; };
+		BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */; };
+		BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */; };
+		BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */; };
+		BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931601658118E00E1B87F /* kimai_play_deactivated.png */; };
+		BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931611658118E00E1B87F /* kimai_play_selected.png */; };
+		BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931621658118E00E1B87F /* kimai_play_unselected.png */; };
+		BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931631658118E00E1B87F /* kimai_stop_selected.png */; };
+		BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931641658118E00E1B87F /* kimai_stop_unselected.png */; };
+		BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */; };
 		BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC3165045D300E974AF /* BMTimeFormatter.m */; };
 		BC262DC8165048D500E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC7165048D500E974AF /* BMCredentials.m */; };
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
@@ -80,6 +91,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC09312416580A7200E1B87F /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
+		BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPreferencesView.xib; sourceTree = "<group>"; };
+		BC09314916580B2900E1B87F /* AccountPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPreferencesViewController.m; sourceTree = "<group>"; };
+		BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
+		BC0931601658118E00E1B87F /* kimai_play_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_deactivated.png; sourceTree = "<group>"; };
+		BC0931611658118E00E1B87F /* kimai_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_selected.png; sourceTree = "<group>"; };
+		BC0931621658118E00E1B87F /* kimai_play_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_unselected.png; sourceTree = "<group>"; };
+		BC0931631658118E00E1B87F /* kimai_stop_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_selected.png; sourceTree = "<group>"; };
+		BC0931641658118E00E1B87F /* kimai_stop_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_unselected.png; sourceTree = "<group>"; };
+		BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		BC262DC2165045D300E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTimeFormatter.h; sourceTree = "<group>"; };
 		BC262DC3165045D300E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTimeFormatter.m; sourceTree = "<group>"; };
 		BC262DC6165048D500E974AF /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCredentials.h; sourceTree = "<group>"; };
@@ -191,6 +217,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC09312216580A7200E1B87F /* MASPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				BC09315E16580B3C00E1B87F /* General */,
+				BC09315D16580B3400E1B87F /* Account */,
+				BC09312416580A7200E1B87F /* MASPreferencesViewController.h */,
+				BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */,
+				BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */,
+				BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */,
+			);
+			path = MASPreferences;
+			sourceTree = SOURCE_ROOT;
+		};
+		BC09315D16580B3400E1B87F /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				BC09314916580B2900E1B87F /* AccountPreferencesViewController.h */,
+				BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */,
+				BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */,
+			);
+			name = Account;
+			path = ../Preferences;
+			sourceTree = "<group>";
+		};
+		BC09315E16580B3C00E1B87F /* General */ = {
+			isa = PBXGroup;
+			children = (
+				BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */,
+				BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */,
+				BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */,
+			);
+			name = General;
+			path = ../Preferences;
+			sourceTree = "<group>";
+		};
+		BC09315F1658118E00E1B87F /* kimai_icons */ = {
+			isa = PBXGroup;
+			children = (
+				BC0931601658118E00E1B87F /* kimai_play_deactivated.png */,
+				BC0931611658118E00E1B87F /* kimai_play_selected.png */,
+				BC0931621658118E00E1B87F /* kimai_play_unselected.png */,
+				BC0931631658118E00E1B87F /* kimai_stop_selected.png */,
+				BC0931641658118E00E1B87F /* kimai_stop_unselected.png */,
+			);
+			name = kimai_icons;
+			path = ../../graphics/kimai_icons;
+			sourceTree = "<group>";
+		};
 		BC35792B162DC10600F1BFAE /* DSJSONRPC */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,12 +402,14 @@
 				BC9815CF162F1B7B00886EBC /* Kimai */,
 				BC87F10316396842001BDF87 /* Location */,
 				BC928F22162C3BA500685547 /* StatusBar */,
-				BC928EEA162C3A8200685547 /* Supporting Files */,
 				BC87F0F316314107001BDF87 /* ApplicationObserver */,
+				BC09312216580A7200E1B87F /* MASPreferences */,
+				BC09315F1658118E00E1B87F /* kimai_icons */,
 				BC262DC2165045D300E974AF /* BMTimeFormatter.h */,
 				BC262DC3165045D300E974AF /* BMTimeFormatter.m */,
 				BC262DC6165048D500E974AF /* BMCredentials.h */,
 				BC262DC7165048D500E974AF /* BMCredentials.m */,
+				BC928EEA162C3A8200685547 /* Supporting Files */,
 			);
 			name = Kimai;
 			path = kimai;
@@ -506,6 +582,14 @@
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
 				BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */,
 				BC6F4F9E164123BF000ACD96 /* dsa_pub.pem in Resources */,
+				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
+				BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */,
+				BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */,
+				BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */,
+				BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */,
+				BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */,
+				BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */,
+				BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +633,9 @@
 				BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */,
 				BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */,
 				BC262DC8165048D500E974AF /* BMCredentials.m in Sources */,
+				BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */,
+				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
+				BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

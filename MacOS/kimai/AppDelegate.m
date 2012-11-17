@@ -14,6 +14,9 @@
 #import "TransparentWindow.h"
 #import "BMTimeFormatter.h"
 #import "BMCredentials.h"
+#import "MASPreferencesWindowController.h"
+#import "GeneralPreferencesViewController.h"
+#import "AccountPreferencesViewController.h"
 
 
 @interface AppDelegate () {
@@ -34,7 +37,6 @@
 
 @implementation AppDelegate
 
-static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 
@@ -650,36 +652,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-- (IBAction)storePreferences:(id)sender {
-    
-    if (self.window.isVisible) {
-        
-        NSString *kimaiServerURL = [self.kimaiURLTextField stringValue];
-        NSString *username = [self.usernameTextField stringValue];
-        NSString *password = [self.passwordTextField stringValue];
-        
-        if (kimaiServerURL.length == 0 ||
-            username.length == 0 ||
-            password.length == 0) {
-            return;
-        }
-        
-        
-#ifndef DEBUG
-        [BMCredentials storeServiceURL:kimaiServerURL username:username password:password servicename:SERVICENAME success:^{
-            [self hidePreferences];
-            [self initKimai];
-        } failure:^(NSError *error) {
-            [self showAlertSheetWithError:error];
-            [self reloadMenu];
-        }];
-#endif
-        
-    }
-    
-}
-
-
 - (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
     NSDate *now = [NSDate date];
     NSString *activityTime = [BMTimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
@@ -777,22 +749,48 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 	}
 }
 
+#pragma mark - Preferences
 
-#pragma mark - NSWindow
+- (NSWindowController *)preferencesWindowController
+{
+    if (_preferencesWindowController == nil)
+    {
+        NSViewController *generalViewController = [[GeneralPreferencesViewController alloc] init];
+        NSViewController *advancedViewController = [[AccountPreferencesViewController alloc] init];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, nil];
+        
+        // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
+        //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
+                
+        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+    }
+    return _preferencesWindowController;
+}
 
 
 - (void)hidePreferences {
+    
+    [self.preferencesWindowController close];
+/*
     if ([self.window isVisible]) {
         [self.window orderOut:self];
     }
+ */
 }
 
 
 - (void)showPreferences {
+    
+    [self.preferencesWindowController showWindow:nil];
+
+    /*
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
+     */
 }
+
 
 
 #pragma mark - NSTimer
@@ -805,7 +803,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
                                                       selector:@selector(reloadData)
                                                       userInfo:nil
                                                        repeats:YES];
-
+    
+    [[NSRunLoop mainRunLoop] addTimer:_reloadDataTimer forMode:NSRunLoopCommonModes];
 }
 
 

@@ -12,14 +12,20 @@
 #import "Kimai.h"
 
 
+static NSString *SERVICENAME = @"org.kimai.timetracker";
+
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
+    NSWindowController *_preferencesWindowController;
 }
+
 
 @property (nonatomic, strong) KSReachability* reachability;
 
 @property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 
 @property (weak) IBOutlet NSTextField *kimaiURLTextField;
 @property (weak) IBOutlet NSTextField *usernameTextField;
@@ -28,6 +34,10 @@
 
 @property (strong) Kimai *kimai;
 
-- (IBAction)storePreferences:(id)sender;
+- (void)initKimai;
+- (void)reloadMenu;
+- (void)hidePreferences;
+- (void)showAlertSheetWithError:(NSError *)error;
+
 
 @end

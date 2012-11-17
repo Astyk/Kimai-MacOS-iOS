@@ -117,7 +117,7 @@
 
 
 /**
- * Today morning at 00:00
+ * Today morning at 00:00 - NOW
  */
 - (NSDate *)today {
     NSCalendar *cal = [NSCalendar currentCalendar];
@@ -128,7 +128,7 @@
 
 
 /**
- * Yesterday morning at 00:00
+ * Yesterday morning at 00:00 - 24:00
  */
 - (NSDate *)yesterday {
     NSCalendar *cal = [NSCalendar currentCalendar];

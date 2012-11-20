@@ -21,18 +21,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     NSWindowController *_preferencesWindowController;
 }
 
-
+@property (strong) Kimai *kimai;
 @property (nonatomic, strong) KSReachability* reachability;
+@property (strong) NSMutableArray *pastDaysTimesheetRecordsArray;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
-
-@property (weak) IBOutlet NSTextField *kimaiURLTextField;
-@property (weak) IBOutlet NSTextField *usernameTextField;
-@property (weak) IBOutlet NSSecureTextField *passwordTextField;
-@property (weak) IBOutlet NSButton *loginCheckButton;
-
-@property (strong) Kimai *kimai;
 
 - (void)initKimai;
 - (void)reloadMenu;

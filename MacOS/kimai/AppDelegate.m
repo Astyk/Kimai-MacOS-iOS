@@ -76,6 +76,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    //[self reloadMostUsedProjectsAndTasksWithSuccess:nil failure:nil];
+    
+    
     
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
@@ -284,10 +287,6 @@
     
     [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
         
-        [self.kimaiURLTextField setStringValue:serviceURL];
-        [self.usernameTextField setStringValue:username];
-        [self.passwordTextField setStringValue:password];
-        
         self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:serviceURL]];
         self.kimai.delegate = self;
         
@@ -372,10 +371,63 @@
 }
 
 
+
 - (void)reloadMostUsedProjectsAndTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
-    NSDate *endDate = [NSDate date];
-    NSDate *startDate = [endDate dateByAddingTimeInterval:-60*60*24*7]; // last 7 days or 100 records
+    
+    
+    /*
+     self.pastDaysTimesheetRecordsArray = [NSMutableArray arrayWithCapacity:5];
+     
+     NSDateFormatter *weekdayDateFormatter = [[NSDateFormatter alloc] init];
+     [weekdayDateFormatter setDateFormat: @"EEEE"];
+     
+     NSCalendar *cal = [NSCalendar currentCalendar];
+     NSDateComponents *calComponents = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSTimeZoneCalendarUnit)
+     fromDate:[NSDate date]];
+     NSDate *today = [cal dateFromComponents:calComponents];
+     
+     
+     NSInteger days = 0;
+     while (days < 5) {
+     
+     NSMutableDictionary *timeSheetDictionary = [NSMutableDictionary dictionary];
+     
+     NSDateComponents *components = [[NSDateComponents alloc] init];
+     [components setDay:-days];
+     
+     NSDate *day = [cal dateByAddingComponents:components toDate:today options:0];
+     [timeSheetDictionary setObject:[weekdayDateFormatter stringFromDate:day] forKey:@"title"];
+     [timeSheetDictionary setObject:day forKey:@"startDate"];
+     [timeSheetDictionary setObject:[day dateByAddingTimeInterval:60*60*24] forKey:@"endDate"];
+     [self.pastDaysTimesheetRecordsArray addObject:timeSheetDictionary];
+     
+     days++;
+     }
+     
+     
+     NSLog(@"%@", self.pastDaysTimesheetRecordsArray);
+     */
+    
+    
+    NSDate *now = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    [cal setFirstWeekday:2]; // 1 == Sunday, 2 == Monday, 7 == Saturday
+    
+    NSDateComponents *nowComponents = [cal components:(NSYearCalendarUnit | NSWeekOfYearCalendarUnit | NSTimeZoneCalendarUnit) fromDate:now];
+    
+    NSDateComponents *lastWeekMondayComponents = [[NSDateComponents alloc] init];
+    [lastWeekMondayComponents setTimeZone:nowComponents.timeZone];
+    [lastWeekMondayComponents setYear:nowComponents.year];
+    [lastWeekMondayComponents setWeekOfYear:nowComponents.weekOfYear-1];
+    [lastWeekMondayComponents setWeekday:2];
+    NSDate *startDate = [cal dateFromComponents:lastWeekMondayComponents];
+    
+    NSDateComponents *sevenDaysComponents = [[NSDateComponents alloc] init];
+    [sevenDaysComponents setDay:+7];    
+    NSDate *endDate = [cal dateByAddingComponents:sevenDaysComponents toDate:startDate options:1];
+
+    NSLog(@"%@ - %@", startDate, endDate);
     
     [self.kimai getTimesheetWithStartDate:startDate
                                   endDate:endDate
@@ -389,7 +441,7 @@
                                       
                                   }
                                   failure:failureHandler];
-    
+
 }
 
 
@@ -527,9 +579,9 @@
                          currentActivity:nil];
     
     
-    // TOTAL WORKING HOURS LAST 7 DAYS
+    // TOTAL WORKING HOURS LAST WEEK Mon-Sun
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Week"
+                                   title:@"Last Week"
                         timesheetRecords:_timesheetRecordsForLastSevenDays
                          currentActivity:nil];
 

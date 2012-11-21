@@ -27,6 +27,11 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
+@property (weak) IBOutlet NSView *timeTrackerQueryView;
+@property (weak) IBOutlet NSPopUpButton *pastPopupButton;
+@property (weak) IBOutlet NSPopUpButton *presentPopupButton;
+@property (weak) IBOutlet NSPopUpButton *futurePopupButton;
+
 
 - (void)initKimai;
 - (void)reloadMenu;
@@ -34,5 +39,4 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)showAlertSheetWithError:(NSError *)error;
 
 - (IBAction)timeTrackWindowOKClicked:(id)sender;
-
 @end

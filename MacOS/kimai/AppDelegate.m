@@ -289,6 +289,16 @@
 
 - (void)showTimeTrackerWindowWithLeaveDate:(NSDate *)leaveDate {
     
+    
+    NSDate *now = [NSDate date];
+    NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
+    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+    
+    self.pastPopupButton.menu = [self projectsMenuWithAction:nil];
+    self.presentPopupButton.menu = [self projectsMenuWithAction:nil];
+    self.futurePopupButton.menu = [self projectsMenuWithAction:nil];
+
+    
 	NSArray *screens = [NSScreen screens];
     self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
     
@@ -300,18 +310,22 @@
         CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
         
         TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:screen];
+        
+        if (i == 0) {
+            [transparentWindow addChildWindow:self.window ordered:NSWindowAbove];
+        }
+        
         [self.transparentWindowArray addObject:transparentWindow];
         [transparentWindow makeKeyAndOrderFront:self];
         transparentWindow.canHide = NO;
 	}
 
-    NSDate *now = [NSDate date];
-    NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
-    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+    
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
+
     
-    //[NSApp activateIgnoringOtherApps:YES];
+    [NSApp activateIgnoringOtherApps:YES];
 
 }
 
@@ -558,6 +572,36 @@
 #pragma mark - User Interface
 
 
+- (NSMenu *)projectsMenuWithAction:(SEL)aSelector {
+    
+    // TASKS
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    for (KimaiTask *task in self.kimai.tasks) {
+        if ([task.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:aSelector keyEquivalent:@""];
+            [menuItem setRepresentedObject:task];
+            [menuItem setEnabled:YES];
+            [tasksMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // PROJECTS
+    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
+    for (KimaiProject *project in self.kimai.projects) {
+        if ([project.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
+            [menuItem setRepresentedObject:project];
+            [menuItem setEnabled:YES];
+            [menuItem setSubmenu:[tasksMenu copy]];
+            [projectsMenu addItem:menuItem];
+        }
+    }
+    
+    return projectsMenu;
+}
+
+
 - (void)reloadMenu {
     
     NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
@@ -604,36 +648,10 @@
                         timesheetRecords:_timesheetRecordsForLastSevenDays
                          currentActivity:nil];
 
-    
-    
-    // TASKS
-    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
-    for (KimaiTask *task in self.kimai.tasks) {
-        if ([task.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
-            [menuItem setRepresentedObject:task];
-            [menuItem setEnabled:YES];
-            [tasksMenu addItem:menuItem];
-        }
-    }
-    
-    
-    // PROJECTS
-    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
-    for (KimaiProject *project in self.kimai.projects) {
-        if ([project.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
-            [menuItem setRepresentedObject:project];
-            [menuItem setEnabled:YES];
-            [menuItem setSubmenu:[tasksMenu copy]];
-            [projectsMenu addItem:menuItem];
-        }
-    }
-    
-    
+
     // ALL PROJECTS
     NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:@selector(clickedMenuItem:) keyEquivalent:@""];
-    [allProjectsMenuItem setSubmenu:projectsMenu];
+    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(clickedMenuItem:)]];
     [kimaiMenu addItem:allProjectsMenuItem];
     
     
@@ -691,12 +709,13 @@
 
 - (void)addMenuItemTaskHistoryWithMenu:(NSMenu *)menu title:(NSString *)title timesheetRecords:(NSArray *)timesheetRecords currentActivity:(KimaiActiveRecording *)activity {
     
-    if (timesheetRecords == nil || timesheetRecords.count == 0) {
+    if (timesheetRecords == nil) {
         return;
     }
     
+    
     // recalculate total working duration
-    NSNumber *totalWorkingHours = [timesheetRecords valueForKeyPath:@"@sum.duration"];
+    NSNumber *totalWorkingHours = (timesheetRecords.count == 0) ? 0 :[timesheetRecords valueForKeyPath:@"@sum.duration"];
     NSString *totalWorkingHoursString = [BMTimeFormatter formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
     
     NSMenuItem *titleMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", title, totalWorkingHoursString] action:nil keyEquivalent:@""];
@@ -704,18 +723,23 @@
     [menu addItem:titleMenuItem];
     
     
-    NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:timesheetRecords maxTimesheetRecords:7];
-    
-    for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
+    if (timesheetRecords.count != 0) {
         
-        NSString *activityTime = [BMTimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
-        NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
-        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
-        [menuItem setRepresentedObject:record];
-        [menuItem setEnabled:YES];
-        [menu addItem:menuItem];
+        NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:timesheetRecords maxTimesheetRecords:7];
+        
+        for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
+            
+            NSString *activityTime = [BMTimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
+            NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
+            [menuItem setRepresentedObject:record];
+            [menuItem setEnabled:YES];
+            [menu addItem:menuItem];
+            
+        }
         
     }
+
     
     /////////////////////////////////////////////////////////////////////////////////
     [menu addItem:[NSMenuItem separatorItem]];

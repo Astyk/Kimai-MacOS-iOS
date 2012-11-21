@@ -33,5 +33,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)hidePreferences;
 - (void)showAlertSheetWithError:(NSError *)error;
 
+- (IBAction)timeTrackWindowOKClicked:(id)sender;
 
 @end

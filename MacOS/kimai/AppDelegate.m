@@ -29,7 +29,7 @@
 }
 
 
-@property (strong) TransparentWindow *transparentWindow;
+@property (strong) NSMutableArray *transparentWindowArray;
 
 @end
 
@@ -46,7 +46,7 @@
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     
     [self hidePreferences];
-
+    [self hideTimeTrackerWindow];
     
 #ifndef DEBUG
     // Offer to the move the Application if necessary.
@@ -78,7 +78,7 @@
 {
     //[self reloadMostUsedProjectsAndTasksWithSuccess:nil failure:nil];
     
-    
+    //[self _showTimeTrackerWindow];
     
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
@@ -206,16 +206,13 @@
     NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
     if (workspaceFellAsleepDate != nil) {
         
-        NSDate *now = [NSDate date];
+        //NSDate *now = [NSDate date];
         //NSTimeInterval workspaceAsleepDuration = [workspaceFellAsleepDate timeIntervalSinceDate:now];
         
-        // if the user left his Mac for more than 10 minutes
+        // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
-        //if (workspaceAsleepDuration > 60 * 10) {
-            
-            NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:workspaceFellAsleepDate toDate:now];
-            NSLog(@"SLEEP: User was gone for %@!", durationString);
-            
+        //if (workspaceAsleepDuration > 60 * 5) {
+            [self showTimeTrackerWindowWithLeaveDate:workspaceFellAsleepDate];
         //}
     }
 
@@ -241,16 +238,13 @@
     NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
     if (screensaverStartedDate != nil) {
         
-        NSDate *now = [NSDate date];
+        //NSDate *now = [NSDate date];
         //NSTimeInterval screensaverActivateDuration = [screensaverStartedDate timeIntervalSinceDate:now];
         
-        // if the user left his Mac for more than 10 minutes
+        // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
-        //if (screensaverActivateDuration > 60 * 10) {
-            
-            NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:screensaverStartedDate toDate:now];
-            NSLog(@"SCREENSAVER: User was gone for %@!", durationString);
-
+        //if (screensaverActivateDuration > 60 * 5) {
+            [self showTimeTrackerWindowWithLeaveDate:screensaverStartedDate];
         //}
     }
     
@@ -264,6 +258,66 @@
 
 - (void)screenUnlocked:(NSNotification *)notification {
     NSLog(@"screenUnlocked");
+}
+
+
+#pragma mark - Time Tracker Window
+
+
+- (void)hideTimeTrackerWindow {
+    
+    if ([self.window isVisible]) {
+        [self.window orderOut:self];
+    }
+    
+    for (TransparentWindow *window in self.transparentWindowArray) {
+        if ([window isVisible]) {
+            [window orderOut:self];
+        }
+    }
+    
+    [self.transparentWindowArray removeAllObjects];
+    self.transparentWindowArray = nil;
+    
+}
+
+
+- (void)_showTimeTrackerWindow {
+    [self showTimeTrackerWindowWithLeaveDate:[NSDate dateWithTimeInterval:-60*35 sinceDate:[NSDate date]]];
+}
+
+
+- (void)showTimeTrackerWindowWithLeaveDate:(NSDate *)leaveDate {
+    
+	NSArray *screens = [NSScreen screens];
+    self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
+    
+	for (int i = 0; i < [screens count]; i++) {
+        
+		NSScreen *screen = [screens objectAtIndex:i];
+        NSValue *screenSizeValue = [[screen deviceDescription] objectForKey:NSDeviceSize];
+        CGSize screenSize = screenSizeValue.sizeValue;
+        CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+        
+        TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:screen];
+        [self.transparentWindowArray addObject:transparentWindow];
+        [transparentWindow makeKeyAndOrderFront:self];
+        transparentWindow.canHide = NO;
+	}
+
+    NSDate *now = [NSDate date];
+    NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
+    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+    [self.window center];
+    [self.window makeKeyAndOrderFront:self];
+    
+    //[NSApp activateIgnoringOtherApps:YES];
+
+}
+
+
+- (IBAction)timeTrackWindowOKClicked:(id)sender {
+    [self hideTimeTrackerWindow];
 }
 
 
@@ -359,13 +413,14 @@
         //[self.kimai logAllData];
         //[self _testTimeSheets];
 #endif
-        
+        [self reloadMenu];
+/*
         [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
         
             [self reloadMenu];
 
         } failure:failureHandler];
-
+*/
     } failure:failureHandler];
     
 }
@@ -373,43 +428,7 @@
 
 
 - (void)reloadMostUsedProjectsAndTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
-    
-    
-    
-    /*
-     self.pastDaysTimesheetRecordsArray = [NSMutableArray arrayWithCapacity:5];
-     
-     NSDateFormatter *weekdayDateFormatter = [[NSDateFormatter alloc] init];
-     [weekdayDateFormatter setDateFormat: @"EEEE"];
-     
-     NSCalendar *cal = [NSCalendar currentCalendar];
-     NSDateComponents *calComponents = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSTimeZoneCalendarUnit)
-     fromDate:[NSDate date]];
-     NSDate *today = [cal dateFromComponents:calComponents];
-     
-     
-     NSInteger days = 0;
-     while (days < 5) {
-     
-     NSMutableDictionary *timeSheetDictionary = [NSMutableDictionary dictionary];
-     
-     NSDateComponents *components = [[NSDateComponents alloc] init];
-     [components setDay:-days];
-     
-     NSDate *day = [cal dateByAddingComponents:components toDate:today options:0];
-     [timeSheetDictionary setObject:[weekdayDateFormatter stringFromDate:day] forKey:@"title"];
-     [timeSheetDictionary setObject:day forKey:@"startDate"];
-     [timeSheetDictionary setObject:[day dateByAddingTimeInterval:60*60*24] forKey:@"endDate"];
-     [self.pastDaysTimesheetRecordsArray addObject:timeSheetDictionary];
-     
-     days++;
-     }
-     
-     
-     NSLog(@"%@", self.pastDaysTimesheetRecordsArray);
-     */
-    
-    
+        
     NSDate *now = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
     [cal setFirstWeekday:2]; // 1 == Sunday, 2 == Monday, 7 == Saturday
@@ -653,6 +672,11 @@
     /////////////////////////////////////////////////////////////////////////////////
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
+#if DEBUG
+    // SHOW TIME TRACKER WINDOW
+    NSMenuItem *timetrackerMenuItem = [[NSMenuItem alloc] initWithTitle:@"Timetracker Window..." action:@selector(_showTimeTrackerWindow) keyEquivalent:@""];
+    [kimaiMenu addItem:timetrackerMenuItem];
+#endif
     
     // QUIT
     NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
@@ -766,40 +790,6 @@
 }
 
 
-- (void)discoverScreens
-{
-    NSScreen *screen;
-	NSArray *screens = [NSScreen screens];
-	NSLog(@"Found %lu screens.", [screens count]);
-    
-	for (int i = 0; i < [screens count]; i++)
-	{
-		NSScreen *aScreen = [screens objectAtIndex:i];
-		NSString *mainScreen;
-		if (i == 0)
-		{
-			mainScreen = @"[Main screen]";
-			screen = aScreen;
-		}
-		else
-		{
-			mainScreen = @"";
-		}
-		
-        
-        NSLog(@"Screen %d: Resolution: %@ %@", i, [[aScreen deviceDescription] objectForKey:NSDeviceSize], mainScreen);
-        NSRect rect = [aScreen visibleFrame];
-        NSLog(@"Visible Frame: %@", NSStringFromRect(rect));
-
-        NSValue *screenSizeValue = [[aScreen deviceDescription] objectForKey:NSDeviceSize];
-        CGSize screenSize = screenSizeValue.sizeValue;
-        CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
-
-        self.transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:aScreen];
-        [self.transparentWindow makeKeyAndOrderFront:NSApp];
-
-	}
-}
 
 #pragma mark - Preferences
 

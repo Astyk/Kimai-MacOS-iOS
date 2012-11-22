@@ -49,15 +49,13 @@
     [self hideTimeTrackerWindow];
     
 #ifndef DEBUG
+    
     // Offer to the move the Application if necessary.
 	// Note that if the user chooses to move the application,
 	// this call will never return. Therefore you can suppress
 	// any first run UI by putting it after this call.
 	PFMoveToApplicationsFolderIfNecessary();
-#endif
 
-    
-/*
     // check for other instances
     NSString *bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
     NSArray *running = [[NSWorkspace sharedWorkspace] runningApplications];
@@ -67,9 +65,9 @@
             [NSApp terminate:nil];
         }
     }
-*/
+    
+#endif
 	
-
     
 }
 
@@ -78,8 +76,10 @@
 {
     //[self reloadMostUsedProjectsAndTasksWithSuccess:nil failure:nil];
     
-    //[self _showTimeTrackerWindow];
+    [self _showTimeTrackerWindow];
     
+    
+    // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
@@ -206,14 +206,14 @@
     NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
     if (workspaceFellAsleepDate != nil) {
         
-        //NSDate *now = [NSDate date];
-        //NSTimeInterval workspaceAsleepDuration = [workspaceFellAsleepDate timeIntervalSinceDate:now];
+        NSDate *now = [NSDate date];
+        NSTimeInterval workspaceAsleepDuration = [workspaceFellAsleepDate timeIntervalSinceDate:now];
         
         // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
-        //if (workspaceAsleepDuration > 60 * 5) {
+        if (workspaceAsleepDuration > 60 * 5) {
             [self showTimeTrackerWindowWithLeaveDate:workspaceFellAsleepDate];
-        //}
+        }
     }
 
 }
@@ -238,14 +238,14 @@
     NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
     if (screensaverStartedDate != nil) {
         
-        //NSDate *now = [NSDate date];
-        //NSTimeInterval screensaverActivateDuration = [screensaverStartedDate timeIntervalSinceDate:now];
+        NSDate *now = [NSDate date];
+        NSTimeInterval screensaverActivateDuration = [screensaverStartedDate timeIntervalSinceDate:now];
         
         // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
-        //if (screensaverActivateDuration > 60 * 5) {
+        if (screensaverActivateDuration > 60 * 5) {
             [self showTimeTrackerWindowWithLeaveDate:screensaverStartedDate];
-        //}
+        }
     }
     
 }
@@ -289,15 +289,9 @@
 
 - (void)showTimeTrackerWindowWithLeaveDate:(NSDate *)leaveDate {
     
-    
     NSDate *now = [NSDate date];
     NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
     self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
-    
-    self.pastPopupButton.menu = [self projectsMenuWithAction:nil];
-    self.presentPopupButton.menu = [self projectsMenuWithAction:nil];
-    self.futurePopupButton.menu = [self projectsMenuWithAction:nil];
-
     
 	NSArray *screens = [NSScreen screens];
     self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
@@ -311,8 +305,15 @@
         
         TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:screen];
         
+#ifndef DEBUG
+        transparentWindow.level = NSMainMenuWindowLevel + 1;
+#endif
+        
         if (i == 0) {
             [transparentWindow addChildWindow:self.window ordered:NSWindowAbove];
+        } else {
+            TransparentWindow *lastTransparentWindow = [self.transparentWindowArray lastObject];
+            [lastTransparentWindow addChildWindow:transparentWindow ordered:NSWindowAbove];
         }
         
         [self.transparentWindowArray addObject:transparentWindow];
@@ -323,8 +324,6 @@
     
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
-
-    
     [NSApp activateIgnoringOtherApps:YES];
 
 }
@@ -332,6 +331,88 @@
 
 - (IBAction)timeTrackWindowOKClicked:(id)sender {
     [self hideTimeTrackerWindow];
+}
+
+
+- (IBAction)homeButtonClicked:(id)sender {
+
+}
+
+
+- (IBAction)pickActivityButtonClicked:(id)sender {
+    
+    if (!self.kimai.isServiceReachable || self.kimai.apiKey == nil) {
+        NSLog(@"Kimai is not initialized or reachable!");
+        return;
+    }
+    
+    
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    
+    KimaiActiveRecording *activeRecordingOrNil = nil;
+    if (self.kimai.activeRecordings) {
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+    }
+    
+    // TODAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Today"
+                        timesheetRecords:self.kimai.timesheetRecordsToday
+                         currentActivity:activeRecordingOrNil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // YESTERDAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Yesterday"
+                        timesheetRecords:self.kimai.timesheetRecordsYesterday
+                         currentActivity:nil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // TOTAL WORKING HOURS LAST WEEK Mon-Sun
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Last Week"
+                        timesheetRecords:_timesheetRecordsForLastSevenDays
+                         currentActivity:nil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // ALL PROJECTS
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(pickActivityWithMenuItem:)]];
+    [kimaiMenu addItem:allProjectsMenuItem];
+    
+    NSButton *button = (NSButton *)sender;
+    [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.window.contentView];
+
+}
+
+
+- (void)pickActivityWithMenuItem:(id)sender {
+    if ([sender isKindOfClass:[NSMenuItem class]]) {
+        
+        NSMenuItem *menuItem = (NSMenuItem *)sender;
+        
+        KimaiTask *task;
+        KimaiProject *project;
+        
+        if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
+            
+            KimaiTimesheetRecord *record = menuItem.representedObject;
+            record.project = [self.kimai projectWithID:record.projectID];
+            record.task = [self.kimai taskWithID:record.activityID];
+            project = record.project;
+            task = record.task;
+            
+        } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
+            
+            task = menuItem.representedObject;
+            project = menuItem.parentItem.representedObject;
+            
+        }
+        
+        NSLog(@"%@", [NSString stringWithFormat:@"%@ (%@)", project.name, task.name]);
+        
+    }
+
 }
 
 
@@ -428,13 +509,13 @@
         //[self _testTimeSheets];
 #endif
         [self reloadMenu];
-/*
+
         [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
         
             [self reloadMenu];
 
         } failure:failureHandler];
-*/
+
     } failure:failureHandler];
     
 }
@@ -632,26 +713,29 @@
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
                                    title:@"Today"
                         timesheetRecords:self.kimai.timesheetRecordsToday
-                         currentActivity:activeRecordingOrNil];
+                         currentActivity:activeRecordingOrNil
+                                  action:@selector(startProjectWithMenuItem:)];
 
 
     // YESTERDAY
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
                                    title:@"Yesterday"
                         timesheetRecords:self.kimai.timesheetRecordsYesterday
-                         currentActivity:nil];
+                         currentActivity:nil
+                                  action:@selector(startProjectWithMenuItem:)];
     
     
     // TOTAL WORKING HOURS LAST WEEK Mon-Sun
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
                                    title:@"Last Week"
                         timesheetRecords:_timesheetRecordsForLastSevenDays
-                         currentActivity:nil];
+                         currentActivity:nil
+                                  action:@selector(startProjectWithMenuItem:)];
 
 
     // ALL PROJECTS
-    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:@selector(clickedMenuItem:) keyEquivalent:@""];
-    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(clickedMenuItem:)]];
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(startProjectWithMenuItem:)]];
     [kimaiMenu addItem:allProjectsMenuItem];
     
     
@@ -707,7 +791,7 @@
 }
 
 
-- (void)addMenuItemTaskHistoryWithMenu:(NSMenu *)menu title:(NSString *)title timesheetRecords:(NSArray *)timesheetRecords currentActivity:(KimaiActiveRecording *)activity {
+- (void)addMenuItemTaskHistoryWithMenu:(NSMenu *)menu title:(NSString *)title timesheetRecords:(NSArray *)timesheetRecords currentActivity:(KimaiActiveRecording *)activity action:(SEL)aSelector {
     
     if (timesheetRecords == nil) {
         return;
@@ -731,7 +815,7 @@
             
             NSString *activityTime = [BMTimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
             NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(clickedTimesheetRecord:) keyEquivalent:@""];
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:aSelector keyEquivalent:@""];
             [menuItem setRepresentedObject:record];
             [menuItem setEnabled:YES];
             [menu addItem:menuItem];
@@ -759,32 +843,28 @@
 }
 
 
-- (void)clickedTimesheetRecord:(id)sender {
+- (void)startProjectWithMenuItem:(id)sender {
     if ([sender isKindOfClass:[NSMenuItem class]]) {
         
         NSMenuItem *menuItem = (NSMenuItem *)sender;
-        
-        KimaiTimesheetRecord *record = menuItem.representedObject;
-        record.project = [self.kimai projectWithID:record.projectID];
-        record.task = [self.kimai taskWithID:record.activityID];
-        
-        [self.kimai startProject:record.project withTask:record.task success:^(id response) {
-            [self reloadData];
-        } failure:^(NSError *error) {
-            [self showAlertSheetWithError:error];
-            [self reloadData];
-        }];
-        
-    }
-}
 
+        KimaiTask *task;
+        KimaiProject *project;
 
-- (void)clickedMenuItem:(id)sender {
-    if ([sender isKindOfClass:[NSMenuItem class]]) {
-        
-        NSMenuItem *menuItem = (NSMenuItem *)sender;
-        KimaiTask *task = menuItem.representedObject;
-        KimaiProject *project = menuItem.parentItem.representedObject;
+        if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
+            
+            KimaiTimesheetRecord *record = menuItem.representedObject;
+            record.project = [self.kimai projectWithID:record.projectID];
+            record.task = [self.kimai taskWithID:record.activityID];
+            project = record.project;
+            task = record.task;
+            
+        } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
+            
+            task = menuItem.representedObject;
+            project = menuItem.parentItem.representedObject;
+            
+        }
         
         [self.kimai startProject:project withTask:task success:^(id response) {
             [self reloadData];

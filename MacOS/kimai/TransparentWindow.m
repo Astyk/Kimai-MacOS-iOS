@@ -13,7 +13,7 @@
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag screen:(NSScreen *)screen {
     if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag screen:screen]) {
         [self setBackgroundColor: [NSColor blackColor]];
-        [self setAlphaValue:0.5];
+        [self setAlphaValue:0.7];
         [self setOpaque:NO];
     }
     return self;

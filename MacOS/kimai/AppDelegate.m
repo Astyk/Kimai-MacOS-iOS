@@ -57,15 +57,20 @@
 	PFMoveToApplicationsFolderIfNecessary();
 
     // check for other instances
+    int runningInstances = 0;
     NSString *bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
     NSArray *running = [[NSWorkspace sharedWorkspace] runningApplications];
     for (NSRunningApplication *app in running) {
         if ([[app bundleIdentifier] isEqualToString:bundleIdentifier]) {
-            NSLog(@"An instance of Kimai (%@) is already running!", bundleIdentifier);
-            [NSApp terminate:nil];
+            runningInstances++;
         }
     }
-    
+
+    if (runningInstances > 1) {
+        NSLog(@"An instance of Kimai (%@) is already running!", bundleIdentifier);
+        [NSApp terminate:nil];
+    }
+
 #endif
 	
     
@@ -74,10 +79,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    //[self reloadMostUsedProjectsAndTasksWithSuccess:nil failure:nil];
-    
-    [self _showTimeTrackerWindow];
-    
     
     // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -212,7 +213,7 @@
         // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
         if (workspaceAsleepDuration > 60 * 5) {
-            [self showTimeTrackerWindowWithLeaveDate:workspaceFellAsleepDate];
+            [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:) withObject:workspaceFellAsleepDate waitUntilDone:NO];
         }
     }
 
@@ -244,7 +245,7 @@
         // if the user left his Mac for more than 5 minutes
         // ask what he did during the time
         if (screensaverActivateDuration > 60 * 5) {
-            [self showTimeTrackerWindowWithLeaveDate:screensaverStartedDate];
+            [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:) withObject:screensaverStartedDate waitUntilDone:NO];
         }
     }
     
@@ -291,7 +292,33 @@
     
     NSDate *now = [NSDate date];
     NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
-    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+//    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+    [self.presentButton setTitle:durationString];
+
+    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
+    [dayFormat setDateFormat:@"dd.MM.yyyy"];
+    [self.leaveDateDayLabel setStringValue:[dayFormat stringFromDate:leaveDate]];
+
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [self.leaveDateTimeLabel setStringValue:[timeFormat stringFromDate:leaveDate]];
+
+    
+/*
+    [self.window setOpaque:NO];
+    self.window.backgroundColor = [NSColor colorWithCalibratedWhite:1.0 alpha:0.0];
+*/
+    
+    KimaiActiveRecording *activeRecordingOrNil = nil;
+    if (self.kimai.activeRecordings) {
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+        if (activeRecordingOrNil) {
+            NSString *activityTime = [BMTimeFormatter formatedWorkingDuration:0 withCurrentActivity:activeRecordingOrNil];
+            self.pastButton.title = [NSString stringWithFormat:@"%@ (%@) %@", activeRecordingOrNil.projectName, activeRecordingOrNil.activityName, activityTime];
+        }
+    }
+    
+    
     
 	NSArray *screens = [NSScreen screens];
     self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
@@ -338,6 +365,10 @@
 
 }
 
+static NSString *PAST_BUTTON_TITLE = @"PAST";
+static NSString *PRESENT_BUTTON_TITLE = @"PRESENT";
+static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
+
 
 - (IBAction)pickActivityButtonClicked:(id)sender {
     
@@ -347,7 +378,18 @@
     }
     
     
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    NSString *menuTitle;
+    NSButton *button = (NSButton *)sender;
+    if (button == self.pastButton) {
+        menuTitle = PAST_BUTTON_TITLE;
+    } else if (button == self.presentButton) {
+        menuTitle = PRESENT_BUTTON_TITLE;
+    } else if (button == self.futureButton) {
+        menuTitle = FUTURE_BUTTON_TITLE;
+    }
+    
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:menuTitle];
+
     
     KimaiActiveRecording *activeRecordingOrNil = nil;
     if (self.kimai.activeRecordings) {
@@ -380,7 +422,9 @@
     [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(pickActivityWithMenuItem:)]];
     [kimaiMenu addItem:allProjectsMenuItem];
     
-    NSButton *button = (NSButton *)sender;
+
+    
+    // show the menu as a popover
     [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.window.contentView];
 
 }
@@ -390,11 +434,14 @@
     if ([sender isKindOfClass:[NSMenuItem class]]) {
         
         NSMenuItem *menuItem = (NSMenuItem *)sender;
+        NSMenu *menu;
         
         KimaiTask *task;
         KimaiProject *project;
         
         if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
+            
+            menu = menuItem.menu;
             
             KimaiTimesheetRecord *record = menuItem.representedObject;
             record.project = [self.kimai projectWithID:record.projectID];
@@ -404,12 +451,23 @@
             
         } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
             
+            menu = menuItem.parentItem.parentItem.menu;
+            
             task = menuItem.representedObject;
             project = menuItem.parentItem.representedObject;
             
         }
         
-        NSLog(@"%@", [NSString stringWithFormat:@"%@ (%@)", project.name, task.name]);
+        
+        NSString *menuTitle = menu.title;
+        NSString *taskTitle = [NSString stringWithFormat:@"%@ (%@)", project.name, task.name];
+        if ([menuTitle isEqualToString:PAST_BUTTON_TITLE]) {
+            [self.pastButton setTitle:taskTitle];
+        } else if ([menuTitle isEqualToString:PRESENT_BUTTON_TITLE]) {
+            [self.presentButton setTitle:taskTitle];
+        } else if ([menuTitle isEqualToString:FUTURE_BUTTON_TITLE]) {
+            [self.futureButton setTitle:taskTitle];
+        }
         
     }
 
@@ -513,6 +571,11 @@
         [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
         
             [self reloadMenu];
+            
+#if DEBUG
+            [self _showTimeTrackerWindow];
+#endif
+
 
         } failure:failureHandler];
 
@@ -684,6 +747,7 @@
 
 
 - (void)reloadMenu {
+    
     
     NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
     KimaiActiveRecording *activeRecordingOrNil = nil;

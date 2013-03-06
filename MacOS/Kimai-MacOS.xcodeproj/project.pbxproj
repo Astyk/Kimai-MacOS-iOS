@@ -41,6 +41,7 @@
 		BC87F1771639767E001BDF87 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1621639767E001BDF87 /* KSReachability.m */; };
 		BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F18516397A85001BDF87 /* SystemConfiguration.framework */; };
 		BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F19B16398291001BDF87 /* CoreWLAN.framework */; };
+		BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8BECF0165E5A9C004DAC63 /* TransparentView.m */; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
@@ -145,6 +146,8 @@
 		BC87F1621639767E001BDF87 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
 		BC87F18516397A85001BDF87 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC87F19B16398291001BDF87 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		BC8BECEF165E5A9C004DAC63 /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
+		BC8BECF0165E5A9C004DAC63 /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
 		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -397,6 +400,8 @@
 				BC928EF6162C3A8200685547 /* AppDelegate.m */,
 				BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */,
 				BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */,
+				BC8BECEF165E5A9C004DAC63 /* TransparentView.h */,
+				BC8BECF0165E5A9C004DAC63 /* TransparentView.m */,
 				BC928EF8162C3A8200685547 /* MainMenu.xib */,
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
@@ -636,6 +641,7 @@
 				BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */,
 				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
 				BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */,
+				BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

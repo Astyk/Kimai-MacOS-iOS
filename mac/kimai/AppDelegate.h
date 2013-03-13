@@ -13,6 +13,8 @@
 
 
 static NSString *SERVICENAME = @"org.kimai.timetracker";
+static NSString *PODIO_SERVICENAME = @"com.podio";
+
 
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
@@ -34,6 +36,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 @property (weak) IBOutlet NSButton *futureButton;
 @property (weak) IBOutlet NSTextField *leaveDateDayLabel;
 @property (weak) IBOutlet NSTextField *leaveDateTimeLabel;
+
+- (void)initPodio;
 
 
 - (void)initKimai;

@@ -22,6 +22,9 @@
 [submodule "iOS/SVProgressHUD"]
 	path = iOS/SVProgressHUD
 	url = https://github.com/samvermette/SVProgressHUD.git
-[submodule "MacOS/MASPreferences"]
-	path = MacOS/MASPreferences
+[submodule "mac/MASPreferences"]
+	path = mac/MASPreferences
 	url = https://github.com/shpakovski/MASPreferences.git
+[submodule "mac/OAuth2Client"]
+	path = mac/OAuth2Client
+	url = https://github.com/nxtbgthng/OAuth2Client.git

@@ -57,8 +57,10 @@
 
 + (void)storeServiceURL:(NSString *)serviceURL username:(NSString *)username password:(NSString *)password servicename:(NSString *)servicename success:(BMCredentialsStoreSuccessHandler)successHandler failure:(BMCredentialsFailureHandler)failureHandler {
     
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setValue:serviceURL forKey:@"BMCredentialsServiceURLKey"];
+    if (serviceURL) {
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        [standardUserDefaults setValue:serviceURL forKey:@"BMCredentialsServiceURLKey"];
+    }
     
     NSError *error = nil;
     if (([SSKeychain setPassword:password forService:servicename account:username error:&error] == NO || error != nil) && failureHandler) {

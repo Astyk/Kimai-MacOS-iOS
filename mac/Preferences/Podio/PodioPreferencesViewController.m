@@ -1,24 +1,23 @@
 
-#import "AccountPreferencesViewController.h"
+#import "PodioPreferencesViewController.h"
 #import "BMCredentials.h"
 #import "AppDelegate.h"
 
 
-@implementation AccountPreferencesViewController
+@implementation PodioPreferencesViewController
 
 
 #pragma mark -
 
 - (id)init
 {
-    return [super initWithNibName:@"AdvancedPreferencesView" bundle:nil];
+    return [super initWithNibName:@"PodioPreferencesView" bundle:nil];
 }
 
 
 - (void)viewWillAppear {
-    [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
+    [BMCredentials loadCredentialsWithServicename:PODIO_SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
         
-        [self.kimaiURLTextField setStringValue:serviceURL];
         [self.usernameTextField setStringValue:username];
         [self.passwordTextField setStringValue:password];
         
@@ -32,7 +31,7 @@
 
 - (NSString *)identifier
 {
-    return @"AdvancedPreferences";
+    return @"PodioPreferences";
 }
 
 - (NSImage *)toolbarItemImage
@@ -42,18 +41,16 @@
 
 - (NSString *)toolbarItemLabel
 {
-    return NSLocalizedString(@"Account", @"Toolbar item name for the Account preference pane");
+    return NSLocalizedString(@"Podio", @"Toolbar item name for the Account preference pane");
 }
 
 
 - (IBAction)signInOutButtonClicked:(id)sender {
 
-    NSString *kimaiServerURL = [self.kimaiURLTextField stringValue];
     NSString *username = [self.usernameTextField stringValue];
     NSString *password = [self.passwordTextField stringValue];
     
-    if (kimaiServerURL.length == 0 ||
-        username.length == 0 ||
+    if (username.length == 0 ||
         password.length == 0) {
         return;
     }
@@ -61,13 +58,13 @@
     AppDelegate *appDelegate = (AppDelegate*)[NSApp delegate];
 //    Kimai *kimai = appDelegate.kimai;
     
-//#ifndef DEBUG
-    [BMCredentials storeServiceURL:kimaiServerURL username:username password:password servicename:SERVICENAME success:^{
+//#ifndef DEBUG‚
+    [BMCredentials storeServiceURL:nil username:username password:password servicename:PODIO_SERVICENAME success:^{
         [appDelegate hidePreferences];
-        [appDelegate initKimai];
+        [appDelegate initPodio];
     } failure:^(NSError *error) {
         [appDelegate showAlertSheetWithError:error];
-        [appDelegate reloadMenu];
+        //[appDelegate reloadMenu];
     }];
 //#endif
 

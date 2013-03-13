@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <Sparkle/Sparkle.h>
 #import "PFMoveApplication.h"
 #import "SSKeychain.h"
 #import "KimaiLocationManager.h"
@@ -17,6 +16,8 @@
 #import "MASPreferencesWindowController.h"
 #import "GeneralPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
+#import "PodioPreferencesViewController.h"
+#import <OAuth2Client/NXOAuth2.h>
 
 
 @interface AppDelegate () {
@@ -37,6 +38,17 @@
 
 @implementation AppDelegate
 
+
+
++ (void)initialize;
+{
+    [[NXOAuth2AccountStore sharedStore] setClientID:@"timetracker4"
+                                             secret:@"naOZjHZZ89RUvjm4J3Sn4hTO4GHPvnb1Tlgd8Rl2en0mR0qmaff1sE7ZGF4lWIvl"
+                                   authorizationURL:[NSURL URLWithString:@"https://podio.com/oauth/authorize"]
+                                           tokenURL:[NSURL URLWithString:@"https://podio.com/oauth/token"]
+                                        redirectURL:[NSURL URLWithString:@"https://localhost"]
+                                     forAccountType:PODIO_SERVICENAME];
+}
 
 
 
@@ -95,9 +107,13 @@
     
     //locationManager = [KimaiLocationManager sharedManager];
 
-    [self initKimai];    
+    [self initPodio];
+    //[self initKimai];
     [self startReloadDataTimer];
 
+
+    
+    
 }
 
 
@@ -487,6 +503,77 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 }
 
 
+#pragma mark - Podio
+
+
+- (void)testPodioRequest {
+    
+    
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accountsWithAccountType:PODIO_SERVICENAME]) {
+
+        [NXOAuth2Request performMethod:@"GET"
+                            onResource:[NSURL URLWithString:@"https://api.podio.com/app/v2/"]
+                       usingParameters:[NSDictionary dictionaryWithObjectsAndKeys:
+                                        @"score", @"order",
+                                        nil]
+                           withAccount:account
+                   sendProgressHandler:^(unsigned long long bytesSend, unsigned long long bytesTotal) {
+                       NSLog(@"PROGRESS: %lld", bytesSend);
+                   }
+                       responseHandler:^(NSURLResponse *response, NSData *responseData, NSError *error) {
+                           
+                           if (error) {
+                               NSLog(@"ERROR: %@", error.localizedDescription);
+                           }
+                           
+                           if (responseData) {
+                               NSString* newStr = [[NSString alloc] initWithData:responseData
+                                                                         encoding:NSUTF8StringEncoding];
+                               NSLog(@"RESPONSE:\n%@", newStr);
+                           }
+
+                       }];
+
+    };
+    
+
+}
+
+- (void)initPodio {
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      NSLog(@"Successfully logged in!");
+                                                      
+                                                      [self testPodioRequest];
+                                                      
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      NSError *error = [aNotification.userInfo objectForKey:NXOAuth2AccountStoreErrorKey];
+                                                      NSLog(@"Error logging in: %@", error.localizedDescription);
+                                                  }];
+    
+    [BMCredentials loadCredentialsWithServicename:PODIO_SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
+        
+        [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:PODIO_SERVICENAME
+                                                                  username:username
+                                                                  password:password];
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@", error);
+        [self showPreferences];
+        
+    }];
+    
+}
+
+
 #pragma mark - Kimai
 
 
@@ -823,13 +910,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     /////////////////////////////////////////////////////////////////////////////////
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
-    
-    // SOFTWARE UPDATE
-    NSMenuItem *checkUpdatesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Software Update..." action:@selector(checkForUpdates:) keyEquivalent:@""];
-    [checkUpdatesMenuItem setTarget:[SUUpdater sharedUpdater]];
-    [kimaiMenu addItem:checkUpdatesMenuItem];
-
-    
+        
     // PREFERENCES
     NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
     [kimaiMenu addItem:preferencesMenuItem];
@@ -967,7 +1048,9 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     {
         NSViewController *generalViewController = [[GeneralPreferencesViewController alloc] init];
         NSViewController *advancedViewController = [[AccountPreferencesViewController alloc] init];
-        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, nil];
+        NSViewController *podioViewController = [[PodioPreferencesViewController alloc] init];
+
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, podioViewController, nil];
         
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];

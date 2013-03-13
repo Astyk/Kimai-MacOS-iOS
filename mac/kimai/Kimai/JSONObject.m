@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 #include <objc/runtime.h>
 
-@implementation KimaiObject
+@implementation JSONObject
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {

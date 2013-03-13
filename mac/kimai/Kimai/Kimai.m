@@ -25,6 +25,12 @@
 @implementation Kimai
 
 
++ (NSString *)serviceName {
+    static NSString *SERVICENAME = @"org.kimai.timetracker";
+    return SERVICENAME;
+}
+
+
 
 - (id)initWithURL:(NSURL *)url
 {
@@ -98,8 +104,8 @@
 
     _previousReachable = reachability.reachable;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(reachabilityChanged:)]) {
-        [self.delegate performSelector:@selector(reachabilityChanged:) withObject:[NSNumber numberWithBool:reachability.reachable]];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(reachabilityChanged:service:)]) {
+        [self.delegate performSelector:@selector(reachabilityChanged:service:) withObject:[NSNumber numberWithBool:reachability.reachable] withObject:self];
     }
     
     [_reachabilityChangeTimeout invalidate];

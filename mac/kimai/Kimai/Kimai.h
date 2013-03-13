@@ -21,9 +21,7 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 
 
 @protocol KimaiDelegate <NSObject>
-
-- (void)reachabilityChanged:(NSNumber *)isServiceReachable;
-
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable service:(id)service;
 @end
 
 
@@ -49,7 +47,7 @@ typedef void (^KimaiFailureHandler)(NSError *error);
 
 @property (nonatomic, assign) id <KimaiDelegate> delegate;
 
-
++ (NSString *)serviceName;
 
 - (id)initWithURL:(NSURL *)url;
 - (void)authenticateWithUsername:(NSString *)username password:(NSString *)password success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiProject : KimaiObject
+@interface KimaiProject : JSONObject
 
 @property (nonatomic, strong) NSString *approved;
 @property (nonatomic, strong) NSString *budget;

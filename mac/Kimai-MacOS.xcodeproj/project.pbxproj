@@ -52,7 +52,7 @@
 		BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928F31162C3FCB00685547 /* WebKit.framework */; };
 		BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D1162F1B7B00886EBC /* Kimai.m */; };
 		BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D3162F1B7B00886EBC /* KimaiProject.m */; };
-		BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D7162F228B00886EBC /* KimaiObject.m */; };
+		BC9815D8162F228B00886EBC /* JSONObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D7162F228B00886EBC /* JSONObject.m */; };
 		BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815DA162F22C000886EBC /* KimaiTask.m */; };
 		BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A5551641799E005F4C6C /* StartAtLoginController.m */; };
 		BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */; };
@@ -184,8 +184,8 @@
 		BC9815D1162F1B7B00886EBC /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
 		BC9815D2162F1B7B00886EBC /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
 		BC9815D3162F1B7B00886EBC /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
-		BC9815D6162F228B00886EBC /* KimaiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiObject.h; sourceTree = "<group>"; };
-		BC9815D7162F228B00886EBC /* KimaiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiObject.m; sourceTree = "<group>"; };
+		BC9815D6162F228B00886EBC /* JSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONObject.h; sourceTree = "<group>"; };
+		BC9815D7162F228B00886EBC /* JSONObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONObject.m; sourceTree = "<group>"; };
 		BC9815D9162F22C000886EBC /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
 		BC9815DA162F22C000886EBC /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
 		BCA2A5541641799E005F4C6C /* StartAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartAtLoginController.h; sourceTree = "<group>"; };
@@ -455,8 +455,8 @@
 			children = (
 				BC9815D0162F1B7B00886EBC /* Kimai.h */,
 				BC9815D1162F1B7B00886EBC /* Kimai.m */,
-				BC9815D6162F228B00886EBC /* KimaiObject.h */,
-				BC9815D7162F228B00886EBC /* KimaiObject.m */,
+				BC9815D6162F228B00886EBC /* JSONObject.h */,
+				BC9815D7162F228B00886EBC /* JSONObject.m */,
 				BC9815D2162F1B7B00886EBC /* KimaiProject.h */,
 				BC9815D3162F1B7B00886EBC /* KimaiProject.m */,
 				BC9815D9162F22C000886EBC /* KimaiTask.h */,
@@ -678,7 +678,7 @@
 				BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */,
 				BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */,
 				BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */,
-				BC9815D8162F228B00886EBC /* KimaiObject.m in Sources */,
+				BC9815D8162F228B00886EBC /* JSONObject.m in Sources */,
 				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
 				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
 				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,

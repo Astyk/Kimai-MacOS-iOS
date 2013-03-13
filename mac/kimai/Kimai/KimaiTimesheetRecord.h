@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 #import "KimaiTask.h"
 #import "KimaiProject.h"
 
 
-@interface KimaiTimesheetRecord : KimaiObject {
+@interface KimaiTimesheetRecord : JSONObject {
     NSNumber *_start;
     NSNumber *_end;
 }

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiUser : KimaiObject
+@interface KimaiUser : JSONObject
 
 @end

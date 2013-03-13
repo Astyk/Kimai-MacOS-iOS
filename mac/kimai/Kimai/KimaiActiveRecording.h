@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiActiveRecording : KimaiObject {
+@interface KimaiActiveRecording : JSONObject {
     NSNumber *_start;
 }
 

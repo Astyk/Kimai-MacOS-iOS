@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface KimaiObject : NSObject
+@interface JSONObject : NSObject
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

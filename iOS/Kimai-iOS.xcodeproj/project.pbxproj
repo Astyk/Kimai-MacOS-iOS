@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BC262DBA1650415900E974AF /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DB81650415900E974AF /* TasksViewController.m */; };
-		BC262DCD16504C9200E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DCB16504C9200E974AF /* BMCredentials.m */; };
-		BC262DCE16504C9200E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DCC16504C9200E974AF /* BMTimeFormatter.m */; };
 		BC262DD41650521800E974AF /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC262DD11650521800E974AF /* SVProgressHUD.bundle */; };
 		BC262DD51650521800E974AF /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DD31650521800E974AF /* SVProgressHUD.m */; };
 		BC262DD71650522900E974AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC262DD61650522900E974AF /* QuartzCore.framework */; };
@@ -19,6 +17,17 @@
 		BC262DE116505A7700E974AF /* kimai_stop_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDC16505A7700E974AF /* kimai_stop_selected.png */; };
 		BC262DE216505A7700E974AF /* kimai_stop_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DDD16505A7700E974AF /* kimai_stop_unselected.png */; };
 		BC262DE416505F7400E974AF /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC262DE316505F7400E974AF /* Icon.png */; };
+		BC520C47176A18B3003EC969 /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C45176A18B3003EC969 /* BMCredentials.m */; };
+		BC520C48176A18B3003EC969 /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C46176A18B3003EC969 /* BMTimeFormatter.m */; };
+		BC520C58176A18C2003EC969 /* JSONObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C4B176A18C2003EC969 /* JSONObject.m */; };
+		BC520C59176A18C2003EC969 /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C4D176A18C2003EC969 /* Kimai.m */; };
+		BC520C5A176A18C2003EC969 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C4F176A18C2003EC969 /* KimaiActiveRecording.m */; };
+		BC520C5B176A18C2003EC969 /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C51176A18C2003EC969 /* KimaiProject.m */; };
+		BC520C5C176A18C2003EC969 /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C53176A18C2003EC969 /* KimaiTask.m */; };
+		BC520C5D176A18C2003EC969 /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C55176A18C2003EC969 /* KimaiTimesheetRecord.m */; };
+		BC520C5E176A18C2003EC969 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C57176A18C2003EC969 /* KimaiUser.m */; };
+		BC520C8F176A18E4003EC969 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C7F176A18E4003EC969 /* KSReachability.m */; };
+		BC520C9E176A18FA003EC969 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC520C9B176A18FA003EC969 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC5A3F3F164AF530003FCCD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F3E164AF530003FCCD4 /* UIKit.framework */; };
 		BC5A3F41164AF530003FCCD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F40164AF530003FCCD4 /* Foundation.framework */; };
 		BC5A3F43164AF530003FCCD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A3F42164AF530003FCCD4 /* CoreGraphics.framework */; };
@@ -29,33 +38,19 @@
 		BC5A3F53164AF530003FCCD4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F52164AF530003FCCD4 /* Default@2x.png */; };
 		BC5A3F55164AF530003FCCD4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F54164AF530003FCCD4 /* Default-568h@2x.png */; };
 		BC5A3F58164AF530003FCCD4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A3F57164AF530003FCCD4 /* ViewController.m */; };
-		BC5A3F5B164AF530003FCCD4 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */; };
-		BC5A3F5E164AF530003FCCD4 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */; };
+		BC5A3F5B164AF530003FCCD4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC5A3F59164AF530003FCCD4 /* ViewController.xib */; };
 		BC5A41DC164AF82F003FCCD4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DB164AF82F003FCCD4 /* SystemConfiguration.framework */; };
 		BC5A41DE164AF846003FCCD4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DD164AF846003FCCD4 /* MapKit.framework */; };
 		BC5A41E0164AF863003FCCD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41DF164AF863003FCCD4 /* CoreLocation.framework */; };
 		BC5A41E2164AF8C4003FCCD4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5A41E1164AF8C4003FCCD4 /* Security.framework */; };
 		BC5A4227164AFA38003FCCD4 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5A4215164AFA38003FCCD4 /* SSKeychain.m */; };
-		BCC3B1071650012800317FCE /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FA1650012800317FCE /* Kimai.m */; };
-		BCC3B1081650012800317FCE /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */; };
-		BCC3B1091650012800317FCE /* KimaiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FE1650012800317FCE /* KimaiObject.m */; };
-		BCC3B10A1650012800317FCE /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1001650012800317FCE /* KimaiProject.m */; };
-		BCC3B10B1650012800317FCE /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1021650012800317FCE /* KimaiTask.m */; };
-		BCC3B10C1650012800317FCE /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */; };
-		BCC3B10D1650012800317FCE /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1061650012800317FCE /* KimaiUser.m */; };
 		BCC3B1171650013C00317FCE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1121650013C00317FCE /* DSJSONRPC.m */; };
 		BCC3B1181650013C00317FCE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1141650013C00317FCE /* DSJSONRPCError.m */; };
-		BCC3B1231650015900317FCE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1201650015900317FCE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BCC3B15A1650016700317FCE /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B1451650016700317FCE /* KSReachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BC262DB71650415900E974AF /* TasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksViewController.h; sourceTree = "<group>"; };
 		BC262DB81650415900E974AF /* TasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksViewController.m; sourceTree = "<group>"; };
-		BC262DC916504C9200E974AF /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMCredentials.h; path = ../../MacOS/kimai/BMCredentials.h; sourceTree = "<group>"; };
-		BC262DCA16504C9200E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMTimeFormatter.h; path = ../../MacOS/kimai/BMTimeFormatter.h; sourceTree = "<group>"; };
-		BC262DCB16504C9200E974AF /* BMCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMCredentials.m; path = ../../MacOS/kimai/BMCredentials.m; sourceTree = "<group>"; };
-		BC262DCC16504C9200E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMTimeFormatter.m; path = ../../MacOS/kimai/BMTimeFormatter.m; sourceTree = "<group>"; };
 		BC262DD11650521800E974AF /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		BC262DD21650521800E974AF /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		BC262DD31650521800E974AF /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -66,6 +61,29 @@
 		BC262DDC16505A7700E974AF /* kimai_stop_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_selected.png; sourceTree = "<group>"; };
 		BC262DDD16505A7700E974AF /* kimai_stop_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_unselected.png; sourceTree = "<group>"; };
 		BC262DE316505F7400E974AF /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		BC520C43176A18B3003EC969 /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMCredentials.h; path = ../../mac/kimai/BMCredentials.h; sourceTree = "<group>"; };
+		BC520C44176A18B3003EC969 /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMTimeFormatter.h; path = ../../mac/kimai/BMTimeFormatter.h; sourceTree = "<group>"; };
+		BC520C45176A18B3003EC969 /* BMCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMCredentials.m; path = ../../mac/kimai/BMCredentials.m; sourceTree = "<group>"; };
+		BC520C46176A18B3003EC969 /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMTimeFormatter.m; path = ../../mac/kimai/BMTimeFormatter.m; sourceTree = "<group>"; };
+		BC520C4A176A18C2003EC969 /* JSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONObject.h; sourceTree = "<group>"; };
+		BC520C4B176A18C2003EC969 /* JSONObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONObject.m; sourceTree = "<group>"; };
+		BC520C4C176A18C2003EC969 /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
+		BC520C4D176A18C2003EC969 /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
+		BC520C4E176A18C2003EC969 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
+		BC520C4F176A18C2003EC969 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
+		BC520C50176A18C2003EC969 /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
+		BC520C51176A18C2003EC969 /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
+		BC520C52176A18C2003EC969 /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
+		BC520C53176A18C2003EC969 /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
+		BC520C54176A18C2003EC969 /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
+		BC520C55176A18C2003EC969 /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
+		BC520C56176A18C2003EC969 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
+		BC520C57176A18C2003EC969 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
+		BC520C61176A18E4003EC969 /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
+		BC520C7E176A18E4003EC969 /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
+		BC520C7F176A18E4003EC969 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
+		BC520C9A176A18FA003EC969 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		BC520C9B176A18FA003EC969 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BC5A3F3A164AF530003FCCD4 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5A3F3E164AF530003FCCD4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC5A3F40164AF530003FCCD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,38 +99,18 @@
 		BC5A3F54164AF530003FCCD4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BC5A3F56164AF530003FCCD4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BC5A3F57164AF530003FCCD4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		BC5A3F5A164AF530003FCCD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		BC5A3F5D164AF530003FCCD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		BC5A3F5A164AF530003FCCD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		BC5A41DB164AF82F003FCCD4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC5A41DD164AF846003FCCD4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BC5A41DF164AF863003FCCD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BC5A41E1164AF8C4003FCCD4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC5A4214164AFA38003FCCD4 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		BC5A4215164AFA38003FCCD4 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
-		BCC3B0F91650012800317FCE /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
-		BCC3B0FA1650012800317FCE /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
-		BCC3B0FB1650012800317FCE /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
-		BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
-		BCC3B0FD1650012800317FCE /* KimaiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiObject.h; sourceTree = "<group>"; };
-		BCC3B0FE1650012800317FCE /* KimaiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiObject.m; sourceTree = "<group>"; };
-		BCC3B0FF1650012800317FCE /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
-		BCC3B1001650012800317FCE /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
-		BCC3B1011650012800317FCE /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
-		BCC3B1021650012800317FCE /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
-		BCC3B1031650012800317FCE /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
-		BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
-		BCC3B1051650012800317FCE /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
-		BCC3B1061650012800317FCE /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
 		BCC3B1101650013C00317FCE /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
 		BCC3B1111650013C00317FCE /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
 		BCC3B1121650013C00317FCE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
 		BCC3B1131650013C00317FCE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
 		BCC3B1141650013C00317FCE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
-		BCC3B11F1650015900317FCE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		BCC3B1201650015900317FCE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		BCC3B1271650016700317FCE /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
-		BCC3B1441650016700317FCE /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
-		BCC3B1451650016700317FCE /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +118,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC5A41E0164AF863003FCCD4 /* CoreLocation.framework in Frameworks */,
 				BC262DD71650522900E974AF /* QuartzCore.framework in Frameworks */,
 				BC5A41E2164AF8C4003FCCD4 /* Security.framework in Frameworks */,
-				BC5A41E0164AF863003FCCD4 /* CoreLocation.framework in Frameworks */,
 				BC5A41DE164AF846003FCCD4 /* MapKit.framework in Frameworks */,
 				BC5A41DC164AF82F003FCCD4 /* SystemConfiguration.framework in Frameworks */,
 				BC5A3F3F164AF530003FCCD4 /* UIKit.framework in Frameworks */,
@@ -137,10 +135,10 @@
 		BC262DCF16504C9800E974AF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				BC262DC916504C9200E974AF /* BMCredentials.h */,
-				BC262DCB16504C9200E974AF /* BMCredentials.m */,
-				BC262DCA16504C9200E974AF /* BMTimeFormatter.h */,
-				BC262DCC16504C9200E974AF /* BMTimeFormatter.m */,
+				BC520C43176A18B3003EC969 /* BMCredentials.h */,
+				BC520C45176A18B3003EC969 /* BMCredentials.m */,
+				BC520C44176A18B3003EC969 /* BMTimeFormatter.h */,
+				BC520C46176A18B3003EC969 /* BMTimeFormatter.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -167,6 +165,49 @@
 			);
 			name = kimai_icons;
 			path = ../../graphics/kimai_icons;
+			sourceTree = "<group>";
+		};
+		BC520C49176A18C2003EC969 /* Kimai */ = {
+			isa = PBXGroup;
+			children = (
+				BC520C4C176A18C2003EC969 /* Kimai.h */,
+				BC520C4D176A18C2003EC969 /* Kimai.m */,
+				BC520C4A176A18C2003EC969 /* JSONObject.h */,
+				BC520C4B176A18C2003EC969 /* JSONObject.m */,
+				BC520C4E176A18C2003EC969 /* KimaiActiveRecording.h */,
+				BC520C4F176A18C2003EC969 /* KimaiActiveRecording.m */,
+				BC520C50176A18C2003EC969 /* KimaiProject.h */,
+				BC520C51176A18C2003EC969 /* KimaiProject.m */,
+				BC520C52176A18C2003EC969 /* KimaiTask.h */,
+				BC520C53176A18C2003EC969 /* KimaiTask.m */,
+				BC520C54176A18C2003EC969 /* KimaiTimesheetRecord.h */,
+				BC520C55176A18C2003EC969 /* KimaiTimesheetRecord.m */,
+				BC520C56176A18C2003EC969 /* KimaiUser.h */,
+				BC520C57176A18C2003EC969 /* KimaiUser.m */,
+			);
+			name = Kimai;
+			path = ../../mac/kimai/Kimai;
+			sourceTree = "<group>";
+		};
+		BC520C5F176A18E4003EC969 /* KSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				BC520C61176A18E4003EC969 /* ARCSafe_MemMgmt.h */,
+				BC520C7E176A18E4003EC969 /* KSReachability.h */,
+				BC520C7F176A18E4003EC969 /* KSReachability.m */,
+			);
+			name = KSReachability;
+			path = ../../mac/KSReachability;
+			sourceTree = "<group>";
+		};
+		BC520C98176A18FA003EC969 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				BC520C9A176A18FA003EC969 /* JSONKit.h */,
+				BC520C9B176A18FA003EC969 /* JSONKit.m */,
+			);
+			name = JSONKit;
+			path = ../../mac/JSONKit;
 			sourceTree = "<group>";
 		};
 		BC5A3F2F164AF530003FCCD4 = {
@@ -208,16 +249,15 @@
 				BC5A3F4E164AF530003FCCD4 /* AppDelegate.m */,
 				BC5A3F56164AF530003FCCD4 /* ViewController.h */,
 				BC5A3F57164AF530003FCCD4 /* ViewController.m */,
-				BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */,
-				BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */,
+				BC5A3F59164AF530003FCCD4 /* ViewController.xib */,
 				BC262DB71650415900E974AF /* TasksViewController.h */,
 				BC262DB81650415900E974AF /* TasksViewController.m */,
 				BC262DCF16504C9800E974AF /* Helper */,
 				BC262DD816505A7700E974AF /* kimai_icons */,
-				BCC3B0F81650012800317FCE /* Kimai */,
+				BC520C49176A18C2003EC969 /* Kimai */,
 				BCC3B10F1650013C00317FCE /* DSJSONRPC */,
-				BCC3B11D1650015900317FCE /* JSONKit */,
-				BCC3B1251650016700317FCE /* KSReachability */,
+				BC520C98176A18FA003EC969 /* JSONKit */,
+				BC520C5F176A18E4003EC969 /* KSReachability */,
 				BC5A420E164AFA38003FCCD4 /* sskeychain */,
 				BC262DD01650521800E974AF /* SVProgressHUD */,
 				BC5A3F45164AF530003FCCD4 /* Supporting Files */,
@@ -249,28 +289,6 @@
 			path = sskeychain;
 			sourceTree = SOURCE_ROOT;
 		};
-		BCC3B0F81650012800317FCE /* Kimai */ = {
-			isa = PBXGroup;
-			children = (
-				BCC3B0F91650012800317FCE /* Kimai.h */,
-				BCC3B0FA1650012800317FCE /* Kimai.m */,
-				BCC3B0FB1650012800317FCE /* KimaiActiveRecording.h */,
-				BCC3B0FC1650012800317FCE /* KimaiActiveRecording.m */,
-				BCC3B0FD1650012800317FCE /* KimaiObject.h */,
-				BCC3B0FE1650012800317FCE /* KimaiObject.m */,
-				BCC3B0FF1650012800317FCE /* KimaiProject.h */,
-				BCC3B1001650012800317FCE /* KimaiProject.m */,
-				BCC3B1011650012800317FCE /* KimaiTask.h */,
-				BCC3B1021650012800317FCE /* KimaiTask.m */,
-				BCC3B1031650012800317FCE /* KimaiTimesheetRecord.h */,
-				BCC3B1041650012800317FCE /* KimaiTimesheetRecord.m */,
-				BCC3B1051650012800317FCE /* KimaiUser.h */,
-				BCC3B1061650012800317FCE /* KimaiUser.m */,
-			);
-			name = Kimai;
-			path = ../../MacOS/kimai/Kimai;
-			sourceTree = "<group>";
-		};
 		BCC3B10F1650013C00317FCE /* DSJSONRPC */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,27 +300,6 @@
 			);
 			name = DSJSONRPC;
 			path = "../../MacOS/Demiurgic-JSON-RPC/DSJSONRPC";
-			sourceTree = "<group>";
-		};
-		BCC3B11D1650015900317FCE /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				BCC3B11F1650015900317FCE /* JSONKit.h */,
-				BCC3B1201650015900317FCE /* JSONKit.m */,
-			);
-			name = JSONKit;
-			path = ../../MacOS/JSONKit;
-			sourceTree = "<group>";
-		};
-		BCC3B1251650016700317FCE /* KSReachability */ = {
-			isa = PBXGroup;
-			children = (
-				BCC3B1271650016700317FCE /* ARCSafe_MemMgmt.h */,
-				BCC3B1441650016700317FCE /* KSReachability.h */,
-				BCC3B1451650016700317FCE /* KSReachability.m */,
-			);
-			name = KSReachability;
-			path = ../../MacOS/KSReachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,8 +357,7 @@
 				BC5A3F51164AF530003FCCD4 /* Default.png in Resources */,
 				BC5A3F53164AF530003FCCD4 /* Default@2x.png in Resources */,
 				BC5A3F55164AF530003FCCD4 /* Default-568h@2x.png in Resources */,
-				BC5A3F5B164AF530003FCCD4 /* ViewController_iPhone.xib in Resources */,
-				BC5A3F5E164AF530003FCCD4 /* ViewController_iPad.xib in Resources */,
+				BC5A3F5B164AF530003FCCD4 /* ViewController.xib in Resources */,
 				BC262DD41650521800E974AF /* SVProgressHUD.bundle in Resources */,
 				BC262DDE16505A7700E974AF /* kimai_play_deactivated.png in Resources */,
 				BC262DDF16505A7700E974AF /* kimai_play_selected.png in Resources */,
@@ -383,21 +379,21 @@
 				BC5A3F4F164AF530003FCCD4 /* AppDelegate.m in Sources */,
 				BC5A3F58164AF530003FCCD4 /* ViewController.m in Sources */,
 				BC5A4227164AFA38003FCCD4 /* SSKeychain.m in Sources */,
-				BCC3B1071650012800317FCE /* Kimai.m in Sources */,
-				BCC3B1081650012800317FCE /* KimaiActiveRecording.m in Sources */,
-				BCC3B1091650012800317FCE /* KimaiObject.m in Sources */,
-				BCC3B10A1650012800317FCE /* KimaiProject.m in Sources */,
-				BCC3B10B1650012800317FCE /* KimaiTask.m in Sources */,
-				BCC3B10C1650012800317FCE /* KimaiTimesheetRecord.m in Sources */,
-				BCC3B10D1650012800317FCE /* KimaiUser.m in Sources */,
 				BCC3B1171650013C00317FCE /* DSJSONRPC.m in Sources */,
 				BCC3B1181650013C00317FCE /* DSJSONRPCError.m in Sources */,
-				BCC3B1231650015900317FCE /* JSONKit.m in Sources */,
-				BCC3B15A1650016700317FCE /* KSReachability.m in Sources */,
 				BC262DBA1650415900E974AF /* TasksViewController.m in Sources */,
-				BC262DCD16504C9200E974AF /* BMCredentials.m in Sources */,
-				BC262DCE16504C9200E974AF /* BMTimeFormatter.m in Sources */,
 				BC262DD51650521800E974AF /* SVProgressHUD.m in Sources */,
+				BC520C47176A18B3003EC969 /* BMCredentials.m in Sources */,
+				BC520C48176A18B3003EC969 /* BMTimeFormatter.m in Sources */,
+				BC520C58176A18C2003EC969 /* JSONObject.m in Sources */,
+				BC520C59176A18C2003EC969 /* Kimai.m in Sources */,
+				BC520C5A176A18C2003EC969 /* KimaiActiveRecording.m in Sources */,
+				BC520C5B176A18C2003EC969 /* KimaiProject.m in Sources */,
+				BC520C5C176A18C2003EC969 /* KimaiTask.m in Sources */,
+				BC520C5D176A18C2003EC969 /* KimaiTimesheetRecord.m in Sources */,
+				BC520C5E176A18C2003EC969 /* KimaiUser.m in Sources */,
+				BC520C8F176A18E4003EC969 /* KSReachability.m in Sources */,
+				BC520C9E176A18FA003EC969 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,20 +408,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		BC5A3F59164AF530003FCCD4 /* ViewController_iPhone.xib */ = {
+		BC5A3F59164AF530003FCCD4 /* ViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BC5A3F5A164AF530003FCCD4 /* en */,
 			);
-			name = ViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		BC5A3F5C164AF530003FCCD4 /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BC5A3F5D164AF530003FCCD4 /* en */,
-			);
-			name = ViewController_iPad.xib;
+			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -527,7 +527,7 @@
 - (void)_mapMethod:(NSString *)method toClass:(Class)kimaiObjectClass success:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
     
     if (self.apiKey == nil && failureHandler) {
-        failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"Not authenticated yet!" forKey:@"NSLocalizedDescriptionKey"]]);
+        //failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:-1 userInfo:[NSDictionary dictionaryWithObject:@"Not authenticated yet!" forKey:@"NSLocalizedDescriptionKey"]]);
         return;
     }
     

@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Kimai.h"
 
-@interface ViewController : UIViewController <KimaiDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UITableViewController <KimaiDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong) Kimai *kimai;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+//@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *credentialsView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;

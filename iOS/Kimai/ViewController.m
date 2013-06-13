@@ -32,16 +32,23 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
     [SVProgressHUD dismiss];
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:error.localizedDescription
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles: nil] show];
 };
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Kimai";
 
-
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+    
     [self initKimai];
 }
 
@@ -85,11 +92,13 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         return;
     }
     
+    [self.refreshControl beginRefreshing];
     [SVProgressHUD showWithStatus:@"Loading ..."];
 
     [self.kimai reloadAllContentWithSuccess:^(id response) {
 
         [SVProgressHUD dismiss];
+        [self.refreshControl endRefreshing];
 
         [self.tableView reloadData];
 
@@ -115,7 +124,7 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 #pragma mark - KimaiDelegate
 
 
-- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable service:(id)service {
     
     NSString *status = (isServiceReachable.boolValue) ? @"ONLINE" : @"OFFLINE";
     
@@ -157,6 +166,7 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 - (void)showLoginView {
     if (self.credentialsView.superview == nil) {
         [self.view addSubview:self.credentialsView];
+        self.navigationItem.leftBarButtonItem = nil;
     }
 }
 
@@ -164,6 +174,13 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 - (void)dismissLoginView {
     if (self.credentialsView.superview == self.view) {
         [self.credentialsView removeFromSuperview];
+        
+        UIBarButtonItem *loginNavigationItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+                                                                                style:UIBarButtonItemStyleBordered
+                                                                               target:self
+                                                                               action:@selector(showLoginView)];
+        self.navigationItem.leftBarButtonItem = loginNavigationItem;
+        
     }
 }
 

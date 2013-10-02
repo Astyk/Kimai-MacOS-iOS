@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiTask : KimaiObject
+@interface KimaiTask : JSONObject
 
-@property (strong) NSNumber *activityID;
-@property (strong) NSNumber *assignable;
-@property (strong) NSString *name;
-@property (strong) NSNumber *visible;
+@property (nonatomic, strong) NSNumber *activityID;
+@property (nonatomic, strong) NSNumber *assignable;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *visible;
 
 @end

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 #include <objc/runtime.h>
 
-@implementation KimaiObject
+@implementation JSONObject
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -25,8 +25,10 @@
             
             id value = [dictionary valueForKey:key];
             
-            if ([self respondsToSelector:NSSelectorFromString(key)] && value != [NSNull null]) {
-                [self setValue:value forKey:key];
+            if ([self respondsToSelector:NSSelectorFromString(key)]) {
+                if (value != [NSNull null]) {
+                    [self setValue:value forKey:key];
+                }
             } else {
                 NSLog(@"Does not respond to key '%@' of type %s", key, object_getClassName(value));
             }

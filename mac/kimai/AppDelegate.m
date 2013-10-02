@@ -8,37 +8,88 @@
 
 #import "AppDelegate.h"
 #import "PFMoveApplication.h"
-#import "RHKeychain.h"
+#import "SSKeychain.h"
 #import "KimaiLocationManager.h"
+#import "TransparentWindow.h"
+#import "BMTimeFormatter.h"
+#import "BMCredentials.h"
+#import "MASPreferencesWindowController.h"
+#import "GeneralPreferencesViewController.h"
+#import "AccountPreferencesViewController.h"
+#import "PodioPreferencesViewController.h"
+#import <OAuth2Client/NXOAuth2.h>
+
 
 @interface AppDelegate () {
-    NSTimer *_trainingTimer;
+    NSTimer *_updateUserInterfaceTimer;
+    NSTimer *_reloadDataTimer;
     KimaiLocationManager *locationManager;
-    NSDate *_screensaverStartedDate;
+    
+    NSArray *_timesheetRecordsForLastSevenDays;
+
+    BOOL _showTimeTrackerWindow;
+    NSDate *_userLeaveDate;
 }
+
+
+@property (strong) NSMutableArray *transparentWindowArray;
+
 @end
 
 
 
 @implementation AppDelegate
 
-static NSString *SERVICENAME = @"org.kimai.timetracker";
+
+
++ (void)initialize;
+{
+    [[NXOAuth2AccountStore sharedStore] setClientID:@"timetracker4"
+                                             secret:@"naOZjHZZ89RUvjm4J3Sn4hTO4GHPvnb1Tlgd8Rl2en0mR0qmaff1sE7ZGF4lWIvl"
+                                   authorizationURL:[NSURL URLWithString:@"https://podio.com/oauth/authorize"]
+                                           tokenURL:[NSURL URLWithString:@"https://podio.com/oauth/token"]
+                                        redirectURL:[NSURL URLWithString:@"https://localhost"]
+                                     forAccountType:PODIO_SERVICENAME];
+}
+
 
 
 #pragma mark - NSApplicationDelegate
 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
-	// Offer to the move the Application if necessary.
+    
+    _showTimeTrackerWindow = NO;
+    _userLeaveDate = nil;
+    
+    [self hidePreferences];
+    [self hideTimeTrackerWindow];
+    
+#ifndef DEBUG
+    
+    // Offer to the move the Application if necessary.
 	// Note that if the user chooses to move the application,
 	// this call will never return. Therefore you can suppress
 	// any first run UI by putting it after this call.
-	
-    [self hidePreferences];
+//	PFMoveToApplicationsFolderIfNecessary();
 
-#ifndef DEBUG
-	PFMoveToApplicationsFolderIfNecessary();
+    // check for other instances
+    int runningInstances = 0;
+    NSString *bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    NSArray *running = [[NSWorkspace sharedWorkspace] runningApplications];
+    for (NSRunningApplication *app in running) {
+        if ([[app bundleIdentifier] isEqualToString:bundleIdentifier]) {
+            runningInstances++;
+        }
+    }
+
+    if (runningInstances > 1) {
+        NSLog(@"An instance of Kimai (%@) is already running!", bundleIdentifier);
+        [NSApp terminate:nil];
+    }
+
 #endif
+	
     
 }
 
@@ -46,10 +97,12 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
+    // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
-    [statusItem setTitle:@"Kimai"];
+    [statusItem setTitle:@"Loading..."];
+    [statusItem setEnabled:NO];
 
     
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
@@ -59,7 +112,13 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     //locationManager = [KimaiLocationManager sharedManager];
 
+    //[self initPodio];
     [self initKimai];
+    [self startReloadDataTimer];
+
+
+    
+    
 }
 
 
@@ -73,34 +132,46 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - Screensaver Notifications
+#pragma mark - Screensaver/Sleep Notifications
 
 
 - (void)initScreensaverNotificationObserver {
    
-    NSDistributedNotificationCenter *notificationCenter = [NSDistributedNotificationCenter defaultCenter];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screensaverStarted:)
-                               name:@"com.apple.screensaver.didstart"
-                             object:nil];
+    NSDistributedNotificationCenter *distributedNotificationCenter = [NSDistributedNotificationCenter defaultCenter];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screensaverStopped:)
-                               name:@"com.apple.screensaver.didstop"
-                             object:nil];
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screensaverStarted:)
+                                          name:@"com.apple.screensaver.didstart"
+                                        object:nil];
     
-    [notificationCenter addObserver:self
-                           selector:@selector(screenLocked:)
-                               name:@"com.apple.screenIsLocked"
-                             object:nil];
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screensaverStopped:)
+                                          name:@"com.apple.screensaver.didstop"
+                                        object:nil];
+    
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screenLocked:)
+                                          name:@"com.apple.screenIsLocked"
+                                        object:nil];
+    
+    [distributedNotificationCenter addObserver:self
+                                      selector:@selector(screenUnlocked:)
+                                          name:@"com.apple.screenIsUnlocked"
+                                        object:nil];
 
-    [notificationCenter addObserver:self
-                           selector:@selector(screenUnlocked:)
-                               name:@"com.apple.screenIsUnlocked"
-                             object:nil];
-
     
+    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+    
+    [workspaceNotificationCenter addObserver:self
+                                    selector:@selector(workspaceWillSleep:)
+                                        name:NSWorkspaceWillSleepNotification
+                                      object:nil];
+
+    [workspaceNotificationCenter addObserver:self
+                                    selector:@selector(workspaceDidWake:)
+                                        name:NSWorkspaceDidWakeNotification
+                                      object:nil];
 
 }
 
@@ -124,43 +195,329 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     [notificationCenter removeObserver:self
                                   name:@"com.apple.screenIsUnlocked"
                                 object:nil];
+    
+    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+    
+    [workspaceNotificationCenter removeObserver:self
+                                           name:NSWorkspaceWillSleepNotification
+                                         object:nil];
+
+    [workspaceNotificationCenter removeObserver:self
+                                           name:NSWorkspaceDidWakeNotification
+                                         object:nil];
+
+}
+
+
+- (void)workspaceWillSleep:(NSNotification *)notification {
+    
+    NSLog(@"workspaceWillSleep");
+
+    // log date/time when system went to sleep
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"WorkspaceFellAsleepDateKey"];
+    [defaults synchronize];
+
+}
+
+
+- (void)workspaceDidWake:(NSNotification *)notification {
+   
+    NSLog(@"workspaceDidWake");
+    NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
+    [self showTimeTrackerWindowWithStartDate:workspaceFellAsleepDate];
 
 }
 
 
 - (void)screensaverStarted:(NSNotification *)notification {
+    
     NSLog(@"screensaverStarted");
     
     // log date/time when screensaver started for later reference
-    _screensaverStartedDate = [NSDate date];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"ScreensaverStartedDateKey"];
+    [defaults synchronize];
+    
 }
 
 
 - (void)screensaverStopped:(NSNotification *)notification {
-    NSLog(@"screensaverStopped");
     
-    if (_screensaverStartedDate != nil) {
-        
-        NSDate *now = [NSDate date];
-        NSTimeInterval screensaverActivateDuration = [_screensaverStartedDate timeIntervalSinceDate:now];
-        
-        // if the user left his Mac for more than 10 minutes
-        // ask what he did during the time
-        if (screensaverActivateDuration > 60 * 10) {
-             
-        }
-    }
+    NSLog(@"screensaverStopped");
+    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
+    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
     
 }
 
 
 - (void)screenLocked:(NSNotification *)notification {
+    
     NSLog(@"screenLocked");
+    
+    // log date/time when system went to sleep
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"ScreenLockedDateKey"];
+    [defaults synchronize];
+
 }
 
 
 - (void)screenUnlocked:(NSNotification *)notification {
+    
     NSLog(@"screenUnlocked");
+    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreenLockedDateKey"];
+    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
+    
+}
+
+
+#pragma mark - Time Tracker Window
+
+
+- (void)hideTimeTrackerWindow {
+    
+    if ([self.window isVisible]) {
+        [self.window orderOut:self];
+    }
+    
+    for (TransparentWindow *window in self.transparentWindowArray) {
+        if ([window isVisible]) {
+            [window orderOut:self];
+        }
+    }
+    
+    [self.transparentWindowArray removeAllObjects];
+    self.transparentWindowArray = nil;
+    
+}
+
+
+- (void)_showTimeTrackerWindow {
+    
+    if (_showTimeTrackerWindow && _userLeaveDate != nil) {
+
+        // reset the flag
+        _showTimeTrackerWindow = NO;
+
+        // show the window
+        [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:)
+                               withObject:[_userLeaveDate copy]
+                            waitUntilDone:NO];
+
+        // clear the date
+        _userLeaveDate = nil;
+        
+    }
+
+}
+
+
+- (void)showTimeTrackerWindowWithStartDate:(NSDate *)startDate {
+    
+    NSDate *now = [NSDate date];
+    NSTimeInterval duration = [startDate timeIntervalSinceDate:now];
+    
+    // if the user left his Mac for more than 5 minutes, ask what he did during the time
+#ifdef DEBUG
+    if (duration > 60 * 5) {
+#endif
+        _userLeaveDate = startDate;
+        _showTimeTrackerWindow = YES;
+#ifdef DEBUG
+    }
+#endif
+    
+}
+
+
+- (void)showTimeTrackerWindowWithLeaveDate:(NSDate *)leaveDate {
+    
+    NSDate *now = [NSDate date];
+    NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
+//    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
+    [self.presentButton setTitle:durationString];
+
+    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
+    [dayFormat setDateFormat:@"dd.MM.yyyy"];
+    [self.leaveDateDayLabel setStringValue:[dayFormat stringFromDate:leaveDate]];
+
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [self.leaveDateTimeLabel setStringValue:[timeFormat stringFromDate:leaveDate]];
+
+    
+/*
+    [self.window setOpaque:NO];
+    self.window.backgroundColor = [NSColor colorWithCalibratedWhite:1.0 alpha:0.0];
+*/
+    
+    KimaiActiveRecording *activeRecordingOrNil = nil;
+    if (self.kimai.activeRecordings) {
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+        if (activeRecordingOrNil) {
+            NSString *activityTime = [BMTimeFormatter formatedWorkingDuration:0 withCurrentActivity:activeRecordingOrNil];
+            self.pastButton.title = [NSString stringWithFormat:@"%@ (%@) %@", activeRecordingOrNil.projectName, activeRecordingOrNil.activityName, activityTime];
+        }
+    }
+    
+    
+    
+	NSArray *screens = [NSScreen screens];
+    self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
+    
+	for (int i = 0; i < [screens count]; i++) {
+        
+		NSScreen *screen = [screens objectAtIndex:i];
+        NSValue *screenSizeValue = [[screen deviceDescription] objectForKey:NSDeviceSize];
+        CGSize screenSize = screenSizeValue.sizeValue;
+        CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+        
+        TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect
+                                                                                    styleMask:NSBorderlessWindowMask
+                                                                                      backing:NSBackingStoreRetained
+                                                                                        defer:NO
+                                                                                       screen:screen];
+        
+#ifndef DEBUG
+        transparentWindow.level = NSMainMenuWindowLevel + 1;
+#endif
+        
+        if (i == 0) {
+            [transparentWindow addChildWindow:self.window ordered:NSWindowAbove];
+        } else {
+            TransparentWindow *lastTransparentWindow = [self.transparentWindowArray lastObject];
+            [lastTransparentWindow addChildWindow:transparentWindow ordered:NSWindowAbove];
+        }
+        
+        [self.transparentWindowArray addObject:transparentWindow];
+        [transparentWindow makeKeyAndOrderFront:self];
+        transparentWindow.canHide = NO;
+	}
+
+    
+    [self.window center];
+    [self.window makeKeyAndOrderFront:self];
+    [NSApp activateIgnoringOtherApps:YES];
+
+}
+
+
+- (IBAction)timeTrackWindowOKClicked:(id)sender {
+    [self hideTimeTrackerWindow];
+}
+
+
+- (IBAction)homeButtonClicked:(id)sender {
+
+}
+
+static NSString *PAST_BUTTON_TITLE = @"PAST";
+static NSString *PRESENT_BUTTON_TITLE = @"PRESENT";
+static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
+
+
+- (IBAction)pickActivityButtonClicked:(id)sender {
+    
+    if (!self.kimai.isServiceReachable || self.kimai.apiKey == nil) {
+        NSLog(@"Kimai is not initialized or reachable!");
+        return;
+    }
+    
+    
+    NSString *menuTitle;
+    NSButton *button = (NSButton *)sender;
+    if (button == self.pastButton) {
+        menuTitle = PAST_BUTTON_TITLE;
+    } else if (button == self.presentButton) {
+        menuTitle = PRESENT_BUTTON_TITLE;
+    } else if (button == self.futureButton) {
+        menuTitle = FUTURE_BUTTON_TITLE;
+    }
+    
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:menuTitle];
+
+    
+    KimaiActiveRecording *activeRecordingOrNil = nil;
+    if (self.kimai.activeRecordings) {
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+    }
+    
+    // TODAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Today"
+                        timesheetRecords:self.kimai.timesheetRecordsToday
+                         currentActivity:activeRecordingOrNil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // YESTERDAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Yesterday"
+                        timesheetRecords:self.kimai.timesheetRecordsYesterday
+                         currentActivity:nil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // TOTAL WORKING HOURS LAST WEEK Mon-Sun
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Last Week"
+                        timesheetRecords:_timesheetRecordsForLastSevenDays
+                         currentActivity:nil
+                                  action:@selector(pickActivityWithMenuItem:)];
+    
+    // ALL PROJECTS
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(pickActivityWithMenuItem:)]];
+    [kimaiMenu addItem:allProjectsMenuItem];
+    
+
+    
+    // show the menu as a popover
+    [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.window.contentView];
+
+}
+
+
+- (void)pickActivityWithMenuItem:(id)sender {
+    if ([sender isKindOfClass:[NSMenuItem class]]) {
+        
+        NSMenuItem *menuItem = (NSMenuItem *)sender;
+        NSMenu *menu;
+        
+        KimaiTask *task;
+        KimaiProject *project;
+        
+        if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
+            
+            menu = menuItem.menu;
+            
+            KimaiTimesheetRecord *record = menuItem.representedObject;
+            record.project = [self.kimai projectWithID:record.projectID];
+            record.task = [self.kimai taskWithID:record.activityID];
+            project = record.project;
+            task = record.task;
+            
+        } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
+            
+            menu = menuItem.parentItem.parentItem.menu;
+            
+            task = menuItem.representedObject;
+            project = menuItem.parentItem.representedObject;
+            
+        }
+        
+        
+        NSString *menuTitle = menu.title;
+        NSString *taskTitle = [NSString stringWithFormat:@"%@ (%@)", project.name, task.name];
+        if ([menuTitle isEqualToString:PAST_BUTTON_TITLE]) {
+            [self.pastButton setTitle:taskTitle];
+        } else if ([menuTitle isEqualToString:PRESENT_BUTTON_TITLE]) {
+            [self.presentButton setTitle:taskTitle];
+        } else if ([menuTitle isEqualToString:FUTURE_BUTTON_TITLE]) {
+            [self.futureButton setTitle:taskTitle];
+        }
+        
+    }
+
 }
 
 
@@ -177,112 +534,351 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - Kimai
+#pragma mark - Podio
 
 
-- (void)initKimai {
+- (void)testPodioRequest {
     
-    if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
-        
-        NSString *kimaiServerURL = RHKeychainGetGenericComment(NULL, SERVICENAME);
-        NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
-        NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-                
-        // init Kimai
-        [self.kimaiURLTextField setStringValue:kimaiServerURL];
-        [self.usernameTextField setStringValue:username];
-        [self.passwordTextField setStringValue:password];
-        
-        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:kimaiServerURL]];
-        self.kimai.delegate = self;
-        
-    } else {
-        [self showPreferences];
-    }
     
+    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accountsWithAccountType:PODIO_SERVICENAME]) {
+
+        [NXOAuth2Request performMethod:@"GET"
+                            onResource:[NSURL URLWithString:@"https://api.podio.com/app/v2/"]
+                       usingParameters:[NSDictionary dictionaryWithObjectsAndKeys:
+                                        @"score", @"order",
+                                        nil]
+                           withAccount:account
+                   sendProgressHandler:^(unsigned long long bytesSend, unsigned long long bytesTotal) {
+                       NSLog(@"PROGRESS: %lld", bytesSend);
+                   }
+                       responseHandler:^(NSURLResponse *response, NSData *responseData, NSError *error) {
+                           
+                           if (error) {
+                               NSLog(@"ERROR: %@", error.localizedDescription);
+                           }
+                           
+                           if (responseData) {
+                               NSString* newStr = [[NSString alloc] initWithData:responseData
+                                                                         encoding:NSUTF8StringEncoding];
+                               NSLog(@"RESPONSE:\n%@", newStr);
+                           }
+
+                       }];
+
+    };
+    
+
 }
 
-
-- (void)reloadData {
+- (void)initPodio {
     
-    [self.kimai reloadAllContentWithSuccess:^(id response) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      NSLog(@"Successfully logged in!");
+                                                      
+                                                      [self testPodioRequest];
+                                                      
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+                                                      NSError *error = [aNotification.userInfo objectForKey:NXOAuth2AccountStoreErrorKey];
+                                                      NSLog(@"Error logging in: %@", error.localizedDescription);
+                                                  }];
+    
+    [BMCredentials loadCredentialsWithServicename:PODIO_SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
         
-#if DEBUG
-        [self.kimai logAllData];
-#endif
-        
-        [self reloadMenu];
-        
+        [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:PODIO_SERVICENAME
+                                                                  username:username
+                                                                  password:password];
     } failure:^(NSError *error) {
-        [self showAlertSheetWithError:error];
-        [self reloadMenu];
+        
+        NSLog(@"%@", error);
+        [self showPreferences];
+        
     }];
     
 }
 
 
-- (IBAction)storePreferences:(id)sender {
+#pragma mark - Kimai
+
+
+- (void)initKimai {
     
-    if (self.window.isVisible) {
+    [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
+        
+        self.kimai = [[Kimai alloc] initWithURL:[NSURL URLWithString:serviceURL]];
+        self.kimai.delegate = self;
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@", error);
+        [self showPreferences];
 
-        NSString *kimaiServerURL = [self.kimaiURLTextField stringValue];
-        NSString *username = [self.usernameTextField stringValue];
-        NSString *password = [self.passwordTextField stringValue];
+    }];
+    
+}
 
-        if (kimaiServerURL.length == 0 ||
-            username.length == 0 ||
-            password.length == 0) {
-            return;
+/*
+- (void)_testTimeSheets {
+    
+    KimaiTimesheetRecord *newRecord = [[KimaiTimesheetRecord alloc] init];
+    newRecord.statusID = [NSNumber numberWithInt:1];
+    newRecord.project = [self.kimai.projects objectAtIndex:0];
+    newRecord.task = [self.kimai.tasks objectAtIndex:0];
+    
+    // FROM - TODAY 00:00
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                          fromDate:[NSDate date]];
+    newRecord.startDate = [cal dateFromComponents:components];
+    newRecord.startDate = [newRecord.startDate dateByAddingTimeInterval:60*60]; // add one hour
+    
+    // TO - NOW
+    newRecord.endDate = [NSDate date];
+    
+    
+    [self.kimai setTimesheetRecord:newRecord success:^(id response) {
+        
+        [self.kimai getTimesheetRecordWithID:newRecord.timeEntryID success:^(id response) {
+            for (KimaiTimesheetRecord *record in response) {
+                NSLog(@"%@", record);
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];    
+
+}
+*/
+
+- (void)reloadData {
+    
+    
+    if (self.kimai.isServiceReachable == NO) {
+        return;
+    }
+    
+    
+    [statusItem setTitle:@"Loading..."];
+    [statusItem setEnabled:NO];
+    
+    
+    KimaiFailureHandler failureHandler = ^(NSError *error) {
+        [self showAlertSheetWithError:error];
+        [self reloadMenu];
+    };
+    
+    
+    [self.kimai reloadAllContentWithSuccess:^(id response) {
+        
+#if DEBUG
+        //[self.kimai logAllData];
+        //[self _testTimeSheets];
+#endif
+        [self reloadMenu];
+
+        [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
+        
+            [self reloadMenu];
+            
+//            [self _showTimeTrackerWindow];
+
+        } failure:failureHandler];
+
+    } failure:failureHandler];
+    
+}
+
+
+
+- (void)reloadMostUsedProjectsAndTasksWithSuccess:(KimaiSuccessHandler)successHandler failure:(KimaiFailureHandler)failureHandler {
+        
+    NSDate *now = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    [cal setFirstWeekday:2]; // 1 == Sunday, 2 == Monday, 7 == Saturday
+    
+    NSDateComponents *nowComponents = [cal components:(NSYearCalendarUnit | NSWeekOfYearCalendarUnit | NSTimeZoneCalendarUnit) fromDate:now];
+    
+    NSDateComponents *lastWeekMondayComponents = [[NSDateComponents alloc] init];
+    [lastWeekMondayComponents setTimeZone:nowComponents.timeZone];
+    [lastWeekMondayComponents setYear:nowComponents.year];
+    [lastWeekMondayComponents setWeekOfYear:nowComponents.weekOfYear-1];
+    [lastWeekMondayComponents setWeekday:2];
+    NSDate *startDate = [cal dateFromComponents:lastWeekMondayComponents];
+    
+    NSDateComponents *sevenDaysComponents = [[NSDateComponents alloc] init];
+    [sevenDaysComponents setDay:+7];    
+    NSDate *endDate = [cal dateByAddingComponents:sevenDaysComponents toDate:startDate options:1];
+
+    NSLog(@"%@ - %@", startDate, endDate);
+    
+    [self.kimai getTimesheetWithStartDate:startDate
+                                  endDate:endDate
+                                  success:^(id response) {
+                                      
+                                      _timesheetRecordsForLastSevenDays = (NSArray *)response;
+                                      
+                                      if (successHandler) {
+                                          successHandler(nil);
+                                      }
+                                      
+                                  }
+                                  failure:failureHandler];
+
+}
+
+
+
+#pragma mark - KimaiDelegate
+
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable service:(id)service {
+    
+    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
+    
+    if (isServiceReachable.boolValue) {
+        
+        if (self.kimai.apiKey == nil) {
+
+            [BMCredentials loadCredentialsWithServicename:SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
+                
+                [self.kimai authenticateWithUsername:username password:password success:^(id response) {
+                    [self reloadData];
+                } failure:^(NSError *error) {
+                    [self showAlertSheetWithError:error];
+                    [self reloadMenu];
+                }];
+
+            } failure:^(NSError *error) {
+                
+                NSLog(@"%@", error);
+                [self showPreferences];
+
+            }];
+                        
+        } else {
+            [self reloadData];
         }
         
-        if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME) == NO) {
-            RHKeychainAddGenericEntry(NULL, SERVICENAME);
-        }
-        
-        if (RHKeychainSetGenericUsername(NULL, SERVICENAME, username) &&
-            RHKeychainSetGenericPassword(NULL, SERVICENAME, password) &&
-            RHKeychainSetGenericComment(NULL, SERVICENAME, kimaiServerURL)) {
-            [self hidePreferences];
-            [self initKimai];
-        }
-        
+    } else {
+        [statusItem setTitle:@"Offline"];
     }
     
 }
 
 
-- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
+#pragma mark - KimaiTimesheetRecord Filter
+
+
+- (NSMutableArray *)groupedTimesheetRecordsByProjectAndActivity:(NSArray *)timesheetRecords maxTimesheetRecords:(int)maxTimesheetRecords {
     
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
-                                                                       fromDate:activity.startDate
-                                                                         toDate:[NSDate date]
-                                                                        options:0];
+    NSMutableArray *groupedTimesheetRecords = [NSMutableArray array];
+    NSMutableArray *mutableTimesheetRecords = [NSMutableArray arrayWithArray:timesheetRecords];
+    while (mutableTimesheetRecords.count > 0) {
+        
+        // search for all records with the same projectID and activityID
+        KimaiTimesheetRecord *record = [mutableTimesheetRecords objectAtIndex:0];
+        
+        NSPredicate *filterTimesheetRecordPredicate = [NSPredicate predicateWithFormat:@"projectID = %@ AND activityID = %@", record.projectID, record.activityID];
+        
+        NSArray *timesheetRecordsGroupedByProjectAndActivity = [mutableTimesheetRecords filteredArrayUsingPredicate:filterTimesheetRecordPredicate];
+        
+        // sum all durations
+        NSNumber *totalDuration = [timesheetRecordsGroupedByProjectAndActivity valueForKeyPath:@"@sum.duration"];
+        
+        // filter out all remaining recods
+        [mutableTimesheetRecords filterUsingPredicate:[NSCompoundPredicate notPredicateWithSubpredicate:filterTimesheetRecordPredicate]];
+        
+        // create a new record representing a whole group of records
+        // if the duration is larger than 1 minute
+        if (totalDuration.intValue > 59) {
+            KimaiTimesheetRecord *groupedTimesheetRecord = [[KimaiTimesheetRecord alloc] init];
+            groupedTimesheetRecord.projectID = record.projectID;
+            groupedTimesheetRecord.projectName = record.projectName;
+            groupedTimesheetRecord.activityID = record.activityID;
+            groupedTimesheetRecord.activityName = record.activityName;
+            groupedTimesheetRecord.duration = totalDuration;
+            [groupedTimesheetRecords addObject:groupedTimesheetRecord];
+        }
+        
+    }
     
-    NSInteger hours = [dateComponents hour];
-    NSInteger minutes = [dateComponents minute];
-   // NSInteger seconds = [dateComponents second];
+    // sort the records by duration
+    NSSortDescriptor *durationSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"duration" ascending:NO];
+    [groupedTimesheetRecords sortUsingDescriptors:[NSArray arrayWithObject:durationSortDescriptor]];
     
-    NSString *time = [NSString stringWithFormat:@"%lih %lim ", hours, minutes];
+    // remove objects to return a limited array
+    if (maxTimesheetRecords > 0) {
+        while (groupedTimesheetRecords.count > maxTimesheetRecords) {
+            [groupedTimesheetRecords removeLastObject];
+        }
+    }
+
+    return groupedTimesheetRecords;
+}
+
+
+
+#pragma mark - User Interface
+
+
+- (NSMenu *)projectsMenuWithAction:(SEL)aSelector {
     
-    return [NSString stringWithFormat:@"%@ - %@ - %@", activity.projectName, activity.activityName, time];
+    // TASKS
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    for (KimaiTask *task in self.kimai.tasks) {
+        if ([task.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:aSelector keyEquivalent:@""];
+            [menuItem setRepresentedObject:task];
+            [menuItem setEnabled:YES];
+            [tasksMenu addItem:menuItem];
+        }
+    }
+    
+    
+    // PROJECTS
+    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
+    for (KimaiProject *project in self.kimai.projects) {
+        if ([project.visible boolValue] == YES) {
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
+            [menuItem setRepresentedObject:project];
+            [menuItem setEnabled:YES];
+            [menuItem setSubmenu:[tasksMenu copy]];
+            [projectsMenu addItem:menuItem];
+        }
+    }
+    
+    return projectsMenu;
 }
 
 
 - (void)reloadMenu {
-
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
-
     
+    
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    KimaiActiveRecording *activeRecordingOrNil = nil;
     NSString *title = @"Kimai";
+    
     if (self.kimai.activeRecordings) {
         
+        // STOP ALL ACTIVE TASKS
         NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop" action:@selector(stopAllActivities) keyEquivalent:@""];
         [kimaiMenu addItem:stopMenuItem];
+        
+        /////////////////////////////////////////////////////////////////////////////////
         [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
-        KimaiActiveRecording *activeRecording = [self.kimai.activeRecordings objectAtIndex:0];
-        title = [self statusBarTitleWithActivity:activeRecording];
-        
+        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
+        title = [self statusBarTitleWithActivity:activeRecordingOrNil];
+
         [self startTimer];
     } else {
         [self stopTimer];
@@ -291,49 +887,156 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
     
     
     
-    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
-    for (KimaiTask *task in self.kimai.tasks) {
-        if ([task.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:@selector(clickedMenuItem:) keyEquivalent:@""];
-            [menuItem setRepresentedObject:task];
-            [menuItem setEnabled:YES];
-            [tasksMenu addItem:menuItem];
-        }
-    }
+    // TODAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Today"
+                        timesheetRecords:self.kimai.timesheetRecordsToday
+                         currentActivity:activeRecordingOrNil
+                                  action:@selector(startProjectWithMenuItem:)];
+
+
+    // YESTERDAY
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Yesterday"
+                        timesheetRecords:self.kimai.timesheetRecordsYesterday
+                         currentActivity:nil
+                                  action:@selector(startProjectWithMenuItem:)];
+    
+    
+    // TOTAL WORKING HOURS LAST WEEK Mon-Sun
+    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
+                                   title:@"Last Week"
+                        timesheetRecords:_timesheetRecordsForLastSevenDays
+                         currentActivity:nil
+                                  action:@selector(startProjectWithMenuItem:)];
+
+
+    // ALL PROJECTS
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(startProjectWithMenuItem:)]];
+    [kimaiMenu addItem:allProjectsMenuItem];
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
     
 
+    // RELOAD DATA
+    NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
+    [reloadMenuItem setEnabled:self.kimai.apiKey != nil];
+    [kimaiMenu addItem:reloadMenuItem];
     
-    for (KimaiProject *project in self.kimai.projects) {
-        if ([project.visible boolValue] == YES) {
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
-            [menuItem setRepresentedObject:project];
-            [menuItem setEnabled:YES];
-            [menuItem setSubmenu:[tasksMenu copy]];
-            [kimaiMenu addItem:menuItem];
-        }
+    
+    // OPEN WEBSITE
+    if (self.kimai.url != nil) {
+        NSMenuItem *launchWebsiteMenuItem = [[NSMenuItem alloc] initWithTitle:@"Launch Kimai Website" action:@selector(launchKimaiWebsite) keyEquivalent:@""];
+        [kimaiMenu addItem:launchWebsiteMenuItem];
     }
 
-
+    
+    /////////////////////////////////////////////////////////////////////////////////
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
+        
+    // PREFERENCES
     NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
     [kimaiMenu addItem:preferencesMenuItem];
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
+#if DEBUG
+    // SHOW TIME TRACKER WINDOW
+    NSMenuItem *timetrackerMenuItem = [[NSMenuItem alloc] initWithTitle:@"Timetracker Window..." action:@selector(_showTimeTrackerWindow) keyEquivalent:@""];
+    [kimaiMenu addItem:timetrackerMenuItem];
+#endif
+    
+    // QUIT
     NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
     [kimaiMenu addItem:quitMenuItem];
     
     
     [statusItem setMenu:kimaiMenu];
-
+    [statusItem setEnabled:YES];
+    
 }
 
 
-- (void)clickedMenuItem:(id)sender {
+- (void)addMenuItemTaskHistoryWithMenu:(NSMenu *)menu title:(NSString *)title timesheetRecords:(NSArray *)timesheetRecords currentActivity:(KimaiActiveRecording *)activity action:(SEL)aSelector {
+    
+    if (timesheetRecords == nil) {
+        return;
+    }
+    
+    
+    // recalculate total working duration
+    NSNumber *totalWorkingHours = (timesheetRecords.count == 0) ? 0 :[timesheetRecords valueForKeyPath:@"@sum.duration"];
+    NSString *totalWorkingHoursString = [BMTimeFormatter formatedWorkingDuration:totalWorkingHours.doubleValue withCurrentActivity:activity];
+    
+    NSMenuItem *titleMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", title, totalWorkingHoursString] action:nil keyEquivalent:@""];
+    [titleMenuItem setEnabled:NO];
+    [menu addItem:titleMenuItem];
+    
+    
+    if (timesheetRecords.count != 0) {
+        
+        NSMutableArray *groupedTimesheetRecords = [self groupedTimesheetRecordsByProjectAndActivity:timesheetRecords maxTimesheetRecords:7];
+        
+        for (KimaiTimesheetRecord *record in groupedTimesheetRecords) {
+            
+            NSString *activityTime = [BMTimeFormatter formatedDurationStringFromTimeInterval:record.duration.doubleValue];
+            NSString *title = [NSString stringWithFormat:@"%@ (%@) %@", record.projectName, record.activityName, activityTime];
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:aSelector keyEquivalent:@""];
+            [menuItem setRepresentedObject:record];
+            [menuItem setEnabled:YES];
+            [menu addItem:menuItem];
+            
+        }
+        
+    }
+
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    [menu addItem:[NSMenuItem separatorItem]];
+    
+}
+
+
+- (void)launchKimaiWebsite {
+    [[NSWorkspace sharedWorkspace] openURL:self.kimai.url];
+}
+
+
+- (NSString *)statusBarTitleWithActivity:(KimaiActiveRecording *)activity {
+    NSDate *now = [NSDate date];
+    NSString *activityTime = [BMTimeFormatter formatedDurationStringFromDate:activity.startDate toDate:now];
+    return [NSString stringWithFormat:@"%@ (%@) %@", activity.projectName, activity.activityName, activityTime];
+}
+
+
+- (void)startProjectWithMenuItem:(id)sender {
     if ([sender isKindOfClass:[NSMenuItem class]]) {
-       
+        
         NSMenuItem *menuItem = (NSMenuItem *)sender;
-        KimaiTask *task = menuItem.representedObject;
-        KimaiProject *project = menuItem.parentItem.representedObject;
+
+        KimaiTask *task;
+        KimaiProject *project;
+
+        if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
+            
+            KimaiTimesheetRecord *record = menuItem.representedObject;
+            record.project = [self.kimai projectWithID:record.projectID];
+            record.task = [self.kimai taskWithID:record.activityID];
+            project = record.project;
+            task = record.task;
+            
+        } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
+            
+            task = menuItem.representedObject;
+            project = menuItem.parentItem.representedObject;
+            
+        }
         
         [self.kimai startProject:project withTask:task success:^(id response) {
             [self reloadData];
@@ -354,7 +1057,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
         [self showAlertSheetWithError:error];
         [self reloadData];
     }];
-
+    
 }
 
 
@@ -363,94 +1066,91 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 }
 
 
-#pragma mark - KimaiDelegate
 
-- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
-    
-    NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
-    
-    if (isServiceReachable.boolValue) {
+#pragma mark - Preferences
+
+- (NSWindowController *)preferencesWindowController
+{
+    if (_preferencesWindowController == nil)
+    {
+        NSViewController *generalViewController = [[GeneralPreferencesViewController alloc] init];
+        NSViewController *advancedViewController = [[AccountPreferencesViewController alloc] init];
+        NSViewController *podioViewController = [[PodioPreferencesViewController alloc] init];
+
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, podioViewController, nil];
         
-        if (self.kimai.apiKey == nil) {
-            
-            if (RHKeychainDoesGenericEntryExist(NULL, SERVICENAME)) {
-
-                NSString *username = RHKeychainGetGenericUsername(NULL, SERVICENAME);
-                NSString *password = RHKeychainGetGenericPassword(NULL, SERVICENAME);
-
-                [self.kimai authenticateWithUsername:username password:password success:^(id response) {
-                    [self reloadData];
-                } failure:^(NSError *error) {
-                    [self showAlertSheetWithError:error];
-                    [self reloadMenu];
-                }];
+        // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
+        //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
                 
-            } else {
-                [self showPreferences];
-            }
-
-        } else {
-            [self reloadData];
-        }
-
-    } else {
-        [statusItem setTitle:@"Offline"];
+        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
     }
-
+    return _preferencesWindowController;
 }
 
 
-#pragma mark - NSWindow
-
-
 - (void)hidePreferences {
+    
+    [self.preferencesWindowController close];
+/*
     if ([self.window isVisible]) {
         [self.window orderOut:self];
     }
+ */
 }
 
 
 - (void)showPreferences {
+    
+    [self.preferencesWindowController showWindow:nil];
+
+    /*
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
+     */
 }
+
 
 
 #pragma mark - NSTimer
 
 
+- (void)startReloadDataTimer {
+    
+    _reloadDataTimer = [NSTimer scheduledTimerWithTimeInterval:60*60*30 // 30 minutes
+                                                        target:self
+                                                      selector:@selector(reloadData)
+                                                      userInfo:nil
+                                                       repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:_reloadDataTimer forMode:NSRunLoopCommonModes];
+}
+
+
 - (void)startTimer {
     
-    if (_trainingTimer != nil) {
+    if (_updateUserInterfaceTimer != nil) {
         return;
     }
     
     [self timerUpdate];
     
-    _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    _updateUserInterfaceTimer = [NSTimer scheduledTimerWithTimeInterval:20.0
                                                       target:self
                                                     selector:@selector(timerUpdate)
                                                     userInfo:nil
                                                      repeats:YES];
     
     // enable UI updates also when scrollview is scrolling
-    //[[NSRunLoop mainRunLoop] addTimer:_trainingTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:_updateUserInterfaceTimer forMode:NSRunLoopCommonModes];
     
 }
 
 
 - (void)stopTimer {
-    [_trainingTimer invalidate];
-    _trainingTimer = nil;
-}
-
-
-- (NSString *)formatTimeComponent:(NSInteger)timeComponent {
-    if (timeComponent < 10) {
-        return [NSString stringWithFormat:@"0%li", timeComponent];
-    }
-    return [NSString stringWithFormat:@"%li", timeComponent];
+    [_updateUserInterfaceTimer invalidate];
+    _updateUserInterfaceTimer = nil;
 }
 
 
@@ -472,3 +1172,4 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 @end
+    

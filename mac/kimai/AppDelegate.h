@@ -12,23 +12,42 @@
 #import "Kimai.h"
 
 
+static NSString *SERVICENAME = @"org.kimai.timetracker";
+static NSString *PODIO_SERVICENAME = @"com.podio";
+
+
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
+    NSWindowController *_preferencesWindowController;
 }
 
+@property (strong) Kimai *kimai;
 @property (nonatomic, strong) KSReachability* reachability;
+@property (strong) NSMutableArray *pastDaysTimesheetRecordsArray;
 
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSMenu *mainMenu;
+@property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 
-@property (weak) IBOutlet NSTextField *kimaiURLTextField;
-@property (weak) IBOutlet NSTextField *usernameTextField;
-@property (weak) IBOutlet NSSecureTextField *passwordTextField;
+- (IBAction)pickActivityButtonClicked:(id)sender;
+@property (weak) IBOutlet NSButton *pastButton;
+@property (weak) IBOutlet NSButton *presentButton;
+@property (weak) IBOutlet NSButton *futureButton;
+@property (weak) IBOutlet NSTextField *leaveDateDayLabel;
+@property (weak) IBOutlet NSTextField *leaveDateTimeLabel;
 
-@property (strong) Kimai *kimai;
+- (void)initPodio;
 
 
-- (IBAction)storePreferences:(id)sender;
+- (void)initKimai;
+- (void)reloadMenu;
+- (void)hidePreferences;
+- (void)showAlertSheetWithError:(NSError *)error;
+
+@property (weak) IBOutlet NSButton *homeButton;
+- (IBAction)homeButtonClicked:(id)sender;
+- (IBAction)timeTrackWindowOKClicked:(id)sender;
+
 
 @end

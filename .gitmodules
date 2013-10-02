@@ -4,15 +4,27 @@
 [submodule "mac/JSONKit"]
 	path = mac/JSONKit
 	url = https://github.com/johnezang/JSONKit.git
-[submodule "mac/RHKeychain"]
-	path = mac/RHKeychain
-	url = https://github.com/heardrwt/RHKeychain.git
 [submodule "mac/KSReachability"]
 	path = mac/KSReachability
 	url = https://github.com/kstenerud/KSReachability.git
 [submodule "web"]
 	path = web
-	url = https://github.com/blockhaus/kimai.git
+	url = https://github.com/blockhaus/kimai
 [submodule "mac/LetsMove"]
 	path = mac/LetsMove
 	url = https://github.com/potionfactory/LetsMove.git
+[submodule "mac/StartAtLoginController"]
+	path = mac/StartAtLoginController
+	url = https://github.com/alexzielenski/StartAtLoginController.git
+[submodule "iOS/sskeychain"]
+	path = iOS/sskeychain
+	url = https://github.com/soffes/sskeychain.git
+[submodule "iOS/SVProgressHUD"]
+	path = iOS/SVProgressHUD
+	url = https://github.com/samvermette/SVProgressHUD.git
+[submodule "mac/MASPreferences"]
+	path = mac/MASPreferences
+	url = https://github.com/shpakovski/MASPreferences.git
+[submodule "mac/OAuth2Client"]
+	path = mac/OAuth2Client
+	url = https://github.com/nxtbgthng/OAuth2Client.git

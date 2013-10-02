@@ -6,28 +6,28 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiActiveRecording : KimaiObject {
+@interface KimaiActiveRecording : JSONObject {
     NSNumber *_start;
 }
 
-@property (strong) NSNumber *timeEntryID;
+@property (nonatomic, strong) NSNumber *timeEntryID;
 
-@property (strong) NSNumber *customerID;
-@property (strong) NSString *customerName;
+@property (nonatomic, strong) NSNumber *customerID;
+@property (nonatomic, strong) NSString *customerName;
 
-@property (strong) NSNumber *projectID;
-@property (strong) NSString *projectName;
+@property (nonatomic, strong) NSNumber *projectID;
+@property (nonatomic, strong) NSString *projectName;
 
-@property (strong) NSNumber *activityID;
-@property (strong) NSString *activityName;
+@property (nonatomic, strong) NSNumber *activityID;
+@property (nonatomic, strong) NSString *activityName;
 
-@property (strong) NSNumber *servertime;
+@property (nonatomic, strong) NSNumber *servertime;
 @property (nonatomic, strong) NSNumber *start;
-@property (strong) NSNumber *duration;
-@property (strong) NSNumber *end;
+@property (nonatomic, strong) NSNumber *duration;
+@property (nonatomic, strong) NSNumber *end;
 
-@property (strong) NSDate *startDate;
+@property (nonatomic, strong) NSDate *startDate;
 
 @end

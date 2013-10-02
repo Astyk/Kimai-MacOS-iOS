@@ -1,0 +1,937 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */; };
+		BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */; };
+		BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */; };
+		BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */; };
+		BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931601658118E00E1B87F /* kimai_play_deactivated.png */; };
+		BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931611658118E00E1B87F /* kimai_play_selected.png */; };
+		BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931621658118E00E1B87F /* kimai_play_unselected.png */; };
+		BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931631658118E00E1B87F /* kimai_stop_selected.png */; };
+		BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931641658118E00E1B87F /* kimai_stop_unselected.png */; };
+		BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */; };
+		BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC3165045D300E974AF /* BMTimeFormatter.m */; };
+		BC262DC8165048D500E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC7165048D500E974AF /* BMCredentials.m */; };
+		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
+		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
+		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
+		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
+		BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
+		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
+		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
+		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
+		BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */; };
+		BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0FD163967F2001BDF87 /* CoreLocation.framework */; };
+		BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE7162C3A8200685547 /* CoreData.framework */; };
+		BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1011639683E001BDF87 /* KimaiLocationManager.m */; };
+		BC87F1771639767E001BDF87 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1621639767E001BDF87 /* KSReachability.m */; };
+		BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F18516397A85001BDF87 /* SystemConfiguration.framework */; };
+		BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F19B16398291001BDF87 /* CoreWLAN.framework */; };
+		BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8BECF0165E5A9C004DAC63 /* TransparentView.m */; };
+		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
+		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
+		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
+		BC928EF4162C3A8200685547 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF2162C3A8200685547 /* Credits.rtf */; };
+		BC928EF7162C3A8200685547 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EF6162C3A8200685547 /* AppDelegate.m */; };
+		BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF8162C3A8200685547 /* MainMenu.xib */; };
+		BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */; };
+		BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC928F23162C3BA500685547 /* smart-icon-selected.png */; };
+		BC928F28162C3BA500685547 /* smart-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC928F24162C3BA500685547 /* smart-icon.png */; };
+		BC928F29162C3BA500685547 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928F26162C3BA500685547 /* StatusItemView.m */; };
+		BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928F31162C3FCB00685547 /* WebKit.framework */; };
+		BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D1162F1B7B00886EBC /* Kimai.m */; };
+		BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D3162F1B7B00886EBC /* KimaiProject.m */; };
+		BC9815D8162F228B00886EBC /* JSONObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D7162F228B00886EBC /* JSONObject.m */; };
+		BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815DA162F22C000886EBC /* KimaiTask.m */; };
+		BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A5551641799E005F4C6C /* StartAtLoginController.m */; };
+		BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */; };
+		BCA2A56716417BB3005F4C6C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
+		BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */; };
+		BCA2A57316417BB3005F4C6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57216417BB3005F4C6C /* main.m */; };
+		BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57916417BB3005F4C6C /* AppDelegate.m */; };
+		BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57B16417BB3005F4C6C /* MainMenu.xib */; };
+		BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */; };
+		BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */; };
+		BCEB9D3416EFC91800FA6B76 /* PodioPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */; };
+		BCEB9D3516EFC91800FA6B76 /* PodioPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */; };
+		BCEB9D3716EFC92300FA6B76 /* podio-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BCEB9D3616EFC92300FA6B76 /* podio-logo.png */; };
+		BCEB9D5E16F05A7600FA6B76 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BCEB9D5A16F05A6A00FA6B76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 942FFCD612315E0A00E6C65E;
+			remoteInfo = OAuth2Client.framework;
+		};
+		BCEB9D5C16F05A6A00FA6B76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = OAuth2Client;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BC6F4F9A16411B97000ACD96 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A58116417BCC005F4C6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BC09312416580A7200E1B87F /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
+		BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPreferencesView.xib; sourceTree = "<group>"; };
+		BC09314916580B2900E1B87F /* AccountPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPreferencesViewController.m; sourceTree = "<group>"; };
+		BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
+		BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
+		BC0931601658118E00E1B87F /* kimai_play_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_deactivated.png; sourceTree = "<group>"; };
+		BC0931611658118E00E1B87F /* kimai_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_selected.png; sourceTree = "<group>"; };
+		BC0931621658118E00E1B87F /* kimai_play_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_unselected.png; sourceTree = "<group>"; };
+		BC0931631658118E00E1B87F /* kimai_stop_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_selected.png; sourceTree = "<group>"; };
+		BC0931641658118E00E1B87F /* kimai_stop_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_unselected.png; sourceTree = "<group>"; };
+		BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
+		BC262DC2165045D300E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTimeFormatter.h; sourceTree = "<group>"; };
+		BC262DC3165045D300E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTimeFormatter.m; sourceTree = "<group>"; };
+		BC262DC6165048D500E974AF /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCredentials.h; sourceTree = "<group>"; };
+		BC262DC7165048D500E974AF /* BMCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCredentials.m; sourceTree = "<group>"; };
+		BC35792C162DC10600F1BFAE /* DSARCHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSARCHelpers.h; sourceTree = "<group>"; };
+		BC35792D162DC10600F1BFAE /* DSJSONRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPC.h; sourceTree = "<group>"; };
+		BC35792E162DC10600F1BFAE /* DSJSONRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPC.m; sourceTree = "<group>"; };
+		BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSJSONRPCError.h; sourceTree = "<group>"; };
+		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
+		BC3AC595164BB83500794C05 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		BC3AC596164BB83500794C05 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
+		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
+		BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFMoveApplication.h; path = LetsMove/PFMoveApplication.h; sourceTree = "<group>"; };
+		BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFMoveApplication.m; path = LetsMove/PFMoveApplication.m; sourceTree = "<group>"; };
+		BC46C8EB163E8C5C00C9520D /* NSString+SymlinksAndAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SymlinksAndAliases.h"; path = "LetsMove/NSString+SymlinksAndAliases.h"; sourceTree = "<group>"; };
+		BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SymlinksAndAliases.m"; path = "LetsMove/NSString+SymlinksAndAliases.m"; sourceTree = "<group>"; };
+		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Kimai.entitlements; path = Kimai/Kimai.entitlements; sourceTree = SOURCE_ROOT; };
+		BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiUser.h; sourceTree = "<group>"; };
+		BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
+		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
+		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
+		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
+		BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kimai-Prefix.pch"; sourceTree = "<group>"; };
+		BC87F0DA16306DEB001BDF87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunningApplicationsController.h; path = ApplicationObserver/RunningApplicationsController.h; sourceTree = "<group>"; };
+		BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunningApplicationsController.m; path = ApplicationObserver/RunningApplicationsController.m; sourceTree = "<group>"; };
+		BC87F0FD163967F2001BDF87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BC87F1001639683E001BDF87 /* KimaiLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KimaiLocationManager.h; path = Location/KimaiLocationManager.h; sourceTree = "<group>"; };
+		BC87F1011639683E001BDF87 /* KimaiLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KimaiLocationManager.m; path = Location/KimaiLocationManager.m; sourceTree = "<group>"; };
+		BC87F1611639767E001BDF87 /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReachability.h; sourceTree = "<group>"; };
+		BC87F1621639767E001BDF87 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
+		BC87F18516397A85001BDF87 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BC87F19B16398291001BDF87 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		BC8BECEF165E5A9C004DAC63 /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
+		BC8BECF0165E5A9C004DAC63 /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
+		BC928EDF162C3A8200685547 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		BC928EE7162C3A8200685547 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BC928EE8162C3A8200685547 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BC928EEB162C3A8200685547 /* Kimai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kimai-Info.plist"; sourceTree = "<group>"; };
+		BC928EED162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BC928EEF162C3A8200685547 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC928EF3162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		BC928EF5162C3A8200685547 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BC928EF6162C3A8200685547 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BC928EF9162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BC928EFC162C3A8200685547 /* kimai.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = kimai.xcdatamodel; sourceTree = "<group>"; };
+		BC928F23162C3BA500685547 /* smart-icon-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smart-icon-selected.png"; sourceTree = "<group>"; };
+		BC928F24162C3BA500685547 /* smart-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smart-icon.png"; sourceTree = "<group>"; };
+		BC928F25162C3BA500685547 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
+		BC928F26162C3BA500685547 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
+		BC928F31162C3FCB00685547 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		BC9815D0162F1B7B00886EBC /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
+		BC9815D1162F1B7B00886EBC /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
+		BC9815D2162F1B7B00886EBC /* KimaiProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiProject.h; sourceTree = "<group>"; };
+		BC9815D3162F1B7B00886EBC /* KimaiProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiProject.m; sourceTree = "<group>"; };
+		BC9815D6162F228B00886EBC /* JSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONObject.h; sourceTree = "<group>"; };
+		BC9815D7162F228B00886EBC /* JSONObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONObject.m; sourceTree = "<group>"; };
+		BC9815D9162F22C000886EBC /* KimaiTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTask.h; sourceTree = "<group>"; };
+		BC9815DA162F22C000886EBC /* KimaiTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTask.m; sourceTree = "<group>"; };
+		BCA2A5541641799E005F4C6C /* StartAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartAtLoginController.h; sourceTree = "<group>"; };
+		BCA2A5551641799E005F4C6C /* StartAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartAtLoginController.m; sourceTree = "<group>"; };
+		BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KimaiLoginHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA2A56916417BB3005F4C6C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		BCA2A56A16417BB3005F4C6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BCA2A56B16417BB3005F4C6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BCA2A56E16417BB3005F4C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA2A57016417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BCA2A57216417BB3005F4C6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KimaiLoginHelper-Prefix.pch"; sourceTree = "<group>"; };
+		BCA2A57816417BB3005F4C6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BCA2A57916417BB3005F4C6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BCA2A57C16417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
+		BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
+		BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodioPreferencesView.xib; sourceTree = "<group>"; };
+		BCEB9D3216EFC91800FA6B76 /* PodioPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodioPreferencesViewController.h; sourceTree = "<group>"; };
+		BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodioPreferencesViewController.m; sourceTree = "<group>"; };
+		BCEB9D3616EFC92300FA6B76 /* podio-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "podio-logo.png"; path = "Preferences/Podio/podio-logo.png"; sourceTree = SOURCE_ROOT; };
+		BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2Client.xcodeproj; path = OAuth2Client/OAuth2Client.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC928EDC162C3A8200685547 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCEB9D5E16F05A7600FA6B76 /* OAuth2Client.framework in Frameworks */,
+				BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */,
+				BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */,
+				BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */,
+				BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */,
+				BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */,
+				BC87F0FF163967F9001BDF87 /* CoreData.framework in Frameworks */,
+				BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */,
+				BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56216417BB3005F4C6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A56716417BB3005F4C6C /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC09312216580A7200E1B87F /* MASPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				BC09315E16580B3C00E1B87F /* General */,
+				BC09315D16580B3400E1B87F /* Account */,
+				BCEB9D3016EFC91800FA6B76 /* Podio */,
+				BC09312416580A7200E1B87F /* MASPreferencesViewController.h */,
+				BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */,
+				BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */,
+				BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */,
+			);
+			path = MASPreferences;
+			sourceTree = SOURCE_ROOT;
+		};
+		BC09315D16580B3400E1B87F /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				BC09314916580B2900E1B87F /* AccountPreferencesViewController.h */,
+				BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */,
+				BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */,
+			);
+			name = Account;
+			path = ../Preferences;
+			sourceTree = "<group>";
+		};
+		BC09315E16580B3C00E1B87F /* General */ = {
+			isa = PBXGroup;
+			children = (
+				BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */,
+				BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */,
+				BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */,
+			);
+			name = General;
+			path = ../Preferences;
+			sourceTree = "<group>";
+		};
+		BC09315F1658118E00E1B87F /* kimai_icons */ = {
+			isa = PBXGroup;
+			children = (
+				BC0931601658118E00E1B87F /* kimai_play_deactivated.png */,
+				BC0931611658118E00E1B87F /* kimai_play_selected.png */,
+				BC0931621658118E00E1B87F /* kimai_play_unselected.png */,
+				BC0931631658118E00E1B87F /* kimai_stop_selected.png */,
+				BC0931641658118E00E1B87F /* kimai_stop_unselected.png */,
+			);
+			name = kimai_icons;
+			path = ../../graphics/kimai_icons;
+			sourceTree = "<group>";
+		};
+		BC35792B162DC10600F1BFAE /* DSJSONRPC */ = {
+			isa = PBXGroup;
+			children = (
+				BC35792C162DC10600F1BFAE /* DSARCHelpers.h */,
+				BC35792D162DC10600F1BFAE /* DSJSONRPC.h */,
+				BC35792E162DC10600F1BFAE /* DSJSONRPC.m */,
+				BC35792F162DC10600F1BFAE /* DSJSONRPCError.h */,
+				BC357930162DC10600F1BFAE /* DSJSONRPCError.m */,
+			);
+			name = DSJSONRPC;
+			path = "Demiurgic-JSON-RPC/DSJSONRPC";
+			sourceTree = SOURCE_ROOT;
+		};
+		BC3AC58F164BB83500794C05 /* sskeychain */ = {
+			isa = PBXGroup;
+			children = (
+				BC3AC595164BB83500794C05 /* SSKeychain.h */,
+				BC3AC596164BB83500794C05 /* SSKeychain.m */,
+			);
+			name = sskeychain;
+			path = ../iOS/sskeychain;
+			sourceTree = "<group>";
+		};
+		BC46C8E7163E8BC600C9520D /* LetsMove */ = {
+			isa = PBXGroup;
+			children = (
+				BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */,
+				BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */,
+				BC46C8EB163E8C5C00C9520D /* NSString+SymlinksAndAliases.h */,
+				BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */,
+			);
+			name = LetsMove;
+			sourceTree = "<group>";
+		};
+		BC4B4D34162DC467000AE55E /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				BC4B4D36162DC467000AE55E /* JSONKit.h */,
+				BC4B4D37162DC467000AE55E /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = SOURCE_ROOT;
+		};
+		BC87F0F316314107001BDF87 /* ApplicationObserver */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */,
+				BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */,
+			);
+			name = ApplicationObserver;
+			sourceTree = "<group>";
+		};
+		BC87F10316396842001BDF87 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F1001639683E001BDF87 /* KimaiLocationManager.h */,
+				BC87F1011639683E001BDF87 /* KimaiLocationManager.m */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		BC87F1421639767E001BDF87 /* KSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				BC87F1611639767E001BDF87 /* KSReachability.h */,
+				BC87F1621639767E001BDF87 /* KSReachability.m */,
+			);
+			path = KSReachability;
+			sourceTree = "<group>";
+		};
+		BC928ED4162C3A8200685547 = {
+			isa = PBXGroup;
+			children = (
+				BC928EE9162C3A8200685547 /* Kimai */,
+				BCA2A56C16417BB3005F4C6C /* KimaiLoginHelper */,
+				BCEB9D3816EFD07D00FA6B76 /* Vendors */,
+				BC928EE2162C3A8200685547 /* Frameworks */,
+				BC928EE0162C3A8200685547 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC928EE0162C3A8200685547 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC928EDF162C3A8200685547 /* Kimai.app */,
+				BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC928EE2162C3A8200685547 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */,
+				BC928EE6162C3A8200685547 /* AppKit.framework */,
+				BC87F0DA16306DEB001BDF87 /* Security.framework */,
+				BC87F0FD163967F2001BDF87 /* CoreLocation.framework */,
+				BC928EE7162C3A8200685547 /* CoreData.framework */,
+				BC928EE8162C3A8200685547 /* Foundation.framework */,
+				BC928F31162C3FCB00685547 /* WebKit.framework */,
+				BC87F18516397A85001BDF87 /* SystemConfiguration.framework */,
+				BC87F19B16398291001BDF87 /* CoreWLAN.framework */,
+				BC928EE3162C3A8200685547 /* Cocoa.framework */,
+				BCA2A56916417BB3005F4C6C /* AppKit.framework */,
+				BCA2A56A16417BB3005F4C6C /* CoreData.framework */,
+				BCA2A56B16417BB3005F4C6C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC928EE9162C3A8200685547 /* Kimai */ = {
+			isa = PBXGroup;
+			children = (
+				BC928EF5162C3A8200685547 /* AppDelegate.h */,
+				BC928EF6162C3A8200685547 /* AppDelegate.m */,
+				BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */,
+				BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */,
+				BC8BECEF165E5A9C004DAC63 /* TransparentView.h */,
+				BC8BECF0165E5A9C004DAC63 /* TransparentView.m */,
+				BC928EF8162C3A8200685547 /* MainMenu.xib */,
+				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
+				BC9815CF162F1B7B00886EBC /* Kimai */,
+				BC87F10316396842001BDF87 /* Location */,
+				BC928F22162C3BA500685547 /* StatusBar */,
+				BC87F0F316314107001BDF87 /* ApplicationObserver */,
+				BC09312216580A7200E1B87F /* MASPreferences */,
+				BC09315F1658118E00E1B87F /* kimai_icons */,
+				BC262DC2165045D300E974AF /* BMTimeFormatter.h */,
+				BC262DC3165045D300E974AF /* BMTimeFormatter.m */,
+				BC262DC6165048D500E974AF /* BMCredentials.h */,
+				BC262DC7165048D500E974AF /* BMCredentials.m */,
+				BC928EEA162C3A8200685547 /* Supporting Files */,
+			);
+			name = Kimai;
+			path = kimai;
+			sourceTree = "<group>";
+		};
+		BC928EEA162C3A8200685547 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */,
+				BC928EEB162C3A8200685547 /* Kimai-Info.plist */,
+				BC928EEC162C3A8200685547 /* InfoPlist.strings */,
+				BC87F0A416304CD6001BDF87 /* Icon.icns */,
+				BC928EEF162C3A8200685547 /* main.m */,
+				BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */,
+				BC928EF2162C3A8200685547 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BC928F22162C3BA500685547 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				BC928F23162C3BA500685547 /* smart-icon-selected.png */,
+				BC928F24162C3BA500685547 /* smart-icon.png */,
+				BC928F25162C3BA500685547 /* StatusItemView.h */,
+				BC928F26162C3BA500685547 /* StatusItemView.m */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		BC9815CF162F1B7B00886EBC /* Kimai */ = {
+			isa = PBXGroup;
+			children = (
+				BC9815D0162F1B7B00886EBC /* Kimai.h */,
+				BC9815D1162F1B7B00886EBC /* Kimai.m */,
+				BC9815D6162F228B00886EBC /* JSONObject.h */,
+				BC9815D7162F228B00886EBC /* JSONObject.m */,
+				BC9815D2162F1B7B00886EBC /* KimaiProject.h */,
+				BC9815D3162F1B7B00886EBC /* KimaiProject.m */,
+				BC9815D9162F22C000886EBC /* KimaiTask.h */,
+				BC9815DA162F22C000886EBC /* KimaiTask.m */,
+				BC6F4F8D163EE7C6000ACD96 /* KimaiUser.h */,
+				BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */,
+				BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */,
+				BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */,
+				BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */,
+				BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */,
+			);
+			path = Kimai;
+			sourceTree = "<group>";
+		};
+		BCA2A5511641799E005F4C6C /* StartAtLoginController */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A5541641799E005F4C6C /* StartAtLoginController.h */,
+				BCA2A5551641799E005F4C6C /* StartAtLoginController.m */,
+			);
+			path = StartAtLoginController;
+			sourceTree = "<group>";
+		};
+		BCA2A56C16417BB3005F4C6C /* KimaiLoginHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A57816417BB3005F4C6C /* AppDelegate.h */,
+				BCA2A57916417BB3005F4C6C /* AppDelegate.m */,
+				BCA2A57B16417BB3005F4C6C /* MainMenu.xib */,
+				BCA2A56D16417BB3005F4C6C /* Supporting Files */,
+			);
+			path = KimaiLoginHelper;
+			sourceTree = "<group>";
+		};
+		BCA2A56D16417BB3005F4C6C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BCA2A56E16417BB3005F4C6C /* Info.plist */,
+				BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */,
+				BCA2A57216417BB3005F4C6C /* main.m */,
+				BCA2A57416417BB3005F4C6C /* KimaiLoginHelper-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCEB9D3016EFC91800FA6B76 /* Podio */ = {
+			isa = PBXGroup;
+			children = (
+				BCEB9D3616EFC92300FA6B76 /* podio-logo.png */,
+				BCEB9D3216EFC91800FA6B76 /* PodioPreferencesViewController.h */,
+				BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */,
+				BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */,
+			);
+			name = Podio;
+			path = Preferences/Podio;
+			sourceTree = SOURCE_ROOT;
+		};
+		BCEB9D3816EFD07D00FA6B76 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */,
+				BCA2A5511641799E005F4C6C /* StartAtLoginController */,
+				BC46C8E7163E8BC600C9520D /* LetsMove */,
+				BC87F1421639767E001BDF87 /* KSReachability */,
+				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
+				BC4B4D34162DC467000AE55E /* JSONKit */,
+				BC3AC58F164BB83500794C05 /* sskeychain */,
+			);
+			name = Vendors;
+			sourceTree = "<group>";
+		};
+		BCEB9D5616F05A6A00FA6B76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */,
+				BCEB9D5D16F05A6A00FA6B76 /* libOAuth2Client.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC928EDE162C3A8200685547 /* Kimai */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "Kimai" */;
+			buildPhases = (
+				BC928EDB162C3A8200685547 /* Sources */,
+				BC928EDC162C3A8200685547 /* Frameworks */,
+				BC928EDD162C3A8200685547 /* Resources */,
+				BC6F4F9A16411B97000ACD96 /* CopyFiles */,
+				BCA2A58116417BCC005F4C6C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kimai;
+			productName = kimai;
+			productReference = BC928EDF162C3A8200685547 /* Kimai.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BCA2A56416417BB3005F4C6C /* KimaiLoginHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA2A57E16417BB3005F4C6C /* Build configuration list for PBXNativeTarget "KimaiLoginHelper" */;
+			buildPhases = (
+				BCA2A56116417BB3005F4C6C /* Sources */,
+				BCA2A56216417BB3005F4C6C /* Frameworks */,
+				BCA2A56316417BB3005F4C6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KimaiLoginHelper;
+			productName = KimaiLoginHelper;
+			productReference = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC928ED6162C3A8200685547 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "blockhaus medienagentur";
+			};
+			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				English,
+				Danish,
+				Dutch,
+			);
+			mainGroup = BC928ED4162C3A8200685547;
+			productRefGroup = BC928EE0162C3A8200685547 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BCEB9D5616F05A6A00FA6B76 /* Products */;
+					ProjectRef = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BC928EDE162C3A8200685547 /* Kimai */,
+				BCA2A56416417BB3005F4C6C /* KimaiLoginHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuth2Client.framework;
+			remoteRef = BCEB9D5A16F05A6A00FA6B76 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BCEB9D5D16F05A6A00FA6B76 /* libOAuth2Client.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libOAuth2Client.a;
+			remoteRef = BCEB9D5C16F05A6A00FA6B76 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC928EDD162C3A8200685547 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */,
+				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
+				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
+				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
+				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
+				BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */,
+				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
+				BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */,
+				BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */,
+				BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */,
+				BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */,
+				BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */,
+				BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */,
+				BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */,
+				BCEB9D3416EFC91800FA6B76 /* PodioPreferencesView.xib in Resources */,
+				BCEB9D3716EFC92300FA6B76 /* podio-logo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56316417BB3005F4C6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A57116417BB3005F4C6C /* InfoPlist.strings in Resources */,
+				BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC928EDB162C3A8200685547 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC928EF0162C3A8200685547 /* main.m in Sources */,
+				BC928EF7162C3A8200685547 /* AppDelegate.m in Sources */,
+				BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */,
+				BC928F29162C3BA500685547 /* StatusItemView.m in Sources */,
+				BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */,
+				BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */,
+				BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */,
+				BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */,
+				BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */,
+				BC9815D8162F228B00886EBC /* JSONObject.m in Sources */,
+				BC9815DB162F22C100886EBC /* KimaiTask.m in Sources */,
+				BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */,
+				BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */,
+				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
+				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
+				BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */,
+				BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */,
+				BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */,
+				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
+				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
+				BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */,
+				BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */,
+				BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */,
+				BC262DC8165048D500E974AF /* BMCredentials.m in Sources */,
+				BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */,
+				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
+				BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */,
+				BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */,
+				BCEB9D3516EFC91800FA6B76 /* PodioPreferencesViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA2A56116417BB3005F4C6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA2A57316417BB3005F4C6C /* main.m in Sources */,
+				BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BC928EEC162C3A8200685547 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC928EED162C3A8200685547 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BC928EF2162C3A8200685547 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC928EF3162C3A8200685547 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		BC928EF8162C3A8200685547 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC928EF9162C3A8200685547 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA2A57016417BB3005F4C6C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BCA2A57B16417BB3005F4C6C /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA2A57C16417BB3005F4C6C /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC928EFE162C3A8200685547 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BC928EFF162C3A8200685547 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BC928F01162C3A8200685547 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Desktop/Sparkle 1.5b6/With Garbage Collection\"",
+					"\"$(SRCROOT)/Sparkle\"",
+					"\"$(CONFIGURATION_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = Kimai;
+				PROVISIONING_PROFILE = "62645D7F-DA7A-415A-9DD3-E74D31DA06DE";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BC928F02162C3A8200685547 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Desktop/Sparkle 1.5b6/With Garbage Collection\"",
+					"\"$(SRCROOT)/Sparkle\"",
+					"\"$(CONFIGURATION_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = Kimai;
+				PROVISIONING_PROFILE = "62645D7F-DA7A-415A-9DD3-E74D31DA06DE";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		BCA2A57F16417BB3005F4C6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
+				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "762170FA-5039-4603-B105-2D8106733235";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BCA2A58016417BB3005F4C6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
+				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "762170FA-5039-4603-B105-2D8106733235";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC928EFE162C3A8200685547 /* Debug */,
+				BC928EFF162C3A8200685547 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC928F00162C3A8200685547 /* Build configuration list for PBXNativeTarget "Kimai" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC928F01162C3A8200685547 /* Debug */,
+				BC928F02162C3A8200685547 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCA2A57E16417BB3005F4C6C /* Build configuration list for PBXNativeTarget "KimaiLoginHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA2A57F16417BB3005F4C6C /* Debug */,
+				BCA2A58016417BB3005F4C6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BC928EFC162C3A8200685547 /* kimai.xcdatamodel */,
+			);
+			currentVersion = BC928EFC162C3A8200685547 /* kimai.xcdatamodel */;
+			path = kimai.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BC928ED6162C3A8200685547 /* Project object */;
+}

@@ -6,21 +6,21 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "KimaiObject.h"
+#import "JSONObject.h"
 
-@interface KimaiProject : KimaiObject
+@interface KimaiProject : JSONObject
 
-@property (strong) NSString *approved;
-@property (strong) NSString *budget;
-@property (strong) NSString *comment;
-@property (strong) NSNumber *customerID;
-@property (strong) NSString *customerName;
-@property (strong) NSString *effort;
-@property (strong) NSNumber *filter;
-@property (strong) NSNumber *internal;
-@property (strong) NSString *name;
-@property (strong) NSNumber *projectID;
-@property (strong) NSNumber *trash;
-@property (strong) NSNumber *visible;
+@property (nonatomic, strong) NSString *approved;
+@property (nonatomic, strong) NSString *budget;
+@property (nonatomic, strong) NSString *comment;
+@property (nonatomic, strong) NSNumber *customerID;
+@property (nonatomic, strong) NSString *customerName;
+@property (nonatomic, strong) NSString *effort;
+@property (nonatomic, strong) NSNumber *filter;
+@property (nonatomic, strong) NSNumber *internal;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *projectID;
+@property (nonatomic, strong) NSNumber *trash;
+@property (nonatomic, strong) NSNumber *visible;
 
 @end

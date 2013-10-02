@@ -27,6 +27,8 @@
     
     NSArray *_timesheetRecordsForLastSevenDays;
 
+    BOOL _showTimeTrackerWindow;
+    NSDate *_userLeaveDate;
 }
 
 
@@ -57,6 +59,9 @@
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     
+    _showTimeTrackerWindow = NO;
+    _userLeaveDate = nil;
+    
     [self hidePreferences];
     [self hideTimeTrackerWindow];
     
@@ -66,7 +71,7 @@
 	// Note that if the user chooses to move the application,
 	// this call will never return. Therefore you can suppress
 	// any first run UI by putting it after this call.
-	PFMoveToApplicationsFolderIfNecessary();
+//	PFMoveToApplicationsFolderIfNecessary();
 
     // check for other instances
     int runningInstances = 0;
@@ -107,8 +112,8 @@
     
     //locationManager = [KimaiLocationManager sharedManager];
 
-    [self initPodio];
-    //[self initKimai];
+    //[self initPodio];
+    [self initKimai];
     [self startReloadDataTimer];
 
 
@@ -219,19 +224,8 @@
 - (void)workspaceDidWake:(NSNotification *)notification {
    
     NSLog(@"workspaceDidWake");
-    
     NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
-    if (workspaceFellAsleepDate != nil) {
-        
-        NSDate *now = [NSDate date];
-        NSTimeInterval workspaceAsleepDuration = [workspaceFellAsleepDate timeIntervalSinceDate:now];
-        
-        // if the user left his Mac for more than 5 minutes
-        // ask what he did during the time
-        if (workspaceAsleepDuration > 60 * 5) {
-            [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:) withObject:workspaceFellAsleepDate waitUntilDone:NO];
-        }
-    }
+    [self showTimeTrackerWindowWithStartDate:workspaceFellAsleepDate];
 
 }
 
@@ -251,30 +245,30 @@
 - (void)screensaverStopped:(NSNotification *)notification {
     
     NSLog(@"screensaverStopped");
-
     NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
-    if (screensaverStartedDate != nil) {
-        
-        NSDate *now = [NSDate date];
-        NSTimeInterval screensaverActivateDuration = [screensaverStartedDate timeIntervalSinceDate:now];
-        
-        // if the user left his Mac for more than 5 minutes
-        // ask what he did during the time
-        if (screensaverActivateDuration > 60 * 5) {
-            [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:) withObject:screensaverStartedDate waitUntilDone:NO];
-        }
-    }
+    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
     
 }
 
 
 - (void)screenLocked:(NSNotification *)notification {
+    
     NSLog(@"screenLocked");
+    
+    // log date/time when system went to sleep
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSDate date] forKey:@"ScreenLockedDateKey"];
+    [defaults synchronize];
+
 }
 
 
 - (void)screenUnlocked:(NSNotification *)notification {
+    
     NSLog(@"screenUnlocked");
+    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreenLockedDateKey"];
+    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
+    
 }
 
 
@@ -300,7 +294,40 @@
 
 
 - (void)_showTimeTrackerWindow {
-    [self showTimeTrackerWindowWithLeaveDate:[NSDate dateWithTimeInterval:-60*35 sinceDate:[NSDate date]]];
+    
+    if (_showTimeTrackerWindow && _userLeaveDate != nil) {
+
+        // reset the flag
+        _showTimeTrackerWindow = NO;
+
+        // show the window
+        [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:)
+                               withObject:[_userLeaveDate copy]
+                            waitUntilDone:NO];
+
+        // clear the date
+        _userLeaveDate = nil;
+        
+    }
+
+}
+
+
+- (void)showTimeTrackerWindowWithStartDate:(NSDate *)startDate {
+    
+    NSDate *now = [NSDate date];
+    NSTimeInterval duration = [startDate timeIntervalSinceDate:now];
+    
+    // if the user left his Mac for more than 5 minutes, ask what he did during the time
+#ifdef DEBUG
+    if (duration > 60 * 5) {
+#endif
+        _userLeaveDate = startDate;
+        _showTimeTrackerWindow = YES;
+#ifdef DEBUG
+    }
+#endif
+    
 }
 
 
@@ -346,7 +373,11 @@
         CGSize screenSize = screenSizeValue.sizeValue;
         CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
         
-        TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO screen:screen];
+        TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect
+                                                                                    styleMask:NSBorderlessWindowMask
+                                                                                      backing:NSBackingStoreRetained
+                                                                                        defer:NO
+                                                                                       screen:screen];
         
 #ifndef DEBUG
         transparentWindow.level = NSMainMenuWindowLevel + 1;
@@ -659,10 +690,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         
             [self reloadMenu];
             
-#if DEBUG
-            [self _showTimeTrackerWindow];
-#endif
-
+//            [self _showTimeTrackerWindow];
 
         } failure:failureHandler];
 
@@ -712,8 +740,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 #pragma mark - KimaiDelegate
 
-
-- (void)reachabilityChanged:(NSNumber *)isServiceReachable {
+- (void)reachabilityChanged:(NSNumber *)isServiceReachable service:(id)service {
     
     NSLog(@"Reachability changed to %@", isServiceReachable.boolValue ? @"ONLINE" : @"OFFLINE");
     

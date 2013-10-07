@@ -24,12 +24,9 @@
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
 		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
 		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
-		BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
 		BC87F09A16301FFA001BDF87 /* KimaiActiveRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */; };
-		BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC87F0A416304CD6001BDF87 /* Icon.icns */; };
 		BC87F0DB16306DEB001BDF87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0DA16306DEB001BDF87 /* Security.framework */; };
 		BC87F0F1163140FE001BDF87 /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F0F0163140FE001BDF87 /* RunningApplicationsController.m */; };
 		BC87F0FE163967F2001BDF87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F0FD163967F2001BDF87 /* CoreLocation.framework */; };
@@ -62,29 +59,9 @@
 		BCA2A57A16417BB3005F4C6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA2A57916417BB3005F4C6C /* AppDelegate.m */; };
 		BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57B16417BB3005F4C6C /* MainMenu.xib */; };
 		BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */; };
+		BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCAF8608180337E300B82FE2 /* Images.xcassets */; };
 		BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */; };
-		BCEB9D3416EFC91800FA6B76 /* PodioPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */; };
-		BCEB9D3516EFC91800FA6B76 /* PodioPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */; };
-		BCEB9D3716EFC92300FA6B76 /* podio-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BCEB9D3616EFC92300FA6B76 /* podio-logo.png */; };
-		BCEB9D5E16F05A7600FA6B76 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		BCEB9D5A16F05A6A00FA6B76 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 942FFCD612315E0A00E6C65E;
-			remoteInfo = OAuth2Client.framework;
-		};
-		BCEB9D5C16F05A6A00FA6B76 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = OAuth2Client;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		BC6F4F9A16411B97000ACD96 /* CopyFiles */ = {
@@ -137,10 +114,6 @@
 		BC3AC596164BB83500794C05 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
 		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
-		BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFMoveApplication.h; path = LetsMove/PFMoveApplication.h; sourceTree = "<group>"; };
-		BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFMoveApplication.m; path = LetsMove/PFMoveApplication.m; sourceTree = "<group>"; };
-		BC46C8EB163E8C5C00C9520D /* NSString+SymlinksAndAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SymlinksAndAliases.h"; path = "LetsMove/NSString+SymlinksAndAliases.h"; sourceTree = "<group>"; };
-		BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SymlinksAndAliases.m"; path = "LetsMove/NSString+SymlinksAndAliases.m"; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC4B4D37162DC467000AE55E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Kimai.entitlements; path = Kimai/Kimai.entitlements; sourceTree = SOURCE_ROOT; };
@@ -148,7 +121,6 @@
 		BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiUser.m; sourceTree = "<group>"; };
 		BC87F09816301FFA001BDF87 /* KimaiActiveRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiActiveRecording.h; sourceTree = "<group>"; };
 		BC87F09916301FFA001BDF87 /* KimaiActiveRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiActiveRecording.m; sourceTree = "<group>"; };
-		BC87F0A416304CD6001BDF87 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
 		BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kimai-Prefix.pch"; sourceTree = "<group>"; };
 		BC87F0DA16306DEB001BDF87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC87F0EF163140FE001BDF87 /* RunningApplicationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunningApplicationsController.h; path = ApplicationObserver/RunningApplicationsController.h; sourceTree = "<group>"; };
@@ -202,13 +174,9 @@
 		BCA2A57816417BB3005F4C6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BCA2A57916417BB3005F4C6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BCA2A57C16417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BCAF8608180337E300B82FE2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kimai/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
 		BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
-		BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodioPreferencesView.xib; sourceTree = "<group>"; };
-		BCEB9D3216EFC91800FA6B76 /* PodioPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodioPreferencesViewController.h; sourceTree = "<group>"; };
-		BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodioPreferencesViewController.m; sourceTree = "<group>"; };
-		BCEB9D3616EFC92300FA6B76 /* podio-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "podio-logo.png"; path = "Preferences/Podio/podio-logo.png"; sourceTree = SOURCE_ROOT; };
-		BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2Client.xcodeproj; path = OAuth2Client/OAuth2Client.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +184,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCEB9D5E16F05A7600FA6B76 /* OAuth2Client.framework in Frameworks */,
 				BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */,
 				BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */,
 				BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */,
@@ -244,7 +211,6 @@
 			children = (
 				BC09315E16580B3C00E1B87F /* General */,
 				BC09315D16580B3400E1B87F /* Account */,
-				BCEB9D3016EFC91800FA6B76 /* Podio */,
 				BC09312416580A7200E1B87F /* MASPreferencesViewController.h */,
 				BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */,
 				BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */,
@@ -309,17 +275,6 @@
 			);
 			name = sskeychain;
 			path = ../iOS/sskeychain;
-			sourceTree = "<group>";
-		};
-		BC46C8E7163E8BC600C9520D /* LetsMove */ = {
-			isa = PBXGroup;
-			children = (
-				BC46C8E8163E8BFD00C9520D /* PFMoveApplication.h */,
-				BC46C8E9163E8BFD00C9520D /* PFMoveApplication.m */,
-				BC46C8EB163E8C5C00C9520D /* NSString+SymlinksAndAliases.h */,
-				BC46C8EC163E8C5C00C9520D /* NSString+SymlinksAndAliases.m */,
-			);
-			name = LetsMove;
 			sourceTree = "<group>";
 		};
 		BC4B4D34162DC467000AE55E /* JSONKit */ = {
@@ -419,6 +374,7 @@
 				BC262DC3165045D300E974AF /* BMTimeFormatter.m */,
 				BC262DC6165048D500E974AF /* BMCredentials.h */,
 				BC262DC7165048D500E974AF /* BMCredentials.m */,
+				BCAF8608180337E300B82FE2 /* Images.xcassets */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
 			);
 			name = Kimai;
@@ -431,7 +387,6 @@
 				BC4DD26B1641A92A00E8F692 /* Kimai.entitlements */,
 				BC928EEB162C3A8200685547 /* Kimai-Info.plist */,
 				BC928EEC162C3A8200685547 /* InfoPlist.strings */,
-				BC87F0A416304CD6001BDF87 /* Icon.icns */,
 				BC928EEF162C3A8200685547 /* main.m */,
 				BC87F0B91630670A001BDF87 /* Kimai-Prefix.pch */,
 				BC928EF2162C3A8200685547 /* Credits.rtf */,
@@ -502,39 +457,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BCEB9D3016EFC91800FA6B76 /* Podio */ = {
-			isa = PBXGroup;
-			children = (
-				BCEB9D3616EFC92300FA6B76 /* podio-logo.png */,
-				BCEB9D3216EFC91800FA6B76 /* PodioPreferencesViewController.h */,
-				BCEB9D3316EFC91800FA6B76 /* PodioPreferencesViewController.m */,
-				BCEB9D3116EFC91800FA6B76 /* PodioPreferencesView.xib */,
-			);
-			name = Podio;
-			path = Preferences/Podio;
-			sourceTree = SOURCE_ROOT;
-		};
 		BCEB9D3816EFD07D00FA6B76 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */,
 				BCA2A5511641799E005F4C6C /* StartAtLoginController */,
-				BC46C8E7163E8BC600C9520D /* LetsMove */,
 				BC87F1421639767E001BDF87 /* KSReachability */,
 				BC35792B162DC10600F1BFAE /* DSJSONRPC */,
 				BC4B4D34162DC467000AE55E /* JSONKit */,
 				BC3AC58F164BB83500794C05 /* sskeychain */,
 			);
 			name = Vendors;
-			sourceTree = "<group>";
-		};
-		BCEB9D5616F05A6A00FA6B76 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */,
-				BCEB9D5D16F05A6A00FA6B76 /* libOAuth2Client.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -584,6 +516,11 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "blockhaus medienagentur";
+				TargetAttributes = {
+					BC928EDE162C3A8200685547 = {
+						DevelopmentTeam = T2TK462TB3;
+					};
+				};
 			};
 			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -598,12 +535,6 @@
 			mainGroup = BC928ED4162C3A8200685547;
 			productRefGroup = BC928EE0162C3A8200685547 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = BCEB9D5616F05A6A00FA6B76 /* Products */;
-					ProjectRef = BCEB9D5516F05A6A00FA6B76 /* OAuth2Client.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				BC928EDE162C3A8200685547 /* Kimai */,
@@ -611,23 +542,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		BCEB9D5B16F05A6A00FA6B76 /* OAuth2Client.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = OAuth2Client.framework;
-			remoteRef = BCEB9D5A16F05A6A00FA6B76 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BCEB9D5D16F05A6A00FA6B76 /* libOAuth2Client.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libOAuth2Client.a;
-			remoteRef = BCEB9D5C16F05A6A00FA6B76 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BC928EDD162C3A8200685547 /* Resources */ = {
@@ -639,7 +553,7 @@
 				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
 				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
-				BC87F0A516304CD6001BDF87 /* Icon.icns in Resources */,
+				BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */,
 				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
 				BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */,
 				BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */,
@@ -648,8 +562,6 @@
 				BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */,
 				BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */,
 				BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */,
-				BCEB9D3416EFC91800FA6B76 /* PodioPreferencesView.xib in Resources */,
-				BCEB9D3716EFC92300FA6B76 /* podio-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,8 +597,6 @@
 				BC87F1021639683E001BDF87 /* KimaiLocationManager.m in Sources */,
 				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
 				BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */,
-				BC46C8EA163E8BFD00C9520D /* PFMoveApplication.m in Sources */,
-				BC46C8ED163E8C5C00C9520D /* NSString+SymlinksAndAliases.m in Sources */,
 				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
 				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
 				BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */,
@@ -697,7 +607,6 @@
 				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
 				BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */,
 				BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */,
-				BCEB9D3516EFC91800FA6B76 /* PodioPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,8 +721,10 @@
 		BC928F01162C3A8200685547 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -826,7 +737,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Kimai;
-				PROVISIONING_PROFILE = "62645D7F-DA7A-415A-9DD3-E74D31DA06DE";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -834,8 +745,10 @@
 		BC928F02162C3A8200685547 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -849,7 +762,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Kimai;
-				PROVISIONING_PROFILE = "62645D7F-DA7A-415A-9DD3-E74D31DA06DE";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

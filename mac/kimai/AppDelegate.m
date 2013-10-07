@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "PFMoveApplication.h"
 #import "SSKeychain.h"
 #import "KimaiLocationManager.h"
 #import "TransparentWindow.h"
@@ -16,8 +15,6 @@
 #import "MASPreferencesWindowController.h"
 #import "GeneralPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
-#import "PodioPreferencesViewController.h"
-#import <OAuth2Client/NXOAuth2.h>
 
 
 @interface AppDelegate () {
@@ -42,18 +39,6 @@
 
 
 
-+ (void)initialize;
-{
-    [[NXOAuth2AccountStore sharedStore] setClientID:@"timetracker4"
-                                             secret:@"naOZjHZZ89RUvjm4J3Sn4hTO4GHPvnb1Tlgd8Rl2en0mR0qmaff1sE7ZGF4lWIvl"
-                                   authorizationURL:[NSURL URLWithString:@"https://podio.com/oauth/authorize"]
-                                           tokenURL:[NSURL URLWithString:@"https://podio.com/oauth/token"]
-                                        redirectURL:[NSURL URLWithString:@"https://localhost"]
-                                     forAccountType:PODIO_SERVICENAME];
-}
-
-
-
 #pragma mark - NSApplicationDelegate
 
 
@@ -66,12 +51,6 @@
     [self hideTimeTrackerWindow];
     
 #ifndef DEBUG
-    
-    // Offer to the move the Application if necessary.
-	// Note that if the user chooses to move the application,
-	// this call will never return. Therefore you can suppress
-	// any first run UI by putting it after this call.
-//	PFMoveToApplicationsFolderIfNecessary();
 
     // check for other instances
     int runningInstances = 0;
@@ -295,6 +274,10 @@
 
 - (void)_showTimeTrackerWindow {
     
+    // do not currently show the tracker window
+    return;
+    
+    
     if (_showTimeTrackerWindow && _userLeaveDate != nil) {
 
         // reset the flag
@@ -319,14 +302,17 @@
     NSTimeInterval duration = [startDate timeIntervalSinceDate:now];
     
     // if the user left his Mac for more than 5 minutes, ask what he did during the time
-#ifdef DEBUG
-    if (duration > 60 * 5) {
-#endif
+//    if (duration > 0 ) { // 60 * 5
+        
         _userLeaveDate = startDate;
         _showTimeTrackerWindow = YES;
-#ifdef DEBUG
-    }
-#endif
+
+        // in case the service is online, we can open the tracker window right away
+        if (self.kimai.isServiceReachable) {
+            [self _showTimeTrackerWindow];
+        }
+        
+//    }
     
 }
 
@@ -534,77 +520,6 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 }
 
 
-#pragma mark - Podio
-
-
-- (void)testPodioRequest {
-    
-    
-    for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accountsWithAccountType:PODIO_SERVICENAME]) {
-
-        [NXOAuth2Request performMethod:@"GET"
-                            onResource:[NSURL URLWithString:@"https://api.podio.com/app/v2/"]
-                       usingParameters:[NSDictionary dictionaryWithObjectsAndKeys:
-                                        @"score", @"order",
-                                        nil]
-                           withAccount:account
-                   sendProgressHandler:^(unsigned long long bytesSend, unsigned long long bytesTotal) {
-                       NSLog(@"PROGRESS: %lld", bytesSend);
-                   }
-                       responseHandler:^(NSURLResponse *response, NSData *responseData, NSError *error) {
-                           
-                           if (error) {
-                               NSLog(@"ERROR: %@", error.localizedDescription);
-                           }
-                           
-                           if (responseData) {
-                               NSString* newStr = [[NSString alloc] initWithData:responseData
-                                                                         encoding:NSUTF8StringEncoding];
-                               NSLog(@"RESPONSE:\n%@", newStr);
-                           }
-
-                       }];
-
-    };
-    
-
-}
-
-- (void)initPodio {
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
-                                                      object:[NXOAuth2AccountStore sharedStore]
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *aNotification){
-                                                      NSLog(@"Successfully logged in!");
-                                                      
-                                                      [self testPodioRequest];
-                                                      
-                                                  }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
-                                                      object:[NXOAuth2AccountStore sharedStore]
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *aNotification){
-                                                      NSError *error = [aNotification.userInfo objectForKey:NXOAuth2AccountStoreErrorKey];
-                                                      NSLog(@"Error logging in: %@", error.localizedDescription);
-                                                  }];
-    
-    [BMCredentials loadCredentialsWithServicename:PODIO_SERVICENAME success:^(NSString *username, NSString *password, NSString *serviceURL) {
-        
-        [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:PODIO_SERVICENAME
-                                                                  username:username
-                                                                  password:password];
-    } failure:^(NSError *error) {
-        
-        NSLog(@"%@", error);
-        [self showPreferences];
-        
-    }];
-    
-}
-
-
 #pragma mark - Kimai
 
 
@@ -690,7 +605,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         
             [self reloadMenu];
             
-//            [self _showTimeTrackerWindow];
+            [self _showTimeTrackerWindow];
 
         } failure:failureHandler];
 
@@ -1075,9 +990,8 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     {
         NSViewController *generalViewController = [[GeneralPreferencesViewController alloc] init];
         NSViewController *advancedViewController = [[AccountPreferencesViewController alloc] init];
-        NSViewController *podioViewController = [[PodioPreferencesViewController alloc] init];
 
-        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, podioViewController, nil];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, advancedViewController, nil];
         
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];

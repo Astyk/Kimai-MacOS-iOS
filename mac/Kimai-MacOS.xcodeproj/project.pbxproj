@@ -12,17 +12,13 @@
 		BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */; };
 		BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */; };
 		BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */; };
-		BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931601658118E00E1B87F /* kimai_play_deactivated.png */; };
-		BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931611658118E00E1B87F /* kimai_play_selected.png */; };
-		BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931621658118E00E1B87F /* kimai_play_unselected.png */; };
-		BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931631658118E00E1B87F /* kimai_stop_selected.png */; };
-		BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC0931641658118E00E1B87F /* kimai_stop_unselected.png */; };
 		BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */; };
 		BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC3165045D300E974AF /* BMTimeFormatter.m */; };
 		BC262DC8165048D500E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC7165048D500E974AF /* BMCredentials.m */; };
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
 		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
+		BC4089051806CBC300A27747 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BC4089041806CBC300A27747 /* Icon.icns */; };
 		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
@@ -60,6 +56,8 @@
 		BCA2A57D16417BB3005F4C6C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCA2A57B16417BB3005F4C6C /* MainMenu.xib */; };
 		BCA2A58216417BF6005F4C6C /* KimaiLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCA2A56516417BB3005F4C6C /* KimaiLoginHelper.app */; };
 		BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCAF8608180337E300B82FE2 /* Images.xcassets */; };
+		BCAF86131803DDFF00B82FE2 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAF86111803DDFF00B82FE2 /* stop.png */; };
+		BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAF86121803DDFF00B82FE2 /* stop@2x.png */; };
 		BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */; };
 /* End PBXBuildFile section */
 
@@ -95,11 +93,6 @@
 		BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPreferencesViewController.m; sourceTree = "<group>"; };
 		BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
-		BC0931601658118E00E1B87F /* kimai_play_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_deactivated.png; sourceTree = "<group>"; };
-		BC0931611658118E00E1B87F /* kimai_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_selected.png; sourceTree = "<group>"; };
-		BC0931621658118E00E1B87F /* kimai_play_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_play_unselected.png; sourceTree = "<group>"; };
-		BC0931631658118E00E1B87F /* kimai_stop_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_selected.png; sourceTree = "<group>"; };
-		BC0931641658118E00E1B87F /* kimai_stop_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_stop_unselected.png; sourceTree = "<group>"; };
 		BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		BC262DC2165045D300E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTimeFormatter.h; sourceTree = "<group>"; };
 		BC262DC3165045D300E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTimeFormatter.m; sourceTree = "<group>"; };
@@ -112,6 +105,7 @@
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
 		BC3AC595164BB83500794C05 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		BC3AC596164BB83500794C05 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		BC4089041806CBC300A27747 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = SOURCE_ROOT; };
 		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
 		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -175,6 +169,8 @@
 		BCA2A57916417BB3005F4C6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BCA2A57C16417BB3005F4C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BCAF8608180337E300B82FE2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kimai/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		BCAF86111803DDFF00B82FE2 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
+		BCAF86121803DDFF00B82FE2 /* stop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop@2x.png"; sourceTree = "<group>"; };
 		BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
 		BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -239,19 +235,6 @@
 			);
 			name = General;
 			path = ../Preferences;
-			sourceTree = "<group>";
-		};
-		BC09315F1658118E00E1B87F /* kimai_icons */ = {
-			isa = PBXGroup;
-			children = (
-				BC0931601658118E00E1B87F /* kimai_play_deactivated.png */,
-				BC0931611658118E00E1B87F /* kimai_play_selected.png */,
-				BC0931621658118E00E1B87F /* kimai_play_unselected.png */,
-				BC0931631658118E00E1B87F /* kimai_stop_selected.png */,
-				BC0931641658118E00E1B87F /* kimai_stop_unselected.png */,
-			);
-			name = kimai_icons;
-			path = ../../graphics/kimai_icons;
 			sourceTree = "<group>";
 		};
 		BC35792B162DC10600F1BFAE /* DSJSONRPC */ = {
@@ -364,16 +347,17 @@
 				BC8BECF0165E5A9C004DAC63 /* TransparentView.m */,
 				BC928EF8162C3A8200685547 /* MainMenu.xib */,
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
+				BCAF86101803DDFF00B82FE2 /* kimai_icons */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
 				BC87F10316396842001BDF87 /* Location */,
 				BC928F22162C3BA500685547 /* StatusBar */,
 				BC87F0F316314107001BDF87 /* ApplicationObserver */,
 				BC09312216580A7200E1B87F /* MASPreferences */,
-				BC09315F1658118E00E1B87F /* kimai_icons */,
 				BC262DC2165045D300E974AF /* BMTimeFormatter.h */,
 				BC262DC3165045D300E974AF /* BMTimeFormatter.m */,
 				BC262DC6165048D500E974AF /* BMCredentials.h */,
 				BC262DC7165048D500E974AF /* BMCredentials.m */,
+				BC4089041806CBC300A27747 /* Icon.icns */,
 				BCAF8608180337E300B82FE2 /* Images.xcassets */,
 				BC928EEA162C3A8200685547 /* Supporting Files */,
 			);
@@ -457,6 +441,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		BCAF86101803DDFF00B82FE2 /* kimai_icons */ = {
+			isa = PBXGroup;
+			children = (
+				BCAF86111803DDFF00B82FE2 /* stop.png */,
+				BCAF86121803DDFF00B82FE2 /* stop@2x.png */,
+			);
+			name = kimai_icons;
+			path = ../../graphics/kimai_icons;
+			sourceTree = "<group>";
+		};
 		BCEB9D3816EFD07D00FA6B76 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +514,9 @@
 					BC928EDE162C3A8200685547 = {
 						DevelopmentTeam = T2TK462TB3;
 					};
+					BCA2A56416417BB3005F4C6C = {
+						DevelopmentTeam = T2TK462TB3;
+					};
 				};
 			};
 			buildConfigurationList = BC928ED9162C3A8200685547 /* Build configuration list for PBXProject "Kimai-MacOS" */;
@@ -549,18 +546,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */,
+				BCAF86131803DDFF00B82FE2 /* stop.png in Resources */,
 				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
 				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
 				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
 				BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */,
 				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
+				BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */,
+				BC4089051806CBC300A27747 /* Icon.icns in Resources */,
 				BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */,
-				BC0931651658118E00E1B87F /* kimai_play_deactivated.png in Resources */,
-				BC0931661658118E00E1B87F /* kimai_play_selected.png in Resources */,
-				BC0931671658118E00E1B87F /* kimai_play_unselected.png in Resources */,
-				BC0931681658118E00E1B87F /* kimai_stop_selected.png in Resources */,
-				BC0931691658118E00E1B87F /* kimai_stop_unselected.png in Resources */,
 				BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +670,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -705,6 +701,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -721,10 +718,7 @@
 		BC928F01162C3A8200685547 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -737,7 +731,6 @@
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Kimai;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -745,10 +738,7 @@
 		BC928F02162C3A8200685547 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -762,7 +752,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Kimai;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3D8A3BDB-DA90-4282-B3CD-21B96698114E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -771,14 +761,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
 				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "762170FA-5039-4603-B105-2D8106733235";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -788,14 +776,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
 				INFOPLIST_FILE = KimaiLoginHelper/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "762170FA-5039-4603-B105-2D8106733235";
+				PROVISIONING_PROFILE = "C84ABB67-4C11-4AD1-8F97-AB657A62B15D";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};

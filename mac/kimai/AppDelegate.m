@@ -50,7 +50,7 @@
     [self hidePreferences];
     [self hideTimeTrackerWindow];
     
-#ifndef DEBUG
+//#ifndef DEBUG
 
     // check for other instances
     int runningInstances = 0;
@@ -67,7 +67,7 @@
         [NSApp terminate:nil];
     }
 
-#endif
+//#endif
 	
     
 }
@@ -778,9 +778,9 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (void)reloadMenu {
     
     
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"TimeTracker"];
     KimaiActiveRecording *activeRecordingOrNil = nil;
-    NSString *title = @"Kimai";
+    NSString *title = @"TimeTracker";
     
     if (self.kimai.activeRecordings) {
         
@@ -868,7 +868,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 #endif
     
     // QUIT
-    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
+    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit TimeTracker" action:@selector(quitApplication) keyEquivalent:@""];
     [kimaiMenu addItem:quitMenuItem];
     
     
@@ -1017,12 +1017,14 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (void)showPreferences {
     
     [self.preferencesWindowController showWindow:nil];
+    [self.preferencesWindowController.window center];
+    [self.preferencesWindowController.window makeKeyAndOrderFront:self];
 
-    /*
+/*
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
-     */
+ */
 }
 
 

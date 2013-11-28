@@ -15,9 +15,9 @@
 
 + (NSString *)formatedDurationStringWithHours:(NSInteger)hours minutes:(NSInteger)minutes {
     
-    NSString *formatedTime = [NSString stringWithFormat:@"%ih %im", hours, minutes];
+    NSString *formatedTime = [NSString stringWithFormat:@"%lih %lim", (long)hours, (long)minutes];
     if (hours == 0) {
-        formatedTime = [NSString stringWithFormat:@"%im", minutes];
+        formatedTime = [NSString stringWithFormat:@"%lim", (long)minutes];
     }
     
     return formatedTime;

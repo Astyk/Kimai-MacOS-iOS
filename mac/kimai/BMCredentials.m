@@ -62,7 +62,23 @@
         [standardUserDefaults setValue:serviceURL forKey:@"BMCredentialsServiceURLKey"];
     }
     
+    
+    
     NSError *error = nil;
+    
+    // remove all accounts first before storing another one
+    NSArray *allAccounts = [SSKeychain accountsForService:servicename];
+    for (NSDictionary *account in allAccounts) {
+        error = nil;
+        if (([SSKeychain deletePasswordForService:[account valueForKey:@"svce"] account:[account valueForKey:@"acct"] error:&error] == NO || error != nil) && failureHandler) {
+            failureHandler(error);
+        } else if (successHandler) {
+            successHandler(nil);
+        }
+    }
+    
+    // set a new password
+    error = nil;
     if (([SSKeychain setPassword:password forService:servicename account:username error:&error] == NO || error != nil) && failureHandler) {
         failureHandler(error);
     } else if (successHandler) {

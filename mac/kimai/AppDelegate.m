@@ -511,12 +511,28 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 
 - (void)showAlertSheetWithError:(NSError *)error {
+
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Error";
+    notification.informativeText = error.description;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+
+    
+    [self showPreferences];
+    
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
     [alert setMessageText:@"Error"];
-    [alert setInformativeText:error.description];
+
+    NSString *localizedDescription = nil;
+    if (error.userInfo) {
+        localizedDescription = [error.userInfo objectForKey:@"NSLocalizedDescriptionKey"];
+    }
+    [alert setInformativeText:localizedDescription ? localizedDescription : error.localizedDescription];
+    
     [alert setAlertStyle:NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [alert beginSheetModalForWindow:self.preferencesWindowController.window modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 
@@ -1016,9 +1032,9 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 - (void)showPreferences {
     
-    [self.preferencesWindowController showWindow:nil];
     [self.preferencesWindowController.window center];
     [self.preferencesWindowController.window makeKeyAndOrderFront:self];
+    [self.preferencesWindowController showWindow:nil];
 
 /*
     [self.window center];

@@ -23,7 +23,7 @@
                 <imageView id="85">
                     <rect key="frame" x="20" y="179" width="73" height="73"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="kimai_play_unselected" id="86"/>
+                    <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="kimai_logo" id="86"/>
                 </imageView>
                 <textField verticalHuggingPriority="750" id="87">
                     <rect key="frame" x="113" y="234" width="157" height="18"/>
@@ -115,6 +115,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="kimai_play_unselected" width="73" height="75"/>
+        <image name="kimai_logo" width="73" height="75"/>
     </resources>
 </document>

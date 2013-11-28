@@ -18,6 +18,7 @@
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
 		BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = BC357930162DC10600F1BFAE /* DSJSONRPCError.m */; };
 		BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3AC596164BB83500794C05 /* SSKeychain.m */; };
+		BC41C9F9184793A40076EA3A /* kimai_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BC41C9F8184793A40076EA3A /* kimai_logo.png */; };
 		BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */; };
 		BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4B4D37162DC467000AE55E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6F4F8E163EE7C6000ACD96 /* KimaiUser.m */; };
@@ -95,6 +96,7 @@
 		BC357930162DC10600F1BFAE /* DSJSONRPCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSJSONRPCError.m; sourceTree = "<group>"; };
 		BC3AC595164BB83500794C05 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		BC3AC596164BB83500794C05 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		BC41C9F8184793A40076EA3A /* kimai_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kimai_logo.png; sourceTree = "<group>"; };
 		BC46C8DF163DDD8A00C9520D /* KimaiTimesheetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KimaiTimesheetRecord.h; sourceTree = "<group>"; };
 		BC46C8E0163DDD8A00C9520D /* KimaiTimesheetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KimaiTimesheetRecord.m; sourceTree = "<group>"; };
 		BC4B4D36162DC467000AE55E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 		BCAF86101803DDFF00B82FE2 /* kimai_icons */ = {
 			isa = PBXGroup;
 			children = (
+				BC41C9F8184793A40076EA3A /* kimai_logo.png */,
 				BCAF86111803DDFF00B82FE2 /* stop.png */,
 				BCAF86121803DDFF00B82FE2 /* stop@2x.png */,
 			);
@@ -535,6 +538,7 @@
 				BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */,
 				BCAF86131803DDFF00B82FE2 /* stop.png in Resources */,
 				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
+				BC41C9F9184793A40076EA3A /* kimai_logo.png in Resources */,
 				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
 				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
 				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,

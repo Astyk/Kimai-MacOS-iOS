@@ -10,7 +10,6 @@
 #import <ServiceManagement/ServiceManagement.h>
 #import "StartAtLoginController.h"
 #import "KSReachability.h"
-#import "StatusItemView.h"
 #import "Kimai.h"
 
 
@@ -20,7 +19,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
     NSStatusItem *statusItem;
-    StatusItemView *statusItemView;
     NSWindowController *_preferencesWindowController;
 }
 

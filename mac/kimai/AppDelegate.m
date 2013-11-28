@@ -78,7 +78,7 @@
     
     // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setView:statusItemView];
+    //[statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
     [statusItem setTitle:@"Loading..."];
     [statusItem setEnabled:NO];

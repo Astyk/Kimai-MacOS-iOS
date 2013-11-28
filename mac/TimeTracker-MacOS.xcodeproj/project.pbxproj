@@ -39,9 +39,6 @@
 		BC928EF7162C3A8200685547 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EF6162C3A8200685547 /* AppDelegate.m */; };
 		BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF8162C3A8200685547 /* MainMenu.xib */; };
 		BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */; };
-		BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = BC928F23162C3BA500685547 /* smart-icon-selected.png */; };
-		BC928F28162C3BA500685547 /* smart-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC928F24162C3BA500685547 /* smart-icon.png */; };
-		BC928F29162C3BA500685547 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928F26162C3BA500685547 /* StatusItemView.m */; };
 		BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928F31162C3FCB00685547 /* WebKit.framework */; };
 		BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D1162F1B7B00886EBC /* Kimai.m */; };
 		BC9815D5162F1B7B00886EBC /* KimaiProject.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D3162F1B7B00886EBC /* KimaiProject.m */; };
@@ -132,10 +129,6 @@
 		BC928EF6162C3A8200685547 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BC928EF9162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BC928EFC162C3A8200685547 /* kimai.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = kimai.xcdatamodel; sourceTree = "<group>"; };
-		BC928F23162C3BA500685547 /* smart-icon-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smart-icon-selected.png"; sourceTree = "<group>"; };
-		BC928F24162C3BA500685547 /* smart-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smart-icon.png"; sourceTree = "<group>"; };
-		BC928F25162C3BA500685547 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
-		BC928F26162C3BA500685547 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		BC928F31162C3FCB00685547 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BC9815D0162F1B7B00886EBC /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
 		BC9815D1162F1B7B00886EBC /* Kimai.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kimai.m; sourceTree = "<group>"; };
@@ -341,7 +334,6 @@
 				BCAF86101803DDFF00B82FE2 /* kimai_icons */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
 				BC87F10316396842001BDF87 /* Location */,
-				BC928F22162C3BA500685547 /* StatusBar */,
 				BC87F0F316314107001BDF87 /* ApplicationObserver */,
 				BC09312216580A7200E1B87F /* MASPreferences */,
 				BC262DC2165045D300E974AF /* BMTimeFormatter.h */,
@@ -366,17 +358,6 @@
 				BC928EF2162C3A8200685547 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BC928F22162C3BA500685547 /* StatusBar */ = {
-			isa = PBXGroup;
-			children = (
-				BC928F23162C3BA500685547 /* smart-icon-selected.png */,
-				BC928F24162C3BA500685547 /* smart-icon.png */,
-				BC928F25162C3BA500685547 /* StatusItemView.h */,
-				BC928F26162C3BA500685547 /* StatusItemView.m */,
-			);
-			path = StatusBar;
 			sourceTree = "<group>";
 		};
 		BC9815CF162F1B7B00886EBC /* Kimai */ = {
@@ -540,8 +521,6 @@
 				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
 				BC41C9F9184793A40076EA3A /* kimai_logo.png in Resources */,
 				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
-				BC928F27162C3BA500685547 /* smart-icon-selected.png in Resources */,
-				BC928F28162C3BA500685547 /* smart-icon.png in Resources */,
 				BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */,
 				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
 				BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */,
@@ -569,7 +548,6 @@
 				BC928EF0162C3A8200685547 /* main.m in Sources */,
 				BC928EF7162C3A8200685547 /* AppDelegate.m in Sources */,
 				BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */,
-				BC928F29162C3BA500685547 /* StatusItemView.m in Sources */,
 				BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */,
 				BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */,
 				BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */,
@@ -708,6 +686,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -727,6 +706,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -746,6 +726,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
@@ -762,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";

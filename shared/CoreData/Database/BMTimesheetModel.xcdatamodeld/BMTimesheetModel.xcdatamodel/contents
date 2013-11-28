@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="BMCustomer" representedClassName="BMCustomer" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="projects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMProject" inverseName="customer" inverseEntity="BMProject" syncable="YES"/>
@@ -34,11 +34,11 @@
     </entity>
     <entity name="BMUser" representedClassName="BMUser" syncable="YES"/>
     <elements>
-        <element name="BMCustomer" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BMProject" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BMRegion" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BMTimesheetRecord" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BMTimesheetRecordComment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BMUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BMCustomer" positionX="-963" positionY="-1956" width="128" height="75"/>
+        <element name="BMProject" positionX="-738" positionY="-1950" width="128" height="105"/>
+        <element name="BMRegion" positionX="-756" positionY="-1770" width="128" height="150"/>
+        <element name="BMTimesheetRecord" positionX="-992" positionY="-1773" width="128" height="135"/>
+        <element name="BMTimesheetRecordComment" positionX="-990" positionY="-1593" width="128" height="90"/>
+        <element name="BMUser" positionX="-756" positionY="-1573" width="128" height="43"/>
     </elements>
 </model>

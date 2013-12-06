@@ -7,7 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BMApplicationWindow.h"
+#import "BMApplication.h"
 
 @interface RunningApplicationsController : NSArrayController
+
+@property (nonatomic, strong) BMApplication *currentApplication;
+@property (nonatomic, strong) BMApplicationWindow *currentApplicationWindow;
 
 @end

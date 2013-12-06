@@ -31,3 +31,6 @@
 [submodule "shared/MagicalRecord"]
 	path = shared/MagicalRecord
 	url = https://github.com/magicalpanda/MagicalRecord.git
+[submodule "shared/Vendors/AFNetworking"]
+	path = shared/Vendors/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git

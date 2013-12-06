@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "BMAppDelegate.h"
 
-@implementation AppDelegate
+@implementation BMAppDelegate
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification
 {

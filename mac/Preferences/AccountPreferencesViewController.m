@@ -1,7 +1,7 @@
 
 #import "AccountPreferencesViewController.h"
 #import "BMCredentials.h"
-#import "AppDelegate.h"
+#import "BMAppDelegate.h"
 
 
 @implementation AccountPreferencesViewController
@@ -58,7 +58,7 @@
         return;
     }
     
-    AppDelegate *appDelegate = (AppDelegate*)[NSApp delegate];
+    BMAppDelegate *appDelegate = (BMAppDelegate*)[NSApp delegate];
 //    Kimai *kimai = appDelegate.kimai;
     
 //#ifndef DEBUG

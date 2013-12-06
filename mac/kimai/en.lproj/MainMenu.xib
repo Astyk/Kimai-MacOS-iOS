@@ -219,7 +219,7 @@
                 </constraints>
             </view>
         </window>
-        <customObject id="494" customClass="AppDelegate">
+        <customObject id="494" customClass="BMAppDelegate">
             <connections>
                 <outlet property="futureButton" destination="1747" id="2398"/>
                 <outlet property="homeButton" destination="1569" id="1730"/>

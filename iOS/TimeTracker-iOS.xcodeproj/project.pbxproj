@@ -109,7 +109,7 @@
 		BC520C7F176A18E4003EC969 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
 		BC520C9A176A18FA003EC969 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BC520C9B176A18FA003EC969 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		BC5A3F3A164AF530003FCCD4 /* Kimai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC5A3F3A164AF530003FCCD4 /* TimeTracker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TimeTracker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5A3F3E164AF530003FCCD4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC5A3F40164AF530003FCCD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BC5A3F42164AF530003FCCD4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -307,7 +307,7 @@
 		BC5A3F3B164AF530003FCCD4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BC5A3F3A164AF530003FCCD4 /* Kimai.app */,
+				BC5A3F3A164AF530003FCCD4 /* TimeTracker-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -543,9 +543,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BC5A3F39164AF530003FCCD4 /* Kimai */ = {
+		BC5A3F39164AF530003FCCD4 /* TimeTracker-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC5A3F61164AF530003FCCD4 /* Build configuration list for PBXNativeTarget "Kimai" */;
+			buildConfigurationList = BC5A3F61164AF530003FCCD4 /* Build configuration list for PBXNativeTarget "TimeTracker-iOS" */;
 			buildPhases = (
 				BC5A3F36164AF530003FCCD4 /* Sources */,
 				BC5A3F37164AF530003FCCD4 /* Frameworks */,
@@ -555,9 +555,9 @@
 			);
 			dependencies = (
 			);
-			name = Kimai;
+			name = "TimeTracker-iOS";
 			productName = Kimai;
-			productReference = BC5A3F3A164AF530003FCCD4 /* Kimai.app */;
+			productReference = BC5A3F3A164AF530003FCCD4 /* TimeTracker-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -574,7 +574,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BC5A3F34164AF530003FCCD4 /* Build configuration list for PBXProject "Kimai-iOS" */;
+			buildConfigurationList = BC5A3F34164AF530003FCCD4 /* Build configuration list for PBXProject "TimeTracker-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -586,7 +586,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BC5A3F39164AF530003FCCD4 /* Kimai */,
+				BC5A3F39164AF530003FCCD4 /* TimeTracker-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -717,6 +717,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "750B417B-1E56-4B1F-9735-136F58BF5243";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -740,6 +741,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "A3508778-0453-4397-B917-08BB2768A718";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -751,6 +753,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "Kimai/Kimai-Info.plist";
@@ -766,6 +769,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "Kimai/Kimai-Info.plist";
@@ -779,7 +783,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC5A3F34164AF530003FCCD4 /* Build configuration list for PBXProject "Kimai-iOS" */ = {
+		BC5A3F34164AF530003FCCD4 /* Build configuration list for PBXProject "TimeTracker-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC5A3F5F164AF530003FCCD4 /* Debug */,
@@ -788,7 +792,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC5A3F61164AF530003FCCD4 /* Build configuration list for PBXNativeTarget "Kimai" */ = {
+		BC5A3F61164AF530003FCCD4 /* Build configuration list for PBXNativeTarget "TimeTracker-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC5A3F62164AF530003FCCD4 /* Debug */,

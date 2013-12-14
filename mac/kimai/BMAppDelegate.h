@@ -31,7 +31,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 - (void)saveDatabase;
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow *timeTrackerWindow;
+@property (assign) IBOutlet NSWindow *mainMenuWindow;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 
 - (IBAction)pickActivityButtonClicked:(id)sender;

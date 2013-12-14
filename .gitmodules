@@ -34,3 +34,6 @@
 [submodule "shared/Vendors/AFNetworking"]
 	path = shared/Vendors/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
+[submodule "mac/DDHotKey"]
+	path = mac/DDHotKey
+	url = https://github.com/davedelong/DDHotKey.git

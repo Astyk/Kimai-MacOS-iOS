@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
+        <deployment defaultVersion="1090" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
@@ -16,7 +16,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="433" y="306" width="914" height="285"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="372" customClass="TransparentView">
                 <rect key="frame" x="0.0" y="0.0" width="914" height="285"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -218,6 +218,9 @@
                     <constraint firstItem="1741" firstAttribute="centerX" secondItem="372" secondAttribute="centerX" id="2574"/>
                 </constraints>
             </view>
+            <connections>
+                <outlet property="menu" destination="ta6-JL-Elu" id="8sp-Na-ejk"/>
+            </connections>
         </window>
         <customObject id="494" customClass="BMAppDelegate">
             <connections>
@@ -227,7 +230,7 @@
                 <outlet property="leaveDateTimeLabel" destination="2214" id="2542"/>
                 <outlet property="pastButton" destination="1733" id="2396"/>
                 <outlet property="presentButton" destination="1741" id="2397"/>
-                <outlet property="window" destination="371" id="532"/>
+                <outlet property="timeTrackerWindow" destination="371" id="eoy-Mb-fYY"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
@@ -250,5 +253,18 @@
                 <font key="font" metaFont="system"/>
             </buttonCell>
         </button>
+        <menu id="ta6-JL-Elu">
+            <items>
+                <menuItem title="Item 1" id="3nm-eF-aul">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 2" id="I6C-h6-G9H">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 3" id="At9-BO-Dnj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
 </document>

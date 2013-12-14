@@ -13,6 +13,12 @@
 		BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */; };
 		BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */; };
 		BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */; };
+		BC15EC161851E58D0033D8F8 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC15EC081851E58D0033D8F8 /* DDHotKeyCenter.m */; };
+		BC15EC171851E58D0033D8F8 /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC15EC0A1851E58D0033D8F8 /* DDHotKeyTextField.m */; };
+		BC15EC181851E58D0033D8F8 /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC15EC0C1851E58D0033D8F8 /* DDHotKeyUtilities.m */; };
+		BC15EC221851E5CB0033D8F8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC15EC211851E5CB0033D8F8 /* Carbon.framework */; };
+		BC15EC2C185276660033D8F8 /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC15EC29185276660033D8F8 /* TransparentView.m */; };
+		BC15EC2D185276660033D8F8 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC15EC2B185276660033D8F8 /* TransparentWindow.m */; };
 		BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC3165045D300E974AF /* BMTimeFormatter.m */; };
 		BC262DC8165048D500E974AF /* BMCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = BC262DC7165048D500E974AF /* BMCredentials.m */; };
 		BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC35792E162DC10600F1BFAE /* DSJSONRPC.m */; };
@@ -46,13 +52,12 @@
 		BC87F1771639767E001BDF87 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC87F1621639767E001BDF87 /* KSReachability.m */; };
 		BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F18516397A85001BDF87 /* SystemConfiguration.framework */; };
 		BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC87F19B16398291001BDF87 /* CoreWLAN.framework */; };
-		BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8BECF0165E5A9C004DAC63 /* TransparentView.m */; };
 		BC928EE4162C3A8200685547 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928EE3162C3A8200685547 /* Cocoa.framework */; };
 		BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC928EEC162C3A8200685547 /* InfoPlist.strings */; };
 		BC928EF0162C3A8200685547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EEF162C3A8200685547 /* main.m */; };
 		BC928EF4162C3A8200685547 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF2162C3A8200685547 /* Credits.rtf */; };
 		BC928EF7162C3A8200685547 /* BMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC928EF6162C3A8200685547 /* BMAppDelegate.m */; };
-		BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF8162C3A8200685547 /* MainMenu.xib */; };
+		BC928EFA162C3A8200685547 /* TimeTrackerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC928EF8162C3A8200685547 /* TimeTrackerWindow.xib */; };
 		BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */; };
 		BC928F32162C3FCB00685547 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC928F31162C3FCB00685547 /* WebKit.framework */; };
 		BC9815D4162F1B7B00886EBC /* Kimai.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9815D1162F1B7B00886EBC /* Kimai.m */; };
@@ -70,7 +75,6 @@
 		BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCAF8608180337E300B82FE2 /* Images.xcassets */; };
 		BCAF86131803DDFF00B82FE2 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAF86111803DDFF00B82FE2 /* stop.png */; };
 		BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAF86121803DDFF00B82FE2 /* stop@2x.png */; };
-		BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */; };
 		BCDAC072184B8D2B0064DD1B /* BMApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDAC06B184B8D2B0064DD1B /* BMApplication.m */; };
 		BCDAC073184B8D2B0064DD1B /* BMApplicationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDAC06D184B8D2B0064DD1B /* BMApplicationWindow.m */; };
 		BCDAC075184B8D2B0064DD1B /* RunningApplicationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDAC071184B8D2B0064DD1B /* RunningApplicationsController.m */; };
@@ -102,6 +106,18 @@
 		BC09315216580B2900E1B87F /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		BC09316F165821FF00E1B87F /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
+		BC15EC071851E58D0033D8F8 /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		BC15EC081851E58D0033D8F8 /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		BC15EC091851E58D0033D8F8 /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
+		BC15EC0A1851E58D0033D8F8 /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
+		BC15EC0B1851E58D0033D8F8 /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
+		BC15EC0C1851E58D0033D8F8 /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
+		BC15EC201851E5B00033D8F8 /* TimeTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TimeTracker.entitlements; sourceTree = "<group>"; };
+		BC15EC211851E5CB0033D8F8 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		BC15EC28185276660033D8F8 /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
+		BC15EC29185276660033D8F8 /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
+		BC15EC2A185276660033D8F8 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
+		BC15EC2B185276660033D8F8 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
 		BC262DC2165045D300E974AF /* BMTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTimeFormatter.h; sourceTree = "<group>"; };
 		BC262DC3165045D300E974AF /* BMTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTimeFormatter.m; sourceTree = "<group>"; };
 		BC262DC6165048D500E974AF /* BMCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCredentials.h; sourceTree = "<group>"; };
@@ -166,8 +182,6 @@
 		BC87F1621639767E001BDF87 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReachability.m; sourceTree = "<group>"; };
 		BC87F18516397A85001BDF87 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC87F19B16398291001BDF87 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
-		BC8BECEF165E5A9C004DAC63 /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
-		BC8BECF0165E5A9C004DAC63 /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
 		BC928EDF162C3A8200685547 /* TimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC928EE3162C3A8200685547 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BC928EE6162C3A8200685547 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -179,7 +193,7 @@
 		BC928EF3162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BC928EF5162C3A8200685547 /* BMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAppDelegate.h; sourceTree = "<group>"; };
 		BC928EF6162C3A8200685547 /* BMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAppDelegate.m; sourceTree = "<group>"; };
-		BC928EF9162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BC928EF9162C3A8200685547 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TimeTrackerWindow.xib; sourceTree = "<group>"; };
 		BC928EFC162C3A8200685547 /* kimai.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = kimai.xcdatamodel; sourceTree = "<group>"; };
 		BC928F31162C3FCB00685547 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BC9815D0162F1B7B00886EBC /* Kimai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kimai.h; sourceTree = "<group>"; };
@@ -207,8 +221,6 @@
 		BCAF8608180337E300B82FE2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kimai/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BCAF86111803DDFF00B82FE2 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		BCAF86121803DDFF00B82FE2 /* stop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop@2x.png"; sourceTree = "<group>"; };
-		BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
-		BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
 		BCDAC06A184B8D2B0064DD1B /* BMApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMApplication.h; sourceTree = "<group>"; };
 		BCDAC06B184B8D2B0064DD1B /* BMApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMApplication.m; sourceTree = "<group>"; };
 		BCDAC06C184B8D2B0064DD1B /* BMApplicationWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMApplicationWindow.h; sourceTree = "<group>"; };
@@ -226,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC15EC221851E5CB0033D8F8 /* Carbon.framework in Frameworks */,
 				BCA2A55B164179E1005F4C6C /* ServiceManagement.framework in Frameworks */,
 				BC87F19C16398291001BDF87 /* CoreWLAN.framework in Frameworks */,
 				BC87F18616397A86001BDF87 /* SystemConfiguration.framework in Frameworks */,
@@ -281,6 +294,30 @@
 			);
 			name = General;
 			path = ../Preferences;
+			sourceTree = "<group>";
+		};
+		BC15EBFE1851E58D0033D8F8 /* DDHotKey */ = {
+			isa = PBXGroup;
+			children = (
+				BC15EC071851E58D0033D8F8 /* DDHotKeyCenter.h */,
+				BC15EC081851E58D0033D8F8 /* DDHotKeyCenter.m */,
+				BC15EC091851E58D0033D8F8 /* DDHotKeyTextField.h */,
+				BC15EC0A1851E58D0033D8F8 /* DDHotKeyTextField.m */,
+				BC15EC0B1851E58D0033D8F8 /* DDHotKeyUtilities.h */,
+				BC15EC0C1851E58D0033D8F8 /* DDHotKeyUtilities.m */,
+			);
+			path = DDHotKey;
+			sourceTree = "<group>";
+		};
+		BC15EC27185276660033D8F8 /* Transparent */ = {
+			isa = PBXGroup;
+			children = (
+				BC15EC28185276660033D8F8 /* TransparentView.h */,
+				BC15EC29185276660033D8F8 /* TransparentView.m */,
+				BC15EC2A185276660033D8F8 /* TransparentWindow.h */,
+				BC15EC2B185276660033D8F8 /* TransparentWindow.m */,
+			);
+			path = Transparent;
 			sourceTree = "<group>";
 		};
 		BC35792B162DC10600F1BFAE /* DSJSONRPC */ = {
@@ -386,6 +423,7 @@
 		BC928ED4162C3A8200685547 = {
 			isa = PBXGroup;
 			children = (
+				BC15EC201851E5B00033D8F8 /* TimeTracker.entitlements */,
 				BC928EE9162C3A8200685547 /* Kimai */,
 				BCA2A56C16417BB3005F4C6C /* KimaiLoginHelper */,
 				BCEB9D3816EFD07D00FA6B76 /* Vendors */,
@@ -406,6 +444,7 @@
 		BC928EE2162C3A8200685547 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC15EC211851E5CB0033D8F8 /* Carbon.framework */,
 				BCA2A55A164179E1005F4C6C /* ServiceManagement.framework */,
 				BC928EE6162C3A8200685547 /* AppKit.framework */,
 				BC87F0DA16306DEB001BDF87 /* Security.framework */,
@@ -428,15 +467,12 @@
 			children = (
 				BC928EF5162C3A8200685547 /* BMAppDelegate.h */,
 				BC928EF6162C3A8200685547 /* BMAppDelegate.m */,
-				BCC3B0DA164EE1A400317FCE /* TransparentWindow.h */,
-				BCC3B0DB164EE1A400317FCE /* TransparentWindow.m */,
-				BC8BECEF165E5A9C004DAC63 /* TransparentView.h */,
-				BC8BECF0165E5A9C004DAC63 /* TransparentView.m */,
-				BC928EF8162C3A8200685547 /* MainMenu.xib */,
+				BC928EF8162C3A8200685547 /* TimeTrackerWindow.xib */,
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
 				BCAF86101803DDFF00B82FE2 /* kimai_icons */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
 				BC09312216580A7200E1B87F /* MASPreferences */,
+				BC15EC27185276660033D8F8 /* Transparent */,
 				BC87F10316396842001BDF87 /* Location */,
 				BCDAC07D184B8D990064DD1B /* CalendarUtilities */,
 				BCDAC076184B8D8F0064DD1B /* Database */,
@@ -561,6 +597,7 @@
 		BCEB9D3816EFD07D00FA6B76 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				BC15EBFE1851E58D0033D8F8 /* DDHotKey */,
 				BC6279171847F25000FB0FDC /* UIKit+AFNetworking */,
 				BC6278FA1847F24500FB0FDC /* AFNetworking */,
 				BCA2A5511641799E005F4C6C /* StartAtLoginController */,
@@ -623,7 +660,7 @@
 						DevelopmentTeam = T2TK462TB3;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -662,7 +699,7 @@
 				BCAF86131803DDFF00B82FE2 /* stop.png in Resources */,
 				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
 				BC41C9F9184793A40076EA3A /* kimai_logo.png in Resources */,
-				BC928EFA162C3A8200685547 /* MainMenu.xib in Resources */,
+				BC928EFA162C3A8200685547 /* TimeTrackerWindow.xib in Resources */,
 				BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */,
 				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
 				BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */,
@@ -690,6 +727,7 @@
 				BC62790E1847F24500FB0FDC /* AFHTTPRequestOperation.m in Sources */,
 				BC928EF0162C3A8200685547 /* main.m in Sources */,
 				BC928EF7162C3A8200685547 /* BMAppDelegate.m in Sources */,
+				BC15EC171851E58D0033D8F8 /* DDHotKeyTextField.m in Sources */,
 				BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */,
 				BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */,
 				BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */,
@@ -716,22 +754,24 @@
 				BC87F1771639767E001BDF87 /* KSReachability.m in Sources */,
 				BC6279291847F25000FB0FDC /* UIAlertView+AFNetworking.m in Sources */,
 				BC6279141847F24500FB0FDC /* AFURLRequestSerialization.m in Sources */,
+				BC15EC2D185276660033D8F8 /* TransparentWindow.m in Sources */,
 				BC46C8E1163DDD8A00C9520D /* KimaiTimesheetRecord.m in Sources */,
 				BC6F4F8F163EE7C6000ACD96 /* KimaiUser.m in Sources */,
 				BCDAC073184B8D2B0064DD1B /* BMApplicationWindow.m in Sources */,
 				BCA2A5581641799E005F4C6C /* StartAtLoginController.m in Sources */,
+				BC15EC2C185276660033D8F8 /* TransparentView.m in Sources */,
 				BCDAC080184B8D990064DD1B /* BMiCalExport.m in Sources */,
 				BC62790F1847F24500FB0FDC /* AFHTTPRequestOperationManager.m in Sources */,
 				BC3AC5A8164BB83500794C05 /* SSKeychain.m in Sources */,
-				BCC3B0DC164EE1A400317FCE /* TransparentWindow.m in Sources */,
 				BC6279111847F24500FB0FDC /* AFNetworkReachabilityManager.m in Sources */,
 				BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */,
+				BC15EC181851E58D0033D8F8 /* DDHotKeyUtilities.m in Sources */,
 				BC262DC8165048D500E974AF /* BMCredentials.m in Sources */,
 				BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */,
+				BC15EC161851E58D0033D8F8 /* DDHotKeyCenter.m in Sources */,
 				BC62792D1847F25000FB0FDC /* UIWebView+AFNetworking.m in Sources */,
 				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
 				BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */,
-				BC8BECF1165E5A9C004DAC63 /* TransparentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,12 +803,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		BC928EF8162C3A8200685547 /* MainMenu.xib */ = {
+		BC928EF8162C3A8200685547 /* TimeTrackerWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BC928EF9162C3A8200685547 /* en */,
 			);
-			name = MainMenu.xib;
+			name = TimeTrackerWindow.xib;
 			sourceTree = "<group>";
 		};
 		BCA2A56F16417BB3005F4C6C /* InfoPlist.strings */ = {
@@ -849,12 +889,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer: Michael Degn (U264746583)";
+				CODE_SIGN_ENTITLEMENTS = TimeTracker.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(CONFIGURATION_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Frameworks\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";
@@ -868,13 +905,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: blockhaus medienagentur OG";
+				CODE_SIGN_ENTITLEMENTS = TimeTracker.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(CONFIGURATION_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Frameworks\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kimai/Kimai-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/kimai/Kimai-Info.plist";

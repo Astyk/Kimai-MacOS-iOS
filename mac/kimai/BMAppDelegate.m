@@ -17,6 +17,8 @@
 #import "AccountPreferencesViewController.h"
 #import "RunningApplicationsController.h"
 #import "AFNetworking.h"
+#import "DDHotKeyCenter.h"
+#import <Carbon/Carbon.h>
 
 
 @interface BMAppDelegate () {
@@ -89,6 +91,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    [self registerHotkeys];
     
     // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -96,7 +99,6 @@
     [statusItem setHighlightMode:YES];
     [statusItem setTitle:@"Loading..."];
     [statusItem setEnabled:NO];
-
     
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
     [statusItem setMenu:menu];
@@ -108,15 +110,33 @@
     //[self initPodio];
     [self initKimai];
     [self startReloadDataTimer];
-
-
-    
     
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     [self removeScreensaverNotificationObserver];
 }
+
+
+#pragma mark - Hotkey
+
+- (void)registerHotkeys {
+
+	DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
+	if (![c registerHotKeyWithKeyCode:kVK_Space modifierFlags:(NSAlternateKeyMask) target:self action:@selector(hotkeyWithEvent:) object:nil]) {
+		NSLog(@"Unable to register hotkey!");
+	} else {
+        NSLog(@"Registered hotkey!");
+	}
+    
+}
+
+
+- (void)hotkeyWithEvent:(NSEvent *)hkEvent {
+    NSLog(@"%i", statusItem.isEnabled);
+    [statusItem popUpStatusItemMenu:statusItem.menu];
+}
+
 
 
 #pragma mark - Screensaver/Sleep Notifications
@@ -264,8 +284,8 @@
 
 - (void)hideTimeTrackerWindow {
     
-    if ([self.window isVisible]) {
-        [self.window orderOut:self];
+    if ([self.timeTrackerWindow isVisible]) {
+        [self.timeTrackerWindow orderOut:self];
     }
     
     for (TransparentWindow *window in self.transparentWindowArray) {
@@ -281,10 +301,6 @@
 
 
 - (void)_showTimeTrackerWindow {
-    
-    // do not currently show the tracker window
-    return;
-    
     
     if (_showTimeTrackerWindow && _userLeaveDate != nil) {
 
@@ -378,7 +394,7 @@
 #endif
         
         if (i == 0) {
-            [transparentWindow addChildWindow:self.window ordered:NSWindowAbove];
+            [transparentWindow addChildWindow:self.timeTrackerWindow ordered:NSWindowAbove];
         } else {
             TransparentWindow *lastTransparentWindow = [self.transparentWindowArray lastObject];
             [lastTransparentWindow addChildWindow:transparentWindow ordered:NSWindowAbove];
@@ -390,8 +406,8 @@
 	}
 
     
-    [self.window center];
-    [self.window makeKeyAndOrderFront:self];
+    [self.timeTrackerWindow center];
+    [self.timeTrackerWindow makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
 
 }
@@ -466,7 +482,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
     
     // show the menu as a popover
-    [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.window.contentView];
+    [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.timeTrackerWindow.contentView];
 
 }
 
@@ -517,15 +533,18 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 #pragma mark - Alert Sheet
 
+- (void)showUserNotificationWithTitle:(NSString *)title text:(NSString *)text {
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = title;
+    notification.informativeText = text;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
 
 - (void)showAlertSheetWithError:(NSError *)error {
 
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Error";
-    notification.informativeText = error.description;
-    notification.soundName = NSUserNotificationDefaultSoundName;
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-
+    [self showUserNotificationWithTitle:@"Error" text:error.description];
     
     [self showPreferences];
     

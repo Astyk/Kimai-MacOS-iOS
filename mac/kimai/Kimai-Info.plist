@@ -29,12 +29,8 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2013 blockhaus medienagentur. All rights reserved.</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<string>TimeTrackerWindow</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUShowReleaseNotes</key>
-	<false/>
 </dict>
 </plist>

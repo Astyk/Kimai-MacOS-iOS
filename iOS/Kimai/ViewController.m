@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 blockhaus medienagentur. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
 #import "ViewController.h"
 #import "KSReachability.h"
 #import "SSKeychain.h"
@@ -13,6 +15,7 @@
 #import "BMCredentials.h"
 #import "SVProgressHUD.h"
 #import "BMTimeFormatter.h"
+#import "BMMapViewController.h"
 
 
 @interface ViewController ()
@@ -28,18 +31,6 @@ typedef void (^KeychainFailureHandler)(NSError *error);
 static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
-KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
-
-    [SVProgressHUD dismiss];
-
-    [[[UIAlertView alloc] initWithTitle:@"Error"
-                                message:error.localizedDescription
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles: nil] show];
-};
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,12 +40,25 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
     [refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
+    [self.kimaiServerURLTextField setKeyboardType:UIKeyboardTypeURL];
+
     [self initKimai];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
+    
+    UIBarButtonItem *regionMappingButton = [[UIBarButtonItem alloc] initWithTitle:@"Region"
+                                                                            style:UIBarButtonItemStyleBordered
+                                                                           target:self
+                                                                           action:@selector(monitorCurrentLocation)];
+    self.navigationItem.rightBarButtonItem = regionMappingButton;
+    
+
+    
     [self reloadData];
 }
 
@@ -65,6 +69,13 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 }
 
 
+#pragma mark - Region Monitoring
+
+
+- (void)monitorCurrentLocation {    
+    BMMapViewController *mapViewController = [[BMMapViewController alloc] init];
+    [self.navigationController pushViewController:mapViewController animated:YES];
+}
 
 
 #pragma mark - Kimai
@@ -102,7 +113,26 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
 
         [self.tableView reloadData];
 
-    } failure:standardFailureHandler];
+    } failure:^(NSError *error) {
+        [self handleError:error];
+    }];
+    
+}
+
+
+- (void)handleError:(NSError *)error {
+    
+    [SVProgressHUD dismiss];
+    
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:error.localizedDescription
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles: nil] show];
+    
+    [self showLoginView];
+    
+    [self.refreshControl endRefreshing];
     
 }
 
@@ -114,8 +144,7 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
     [self.kimai stopAllActivityRecordingsWithSuccess:^(id response) {
         [self reloadData];
     } failure:^(NSError *error) {
-        standardFailureHandler(error);
-        [self reloadData];
+        [self handleError:error];
     }];
     
 }
@@ -141,7 +170,9 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
                 
                 [self.kimai authenticateWithUsername:username password:password success:^(id response) {
                     [self reloadData];
-                } failure:standardFailureHandler];
+                } failure:^(NSError *error) {
+                    [self handleError:error];
+                }];
 
             } failure:^(NSError *error) {
                 
@@ -250,8 +281,9 @@ KimaiFailureHandler standardFailureHandler = ^(NSError *error) {
         
         KimaiActiveRecording *record = [self.kimai.activeRecordings objectAtIndex:0];
         cell.textLabel.text = [self statusBarTitleWithActivity:record];
+        
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.imageView.image = [UIImage imageNamed:@"kimai_stop_selected.png"];
+        cell.imageView.image = [UIImage imageNamed:@"stop.png"];
         
     } else {
         

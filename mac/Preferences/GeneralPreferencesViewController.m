@@ -14,6 +14,11 @@
 
 @implementation GeneralPreferencesViewController
 
+- (IBAction)startApplicationOnSystemStartup:(id)sender {
+    NSButton *button = (NSButton *)sender;
+    NSLog(@"%li", (long)button.state);
+}
+
 - (id)init
 {
     return [super initWithNibName:@"GeneralPreferencesViewController" bundle:nil];

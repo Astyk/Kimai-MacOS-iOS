@@ -50,7 +50,7 @@
     [self hidePreferences];
     [self hideTimeTrackerWindow];
     
-#ifndef DEBUG
+//#ifndef DEBUG
 
     // check for other instances
     int runningInstances = 0;
@@ -67,7 +67,7 @@
         [NSApp terminate:nil];
     }
 
-#endif
+//#endif
 	
     
 }
@@ -78,7 +78,7 @@
     
     // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setView:statusItemView];
+    //[statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
     [statusItem setTitle:@"Loading..."];
     [statusItem setEnabled:NO];
@@ -511,12 +511,28 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 
 - (void)showAlertSheetWithError:(NSError *)error {
+
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Error";
+    notification.informativeText = error.description;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+
+    
+    [self showPreferences];
+    
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
     [alert setMessageText:@"Error"];
-    [alert setInformativeText:error.description];
+
+    NSString *localizedDescription = nil;
+    if (error.userInfo) {
+        localizedDescription = [error.userInfo objectForKey:@"NSLocalizedDescriptionKey"];
+    }
+    [alert setInformativeText:localizedDescription ? localizedDescription : error.localizedDescription];
+    
     [alert setAlertStyle:NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [alert beginSheetModalForWindow:self.preferencesWindowController.window modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 
@@ -778,9 +794,9 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (void)reloadMenu {
     
     
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"Kimai"];
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"TimeTracker"];
     KimaiActiveRecording *activeRecordingOrNil = nil;
-    NSString *title = @"Kimai";
+    NSString *title = @"TimeTracker";
     
     if (self.kimai.activeRecordings) {
         
@@ -868,7 +884,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 #endif
     
     // QUIT
-    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Kimai" action:@selector(quitApplication) keyEquivalent:@""];
+    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit TimeTracker" action:@selector(quitApplication) keyEquivalent:@""];
     [kimaiMenu addItem:quitMenuItem];
     
     
@@ -1016,13 +1032,15 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 - (void)showPreferences {
     
+    [self.preferencesWindowController.window center];
+    [self.preferencesWindowController.window makeKeyAndOrderFront:self];
     [self.preferencesWindowController showWindow:nil];
 
-    /*
+/*
     [self.window center];
     [self.window makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
-     */
+ */
 }
 
 

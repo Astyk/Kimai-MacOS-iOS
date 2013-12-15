@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BMCustomer" representedClassName="BMCustomer" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMProject" inverseName="customer" inverseEntity="BMProject" syncable="YES"/>
+    </entity>
+    <entity name="BMProject" representedClassName="BMProject" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BMCustomer" inverseName="projects" inverseEntity="BMCustomer" syncable="YES"/>
+        <relationship name="regions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMRegion" inverseName="projects" inverseEntity="BMRegion" syncable="YES"/>
+        <relationship name="timesheetRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMTimesheetRecord" inverseName="project" inverseEntity="BMTimesheetRecord" syncable="YES"/>
+    </entity>
+    <entity name="BMRegion" representedClassName="BMRegion" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="radius" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMProject" inverseName="regions" inverseEntity="BMProject" syncable="YES"/>
+        <relationship name="timesheetRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMTimesheetRecord" inverseName="region" inverseEntity="BMTimesheetRecord" syncable="YES"/>
+    </entity>
+    <entity name="BMTimesheetRecord" representedClassName="BMTimesheetRecord" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BMTimesheetRecordComment" inverseName="timesheetRecord" inverseEntity="BMTimesheetRecordComment" syncable="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BMProject" inverseName="timesheetRecords" inverseEntity="BMProject" syncable="YES"/>
+        <relationship name="region" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BMRegion" inverseName="timesheetRecords" inverseEntity="BMRegion" syncable="YES"/>
+    </entity>
+    <entity name="BMTimesheetRecordComment" representedClassName="BMTimesheetRecordComment" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="timesheetRecord" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BMTimesheetRecord" inverseName="comments" inverseEntity="BMTimesheetRecord" syncable="YES"/>
+    </entity>
+    <entity name="BMUser" representedClassName="BMUser" syncable="YES"/>
+    <elements>
+        <element name="BMCustomer" positionX="-963" positionY="-1956" width="128" height="75"/>
+        <element name="BMProject" positionX="-738" positionY="-1950" width="128" height="105"/>
+        <element name="BMRegion" positionX="-756" positionY="-1770" width="128" height="150"/>
+        <element name="BMTimesheetRecord" positionX="-992" positionY="-1773" width="128" height="135"/>
+        <element name="BMTimesheetRecordComment" positionX="-990" positionY="-1593" width="128" height="90"/>
+        <element name="BMUser" positionX="-756" positionY="-1573" width="128" height="43"/>
+    </elements>
+</model>

@@ -30,7 +30,7 @@
     BOOL alreadyRunning = NO;
     NSArray *running = [[NSWorkspace sharedWorkspace] runningApplications];
     for (NSRunningApplication *app in running) {
-        if ([[app bundleIdentifier] isEqualToString:@"org.kimai.timetracker"]) {
+        if ([[app bundleIdentifier] isEqualToString:@"com.blockhausmedia.timetracker"]) {
             NSLog(@"An instance of Kimai is already running!");
             alreadyRunning = YES;
         }

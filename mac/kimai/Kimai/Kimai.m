@@ -599,7 +599,7 @@
                 
                 if (methodError) {
                     
-                    NSLog(@"\nMethod %@(%i) returned an error: %@\n\n", methodName, callId, methodError);
+                    NSLog(@"\nMethod %@(%li) returned an error: %@\n\n", methodName, (long)callId, methodError);
 
                     if (failureHandler) {
                         failureHandler([NSError errorWithDomain:ERROR_DOMAIN code:methodError.code userInfo:[NSDictionary dictionaryWithObject:methodError.message forKey:@"NSLocalizedDescriptionKey"]]);
@@ -607,7 +607,7 @@
                     
                 } else if (internalError) {
                     
-                    NSLog(@"\nMethod %@(%i) couldn't be sent with error: %@\n\n", methodName, callId, internalError);
+                    NSLog(@"\nMethod %@(%li) couldn't be sent with error: %@\n\n", methodName, (long)callId, internalError);
 
                     if (failureHandler) {
                         failureHandler(internalError);

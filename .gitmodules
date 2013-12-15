@@ -28,3 +28,6 @@
 [submodule "mac/OAuth2Client"]
 	path = mac/OAuth2Client
 	url = https://github.com/nxtbgthng/OAuth2Client.git
+[submodule "shared/MagicalRecord"]
+	path = shared/MagicalRecord
+	url = https://github.com/magicalpanda/MagicalRecord.git

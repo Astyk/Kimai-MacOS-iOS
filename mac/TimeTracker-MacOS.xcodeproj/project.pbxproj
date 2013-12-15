@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */; };
-		BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BC065B85185DF983004EAD2F /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC065B83185DF983004EAD2F /* MASPreferencesWindow.xib */; };
+		BC065B86185DF983004EAD2F /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC065B84185DF983004EAD2F /* MASPreferencesWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */; };
 		BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */; };
 		BC09315B16580B2900E1B87F /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09315316580B2900E1B87F /* GeneralPreferencesViewController.m */; };
@@ -96,10 +96,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BC09312416580A7200E1B87F /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
-		BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
-		BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
-		BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
+		BC065B81185DF983004EAD2F /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASPreferencesViewController.h; path = ../../../Kimai/mac/Preferences/MASPreferencesViewController.h; sourceTree = "<group>"; };
+		BC065B82185DF983004EAD2F /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASPreferencesWindowController.h; path = ../../../Kimai/mac/Preferences/MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		BC065B83185DF983004EAD2F /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MASPreferencesWindow.xib; path = ../../../Kimai/mac/Preferences/MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		BC065B84185DF983004EAD2F /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASPreferencesWindowController.m; path = ../../../Kimai/mac/Preferences/MASPreferencesWindowController.m; sourceTree = "<group>"; };
 		BC09314816580B2900E1B87F /* AdvancedPreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPreferencesView.xib; sourceTree = "<group>"; };
 		BC09314916580B2900E1B87F /* AccountPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountPreferencesViewController.h; sourceTree = "<group>"; };
 		BC09314A16580B2900E1B87F /* AccountPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPreferencesViewController.m; sourceTree = "<group>"; };
@@ -261,16 +261,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC09312216580A7200E1B87F /* MASPreferences */ = {
+		BC09312216580A7200E1B87F /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
 				BC09315E16580B3C00E1B87F /* General */,
 				BC09315D16580B3400E1B87F /* Account */,
-				BC09312416580A7200E1B87F /* MASPreferencesViewController.h */,
-				BC09312616580A7200E1B87F /* MASPreferencesWindowController.h */,
-				BC09312716580A7200E1B87F /* MASPreferencesWindowController.m */,
-				BC09312516580A7200E1B87F /* MASPreferencesWindow.xib */,
+				BC065B81185DF983004EAD2F /* MASPreferencesViewController.h */,
+				BC065B82185DF983004EAD2F /* MASPreferencesWindowController.h */,
+				BC065B83185DF983004EAD2F /* MASPreferencesWindow.xib */,
+				BC065B84185DF983004EAD2F /* MASPreferencesWindowController.m */,
 			);
+			name = Preferences;
 			path = MASPreferences;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -471,12 +472,12 @@
 				BC928EFB162C3A8200685547 /* kimai.xcdatamodeld */,
 				BCAF86101803DDFF00B82FE2 /* kimai_icons */,
 				BC9815CF162F1B7B00886EBC /* Kimai */,
-				BC09312216580A7200E1B87F /* MASPreferences */,
 				BC15EC27185276660033D8F8 /* Transparent */,
 				BC87F10316396842001BDF87 /* Location */,
 				BCDAC07D184B8D990064DD1B /* CalendarUtilities */,
 				BCDAC076184B8D8F0064DD1B /* Database */,
 				BCDAC069184B8D2B0064DD1B /* ApplicationObserver */,
+				BC09312216580A7200E1B87F /* Preferences */,
 				BC262DC2165045D300E974AF /* BMTimeFormatter.h */,
 				BC262DC3165045D300E974AF /* BMTimeFormatter.m */,
 				BC262DC6165048D500E974AF /* BMCredentials.h */,
@@ -696,12 +697,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC928EEE162C3A8200685547 /* InfoPlist.strings in Resources */,
+				BC065B85185DF983004EAD2F /* MASPreferencesWindow.xib in Resources */,
 				BCAF86131803DDFF00B82FE2 /* stop.png in Resources */,
 				BC928EF4162C3A8200685547 /* Credits.rtf in Resources */,
 				BC41C9F9184793A40076EA3A /* kimai_logo.png in Resources */,
 				BC928EFA162C3A8200685547 /* TimeTrackerWindow.xib in Resources */,
 				BCAF8609180337E300B82FE2 /* Images.xcassets in Resources */,
-				BC09312A16580A7200E1B87F /* MASPreferencesWindow.xib in Resources */,
 				BCAF86141803DDFF00B82FE2 /* stop@2x.png in Resources */,
 				BC09315516580B2900E1B87F /* AdvancedPreferencesView.xib in Resources */,
 				BC093170165821FF00E1B87F /* GeneralPreferencesViewController.xib in Resources */,
@@ -730,6 +731,7 @@
 				BC15EC171851E58D0033D8F8 /* DDHotKeyTextField.m in Sources */,
 				BC928EFD162C3A8200685547 /* kimai.xcdatamodeld in Sources */,
 				BC357933162DC10600F1BFAE /* DSJSONRPC.m in Sources */,
+				BC065B86185DF983004EAD2F /* MASPreferencesWindowController.m in Sources */,
 				BC357934162DC10600F1BFAE /* DSJSONRPCError.m in Sources */,
 				BC6279101847F24500FB0FDC /* AFHTTPSessionManager.m in Sources */,
 				BC4B4D3A162DC467000AE55E /* JSONKit.m in Sources */,
@@ -767,7 +769,6 @@
 				BC262DC4165045D300E974AF /* BMTimeFormatter.m in Sources */,
 				BC15EC181851E58D0033D8F8 /* DDHotKeyUtilities.m in Sources */,
 				BC262DC8165048D500E974AF /* BMCredentials.m in Sources */,
-				BC09312B16580A7200E1B87F /* MASPreferencesWindowController.m in Sources */,
 				BC15EC161851E58D0033D8F8 /* DDHotKeyCenter.m in Sources */,
 				BC62792D1847F25000FB0FDC /* UIWebView+AFNetworking.m in Sources */,
 				BC09315616580B2900E1B87F /* AccountPreferencesViewController.m in Sources */,
@@ -922,6 +923,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";
@@ -938,6 +940,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Kimai/Kimai.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KimaiLoginHelper/KimaiLoginHelper-Prefix.pch";

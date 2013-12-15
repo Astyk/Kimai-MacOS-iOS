@@ -544,23 +544,37 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
 - (void)showAlertSheetWithError:(NSError *)error {
 
-    [self showUserNotificationWithTitle:@"Error" text:error.description];
+    //[self showUserNotificationWithTitle:@"Error" text:error.description];
     
     [self showPreferences];
     
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:@"Error"];
-
     NSString *localizedDescription = nil;
     if (error.userInfo) {
         localizedDescription = [error.userInfo objectForKey:@"NSLocalizedDescriptionKey"];
     }
-    [alert setInformativeText:localizedDescription ? localizedDescription : error.localizedDescription];
+
+    NSAlert *alert = [NSAlert alertWithMessageText:@"Error"
+                                     defaultButton:@"OK"
+                                   alternateButton:nil
+                                       otherButton:nil
+                         informativeTextWithFormat:@"%@", localizedDescription ? localizedDescription : error.localizedDescription];
+    alert.delegate = self;
+    alert.showsHelp = YES;
+    alert.alertStyle = NSWarningAlertStyle;
     
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:self.preferencesWindowController.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [alert beginSheetModalForWindow:self.preferencesWindowController.window
+                      modalDelegate:self
+                     didEndSelector:nil
+                        contextInfo:nil];
+    
 }
+
+
+- (BOOL)alertShowHelp:(NSAlert *)alert {
+    [self launchSupportWebsiteFromErrorMessage];
+    return YES;
+}
+
 
 
 #pragma mark - Kimai
@@ -901,7 +915,11 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
     [kimaiMenu addItem:preferencesMenuItem];
     
+    // SUPPORT
+    NSMenuItem *supportMenuItem = [[NSMenuItem alloc] initWithTitle:@"Support..." action:@selector(launchSupportWebsiteFromMenu) keyEquivalent:@""];
+    [kimaiMenu addItem:supportMenuItem];
     
+
     /////////////////////////////////////////////////////////////////////////////////
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
 
@@ -1024,6 +1042,30 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     [NSApp terminate:self];
 }
 
+
+#pragma mark - Support
+
+
+- (void)launchSupportWebsiteFromPreferences {
+    [self launchSupportWebsiteFromMedium:@"preferences"];
+}
+
+
+- (void)launchSupportWebsiteFromErrorMessage {
+    [self launchSupportWebsiteFromMedium:@"errormessage"];
+}
+
+
+- (void)launchSupportWebsiteFromMenu {
+    [self launchSupportWebsiteFromMedium:@"menu"];
+}
+
+
+- (void)launchSupportWebsiteFromMedium:(NSString *)medium {
+    NSString *urlString = [NSString stringWithFormat:@"http://blockhaus-timetracker.uservoice.com/?utm_source=macapp&utm_medium=%@&utm_campaign=support", medium];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
 
 
 #pragma mark - Preferences

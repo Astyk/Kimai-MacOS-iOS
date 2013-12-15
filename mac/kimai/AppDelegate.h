@@ -17,7 +17,7 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 
 
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, KimaiDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSAlertDelegate, KimaiDelegate> {
     NSStatusItem *statusItem;
     NSWindowController *_preferencesWindowController;
 }
@@ -48,5 +48,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (IBAction)homeButtonClicked:(id)sender;
 - (IBAction)timeTrackWindowOKClicked:(id)sender;
 
+- (void)launchSupportWebsiteFromPreferences;
+- (void)launchSupportWebsiteFromErrorMessage;
+- (void)launchSupportWebsiteFromMenu;
 
 @end

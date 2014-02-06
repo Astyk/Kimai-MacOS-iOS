@@ -16,7 +16,6 @@
 #import "GeneralPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
 #import "RunningApplicationsController.h"
-#import "AFNetworking.h"
 #import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
 
@@ -86,6 +85,16 @@
     _runningAppsController = [[RunningApplicationsController alloc] init];
 
     
+    // Insert code here to initialize your application
+    AnalyticsHelper* analyticsHelper = [AnalyticsHelper new];
+    [analyticsHelper setDomainName:@"example.com"];
+    [analyticsHelper setAnalyticsAccountCode:@"UA-37395944-3"];
+    
+    if ([analyticsHelper fireEvent:@"appLoads" eventValue:@1])
+        NSLog(@"Google Analytics event fired asyncronously from Sample Project");
+    else
+        NSLog(@"Error firing Google Analytics event from Sample Project!");
+
 }
 
 
@@ -97,10 +106,10 @@
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     //[statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
-    [statusItem setTitle:@"Loading..."];
+    [statusItem setTitle:NSLocalizedStringFromTable(@"Loading...", @"MenuBar", @"Displayed in the Menu Bar. Indicating that data is currently being loaded from the server")];
     [statusItem setEnabled:NO];
     
-    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Kimai Menu"];
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:NSLocalizedStringFromTable(@"Kimai Menu", @"MenuBar", @"The name of the menu")];
     [statusItem setMenu:menu];
 
     [self initScreensaverNotificationObserver];
@@ -455,27 +464,27 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
     // TODAY
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Today"
+                                   title:NSLocalizedStringFromTable(@"Today", @"MenuBar", @"Section title for today's activities")
                         timesheetRecords:self.kimai.timesheetRecordsToday
                          currentActivity:activeRecordingOrNil
                                   action:@selector(pickActivityWithMenuItem:)];
     
     // YESTERDAY
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Yesterday"
+                                   title:NSLocalizedStringFromTable(@"Yesterday", @"MenuBar", @"Section title for yesterday's activities")
                         timesheetRecords:self.kimai.timesheetRecordsYesterday
                          currentActivity:nil
                                   action:@selector(pickActivityWithMenuItem:)];
     
     // TOTAL WORKING HOURS LAST WEEK Mon-Sun
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Last Week"
+                                   title:NSLocalizedStringFromTable(@"Last Week", @"MenuBar", @"Section title for last week's activities")
                         timesheetRecords:_timesheetRecordsForLastSevenDays
                          currentActivity:nil
                                   action:@selector(pickActivityWithMenuItem:)];
     
     // ALL PROJECTS
-    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Projects", @"MenuBar", @"Submenu title for all projects") action:nil keyEquivalent:@""];
     [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(pickActivityWithMenuItem:)]];
     [kimaiMenu addItem:allProjectsMenuItem];
     
@@ -553,8 +562,8 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         localizedDescription = [error.userInfo objectForKey:@"NSLocalizedDescriptionKey"];
     }
 
-    NSAlert *alert = [NSAlert alertWithMessageText:@"Error"
-                                     defaultButton:@"OK"
+    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedStringFromTable(@"Error", @"Error", @"Alert dialog title")
+                                     defaultButton:NSLocalizedStringFromTable(@"OK", @"Error", @"Alert dialog OK button title")
                                    alternateButton:nil
                                        otherButton:nil
                          informativeTextWithFormat:@"%@", localizedDescription ? localizedDescription : error.localizedDescription];
@@ -641,7 +650,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
         
     
-    [statusItem setTitle:@"Loading..."];
+    [statusItem setTitle:NSLocalizedStringFromTable(@"Loading...", @"MenuBar", nil)];
     [statusItem setEnabled:NO];
     
     
@@ -742,7 +751,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         }
         
     } else {
-        [statusItem setTitle:@"Offline"];
+        [statusItem setTitle:NSLocalizedStringFromTable(@"Offline", @"MenuBar", @"The app is currently offline and can not reach the time tracker server via Internet")];
     }
     
 }
@@ -806,7 +815,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (NSMenu *)projectsMenuWithAction:(SEL)aSelector {
     
     // TASKS
-    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:@"Tasks"];
+    NSMenu *tasksMenu = [[NSMenu alloc] initWithTitle:NSLocalizedStringFromTable(@"Tasks", @"MenuBar", @"The menu bar title for Tasks")];
     for (KimaiTask *task in self.kimai.tasks) {
         if ([task.visible boolValue] == YES) {
             NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:task.name action:aSelector keyEquivalent:@""];
@@ -818,7 +827,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
     
     // PROJECTS
-    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:@"Projects"];
+    NSMenu *projectsMenu = [[NSMenu alloc] initWithTitle:NSLocalizedStringFromTable(@"Projects", @"MenuBar", nil)];
     for (KimaiProject *project in self.kimai.projects) {
         if ([project.visible boolValue] == YES) {
             NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:project.name action:nil keyEquivalent:@""];
@@ -836,14 +845,14 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (void)reloadMenu {
     
     
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:@"TimeTracker"];
+    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:NSLocalizedStringFromTable(@"TimeTracker", @"MenuBar", @"The menu bar title of the main menu in the menu bar")];
     KimaiActiveRecording *activeRecordingOrNil = nil;
-    NSString *title = @"TimeTracker";
+    NSString *title = NSLocalizedStringFromTable(@"TimeTracker", @"MenuBar", nil);
     
     if (self.kimai.activeRecordings) {
         
         // STOP ALL ACTIVE TASKS
-        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:@"Stop" action:@selector(stopAllActivities) keyEquivalent:@""];
+        NSMenuItem *stopMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Stop", @"MenuBar", @"Stop tracking the current activity") action:@selector(stopAllActivities) keyEquivalent:@""];
         [kimaiMenu addItem:stopMenuItem];
         
         /////////////////////////////////////////////////////////////////////////////////
@@ -862,7 +871,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
     // TODAY
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Today"
+                                   title:NSLocalizedStringFromTable(@"Today", @"MenuBar", nil)
                         timesheetRecords:self.kimai.timesheetRecordsToday
                          currentActivity:activeRecordingOrNil
                                   action:@selector(startProjectWithMenuItem:)];
@@ -870,7 +879,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
     // YESTERDAY
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Yesterday"
+                                   title:NSLocalizedStringFromTable(@"Yesterday", @"MenuBar", nil)
                         timesheetRecords:self.kimai.timesheetRecordsYesterday
                          currentActivity:nil
                                   action:@selector(startProjectWithMenuItem:)];
@@ -878,14 +887,14 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
     // TOTAL WORKING HOURS LAST WEEK Mon-Sun
     [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:@"Last Week"
+                                   title:NSLocalizedStringFromTable(@"Last Week", @"MenuBar", nil)
                         timesheetRecords:_timesheetRecordsForLastSevenDays
                          currentActivity:nil
                                   action:@selector(startProjectWithMenuItem:)];
 
 
     // ALL PROJECTS
-    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Projects" action:nil keyEquivalent:@""];
+    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Projects", @"MenuBar", nil) action:nil keyEquivalent:@""];
     [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(startProjectWithMenuItem:)]];
     [kimaiMenu addItem:allProjectsMenuItem];
     
@@ -895,14 +904,14 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
 
     // RELOAD DATA
-    NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:@"Reload Projects / Tasks" action:@selector(reloadData) keyEquivalent:@""];
+    NSMenuItem *reloadMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Reload Projects / Tasks", @"MenuBar", @"Reload all projects and tasks from the web server") action:@selector(reloadData) keyEquivalent:@""];
     [reloadMenuItem setEnabled:self.kimai.apiKey != nil];
     [kimaiMenu addItem:reloadMenuItem];
     
     
     // OPEN WEBSITE
     if (self.kimai.url != nil) {
-        NSMenuItem *launchWebsiteMenuItem = [[NSMenuItem alloc] initWithTitle:@"Launch Kimai Website" action:@selector(launchKimaiWebsite) keyEquivalent:@""];
+        NSMenuItem *launchWebsiteMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Launch Kimai Website", @"MenuBar", @"The default web browser is being openend with the user's Kimai website") action:@selector(launchKimaiWebsite) keyEquivalent:@""];
         [kimaiMenu addItem:launchWebsiteMenuItem];
     }
 
@@ -912,11 +921,11 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
         
     // PREFERENCES
-    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:@selector(showPreferences) keyEquivalent:@""];
+    NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Preferences...", @"MenuBar", @"Open the application preferences") action:@selector(showPreferences) keyEquivalent:@""];
     [kimaiMenu addItem:preferencesMenuItem];
     
     // SUPPORT
-    NSMenuItem *supportMenuItem = [[NSMenuItem alloc] initWithTitle:@"Support..." action:@selector(launchSupportWebsiteFromMenu) keyEquivalent:@""];
+    NSMenuItem *supportMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Support...", @"MenuBar", @"Link to the uservoice.com support page") action:@selector(launchSupportWebsiteFromMenu) keyEquivalent:@""];
     [kimaiMenu addItem:supportMenuItem];
     
 
@@ -930,7 +939,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 #endif
     
     // QUIT
-    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit TimeTracker" action:@selector(quitApplication) keyEquivalent:@""];
+    NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Quit TimeTracker", @"MenuBar", @"Quit and leave the application") action:@selector(quitApplication) keyEquivalent:@""];
     [kimaiMenu addItem:quitMenuItem];
     
     
@@ -1082,7 +1091,7 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         // To add a flexible space between General and Advanced preference panes insert [NSNull null]:
         //     NSArray *controllers = [[NSArray alloc] initWithObjects:generalViewController, [NSNull null], advancedViewController, nil];
                 
-        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
+        NSString *title = NSLocalizedStringFromTable(@"Preferences", @"Preferences", @"Common title for Preferences window");
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
     }
     return _preferencesWindowController;
@@ -1361,10 +1370,10 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
             return NSTerminateCancel;
         }
         
-        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
-        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSString *question = NSLocalizedStringFromTable(@"Could not save changes while quitting. Quit anyway?", @"Error", @"Quit without saves error question message");
+        NSString *info = NSLocalizedStringFromTable(@"Quitting now will lose any changes you have made since the last successful save", @"Error", @"Quit without saves error question info");
+        NSString *quitButton = NSLocalizedStringFromTable(@"Quit anyway", @"Error", @"Quit anyway button title");
+        NSString *cancelButton = NSLocalizedStringFromTable(@"Cancel", @"Error", @"Cancel button title");
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:question];
         [alert setInformativeText:info];

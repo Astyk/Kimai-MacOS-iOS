@@ -1,0 +1,9 @@
+/* Toolbar item name for the General preference pane */
+"General" = "General";
+
+/* Toolbar item name for the Account preference pane */
+"Kimai" = "Kimai";
+
+/* Common title for Preferences window */
+"Preferences" = "Preferences";
+

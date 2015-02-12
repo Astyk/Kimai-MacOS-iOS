@@ -1,0 +1,72 @@
+/* Cancel button title */
+"Cancel" = "Cancel";
+
+/* Quit without saves error question message */
+"Could not save changes while quitting. Quit anyway?" = "Could not save changes while quitting. Quit anyway?";
+
+/* Alert dialog title */
+"Error" = "Error";
+
+/* Toolbar item name for the General preference pane */
+"General" = "General";
+
+/* The name of the menu */
+"Kimai Menu" = "Kimai Menu";
+
+/* Toolbar item name for the Account preference pane */
+"Kimai" = "Kimai";
+
+/* Section title for last week's activities */
+"Last Week" = "Last Week";
+
+/* The default web browser is being openend with the user's Kimai website */
+"Launch Kimai Website" = "Launch Kimai Website";
+
+/* Displayed in the Menu Bar. Indicating that data is currently being loaded from the server */
+"Loading..." = "Loading...";
+
+/* The app is currently offline and can not reach the time tracker server via Internet */
+"Offline" = "Offline";
+
+/* Alert dialog OK button title */
+"OK" = "OK";
+
+/* Open the application preferences */
+"Preferences..." = "Preferences...";
+
+/* Common title for Preferences window */
+"Preferences" = "Preferences";
+
+/* Submenu title for all projects */
+"Projects" = "Projects";
+
+/* Quit anyway button title */
+"Quit anyway" = "Quit anyway";
+
+/* Quit and leave the application */
+"Quit TimeTracker" = "Quit TimeTracker";
+
+/* Quit without saves error question info */
+"Quitting now will lose any changes you have made since the last successful save" = "Quitting now will lose any changes you have made since the last successful save";
+
+/* Reload all projects and tasks from the web server */
+"Reload Projects / Tasks" = "Reload Projects / Tasks";
+
+/* Stop tracking the current activity */
+"Stop" = "Stop";
+
+/* Link to the uservoice.com support page */
+"Support..." = "Support...";
+
+/* The menu bar title for Tasks */
+"Tasks" = "Tasks";
+
+/* The menu bar title of the main menu in the menu bar */
+"TimeTracker" = "TimeTracker";
+
+/* Section title for today's activities */
+"Today" = "Today";
+
+/* Section title for yesterday's activities */
+"Yesterday" = "Yesterday";
+

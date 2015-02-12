@@ -1,5 +1,5 @@
 #import "MASPreferencesWindowController.h"
-#import "AppDelegate.h"
+#import "BMAppDelegate.h"
 
 
 NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MASPreferencesWindowControllerDidChangeViewNotification";
@@ -295,7 +295,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 }
 
 - (IBAction)globalSupportButtonClicked:(id)sender {
-    AppDelegate *delegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    BMAppDelegate *delegate = (BMAppDelegate *)[NSApplication sharedApplication].delegate;
     [delegate launchSupportWebsiteFromPreferences];
 }
 

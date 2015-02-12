@@ -42,7 +42,7 @@
 
 - (NSString *)toolbarItemLabel
 {
-    return NSLocalizedStringFromTable(@"Kimai", @"Preferences", @"Toolbar item name for the Account preference pane");
+    return NSLocalizedString(@"Kimai", @"Toolbar item name for the Account preference pane");
 }
 
 

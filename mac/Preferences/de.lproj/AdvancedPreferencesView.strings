@@ -1,0 +1,21 @@
+/* Class = "NSTextFieldCell"; title = "Sign in to Kimai"; ObjectID = "88"; */
+"88.title" = "Bei Kimai anmelden";
+
+/* Class = "NSTextFieldCell"; title = "Sign in to Kimai but make sure you use HTTPS rather than HTTP otherwise your password will be sent unencrypted!"; ObjectID = "90"; */
+"90.title" = "Versichern Sie sich, dass Sie eine sichere HTTPS Verbindung verwenden! Ihr Passwort könnte sonst ausgelesen werden!";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "103"; */
+"103.title" = "Passwort:";
+
+/* Class = "NSTextFieldCell"; title = "Username:"; ObjectID = "104"; */
+"104.title" = "Benutzername:";
+
+/* Class = "NSTextFieldCell"; title = "Kimai URL:"; ObjectID = "107"; */
+"107.title" = "Kimai URL:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "https://www.my-kimai-installation.org"; ObjectID = "109"; */
+"109.placeholderString" = "https://www.meine-kimai-installation.org";
+
+/* Class = "NSButtonCell"; title = "Sign In"; ObjectID = "112"; */
+"112.title" = "Einloggen";
+

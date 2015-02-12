@@ -87,17 +87,6 @@
     // start logging applications
     _runningAppsController = [[RunningApplicationsController alloc] init];
 
-    // Insert code here to initialize your application
-    AnalyticsHelper* analyticsHelper = [AnalyticsHelper new];
-    [analyticsHelper setDomainName:@"example.com"];
-    [analyticsHelper setAnalyticsAccountCode:@"UA-37395944-3"];
-    
-    if ([analyticsHelper fireEvent:@"appLoads" eventValue:@1]) {
-        NSLog(@"Google Analytics event fired asyncronously");
-    } else {
-        NSLog(@"Error firing Google Analytics event!");
-    }
-
 #endif
     
     

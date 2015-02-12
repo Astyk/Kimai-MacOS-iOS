@@ -4,5 +4,4 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
-    #import <Google Analytics SDK for OSX/AnalyticsHelper.h>
 #endif

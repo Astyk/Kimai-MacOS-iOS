@@ -34,6 +34,3 @@
 [submodule "mac/DDHotKey"]
 	path = mac/DDHotKey
 	url = https://github.com/davedelong/DDHotKey.git
-[submodule "mac/GoogleAnalytics"]
-	path = mac/GoogleAnalytics
-	url = https://github.com/noahsw/google-analytics-sdk-for-osx.git

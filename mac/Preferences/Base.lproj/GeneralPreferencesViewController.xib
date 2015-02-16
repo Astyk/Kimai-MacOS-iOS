@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment version="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController">
@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="9" customClass="StartAtLoginController">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="com.blockhausmedia.timetracker.helper"/>
@@ -21,22 +21,22 @@
             <rect key="frame" x="0.0" y="0.0" width="298" height="109"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                    <rect key="frame" x="18" y="45" width="262" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Start application on system startup" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="4">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Qy5-6A-EnE">
+                    <rect key="frame" x="30" y="45" width="239" height="18"/>
+                    <buttonCell key="cell" type="check" title="Start application on system startup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Oj4-vF-nfg">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="9" name="value" keyPath="startAtLogin" id="k2d-0N-HM2"/>
+                        <binding destination="9" name="value" keyPath="startAtLogin" id="fK4-xz-Sq0"/>
                     </connections>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" constant="38" id="33"/>
-                <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="39" id="35"/>
+                <constraint firstAttribute="centerX" secondItem="Qy5-6A-EnE" secondAttribute="centerX" id="Kmk-4z-B0r"/>
+                <constraint firstAttribute="centerY" secondItem="Qy5-6A-EnE" secondAttribute="centerY" id="YOY-g7-Llu"/>
             </constraints>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="2mV-NQ-hAe"/>
     </objects>
 </document>

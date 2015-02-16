@@ -26,21 +26,8 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 @property (nonatomic, strong) KSReachability* reachability;
 @property (strong) NSMutableArray *pastDaysTimesheetRecordsArray;
 
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-- (void)saveDatabase;
-
-@property (assign) IBOutlet NSWindow *timeTrackerWindow;
 @property (assign) IBOutlet NSWindow *mainMenuWindow;
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
-
-- (IBAction)pickActivityButtonClicked:(id)sender;
-@property (weak) IBOutlet NSButton *pastButton;
-@property (weak) IBOutlet NSButton *presentButton;
-@property (weak) IBOutlet NSButton *futureButton;
-@property (weak) IBOutlet NSTextField *leaveDateDayLabel;
-@property (weak) IBOutlet NSTextField *leaveDateTimeLabel;
 
 
 - (void)initKimai;
@@ -48,9 +35,6 @@ static NSString *SERVICENAME = @"org.kimai.timetracker";
 - (void)hidePreferences;
 - (void)showAlertSheetWithError:(NSError *)error;
 
-@property (weak) IBOutlet NSButton *homeButton;
-- (IBAction)homeButtonClicked:(id)sender;
-- (IBAction)timeTrackWindowOKClicked:(id)sender;
 
 - (void)launchSupportWebsiteFromPreferences;
 - (void)launchSupportWebsiteFromErrorMessage;

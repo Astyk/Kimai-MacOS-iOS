@@ -59,9 +59,7 @@
     }
     
     BMAppDelegate *appDelegate = (BMAppDelegate*)[NSApp delegate];
-//    Kimai *kimai = appDelegate.kimai;
-    
-//#ifndef DEBUG
+
     [BMCredentials storeServiceURL:kimaiServerURL username:username password:password servicename:SERVICENAME success:^{
         [appDelegate hidePreferences];
         [appDelegate initKimai];
@@ -69,7 +67,6 @@
         [appDelegate showAlertSheetWithError:error];
         [appDelegate reloadMenu];
     }];
-//#endif
 
 }
 

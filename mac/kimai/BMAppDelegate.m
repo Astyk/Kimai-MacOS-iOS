@@ -8,29 +8,21 @@
 
 #import "BMAppDelegate.h"
 #import "SSKeychain.h"
-#import "KimaiLocationManager.h"
-#import "TransparentWindow.h"
 #import "BMTimeFormatter.h"
 #import "BMCredentials.h"
 #import "MASPreferencesWindowController.h"
 #import "GeneralPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
-#import "RunningApplicationsController.h"
-#import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
 
 
 @interface BMAppDelegate () {
-    RunningApplicationsController *_runningAppsController;
 
     NSTimer *_updateUserInterfaceTimer;
     NSTimer *_reloadDataTimer;
-    KimaiLocationManager *locationManager;
     
     NSArray *_timesheetRecordsForLastSevenDays;
 
-    BOOL _showTimeTrackerWindow;
-    NSDate *_userLeaveDate;
 }
 
 
@@ -43,24 +35,12 @@
 @implementation BMAppDelegate
 
 
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize managedObjectContext = _managedObjectContext;
-
 
 #pragma mark - NSApplicationDelegate
 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     
-    _showTimeTrackerWindow = NO;
-    _userLeaveDate = nil;
-    
-    [self hidePreferences];
-    [self hideTimeTrackerWindow];
-    
-//#ifndef DEBUG
-
     // check for other instances
     int runningInstances = 0;
     NSString *bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
@@ -76,463 +56,28 @@
         [NSApp terminate:nil];
     }
 
-//#endif
-	
-    // init database
-    [self initCoreData];
-   
     
-#ifdef DEBUG
+    [self hidePreferences];
     
-    // start logging applications
-    _runningAppsController = [[RunningApplicationsController alloc] init];
-
-#endif
-    
-    
-
 }
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [self registerHotkeys];
     
     // https://github.com/shpakovski/Popup
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    //[statusItem setView:statusItemView];
     [statusItem setHighlightMode:YES];
     [statusItem setTitle:NSLocalizedString(@"Loading...", @"Displayed in the Menu Bar. Indicating that data is currently being loaded from the server")];
-    [statusItem setEnabled:NO];
+//    [statusItem setEnabled:NO];
     
     NSMenu *menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Kimai Menu", @"The name of the menu")];
     [statusItem setMenu:menu];
 
-    [self initScreensaverNotificationObserver];
-    
-    //locationManager = [KimaiLocationManager sharedManager];
 
-    //[self initPodio];
     [self initKimai];
     [self startReloadDataTimer];
     
-}
-
-- (void)applicationWillTerminate:(NSNotification *)notification {
-    [self removeScreensaverNotificationObserver];
-}
-
-
-#pragma mark - Hotkey
-
-- (void)registerHotkeys {
-
-	DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
-	if (![c registerHotKeyWithKeyCode:kVK_Space modifierFlags:(NSAlternateKeyMask) target:self action:@selector(hotkeyWithEvent:) object:nil]) {
-		NSLog(@"Unable to register hotkey!");
-	} else {
-        NSLog(@"Registered hotkey!");
-	}
-    
-}
-
-
-- (void)hotkeyWithEvent:(NSEvent *)hkEvent {
-    NSLog(@"%i", statusItem.isEnabled);
-    [statusItem popUpStatusItemMenu:statusItem.menu];
-}
-
-
-
-#pragma mark - Screensaver/Sleep Notifications
-
-
-- (void)initScreensaverNotificationObserver {
-   
-    
-    NSDistributedNotificationCenter *distributedNotificationCenter = [NSDistributedNotificationCenter defaultCenter];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(screensaverStarted:)
-                                          name:@"com.apple.screensaver.didstart"
-                                        object:nil];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(screensaverStopped:)
-                                          name:@"com.apple.screensaver.didstop"
-                                        object:nil];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(screenLocked:)
-                                          name:@"com.apple.screenIsLocked"
-                                        object:nil];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(screenUnlocked:)
-                                          name:@"com.apple.screenIsUnlocked"
-                                        object:nil];
-
-    
-    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
-    
-    [workspaceNotificationCenter addObserver:self
-                                    selector:@selector(workspaceWillSleep:)
-                                        name:NSWorkspaceWillSleepNotification
-                                      object:nil];
-
-    [workspaceNotificationCenter addObserver:self
-                                    selector:@selector(workspaceDidWake:)
-                                        name:NSWorkspaceDidWakeNotification
-                                      object:nil];
-
-}
-
-
-- (void)removeScreensaverNotificationObserver {
-    
-    NSDistributedNotificationCenter *notificationCenter = [NSDistributedNotificationCenter defaultCenter];
-
-    [notificationCenter removeObserver:self
-                                  name:@"com.apple.screensaver.didstart"
-                                object:nil];
-    
-    [notificationCenter removeObserver:self
-                                  name:@"com.apple.screensaver.didstop"
-                                object:nil];
-    
-    [notificationCenter removeObserver:self
-                                  name:@"com.apple.screenIsLocked"
-                                object:nil];
-    
-    [notificationCenter removeObserver:self
-                                  name:@"com.apple.screenIsUnlocked"
-                                object:nil];
-    
-    NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
-    
-    [workspaceNotificationCenter removeObserver:self
-                                           name:NSWorkspaceWillSleepNotification
-                                         object:nil];
-
-    [workspaceNotificationCenter removeObserver:self
-                                           name:NSWorkspaceDidWakeNotification
-                                         object:nil];
-
-}
-
-
-- (void)workspaceWillSleep:(NSNotification *)notification {
-    
-    NSLog(@"workspaceWillSleep");
-
-    // log date/time when system went to sleep
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSDate date] forKey:@"WorkspaceFellAsleepDateKey"];
-    [defaults synchronize];
-
-}
-
-
-- (void)workspaceDidWake:(NSNotification *)notification {
-   
-    NSLog(@"workspaceDidWake");
-    NSDate *workspaceFellAsleepDate = (NSDate *)[[NSUserDefaults standardUserDefaults] valueForKey:@"WorkspaceFellAsleepDateKey"];
-    [self showTimeTrackerWindowWithStartDate:workspaceFellAsleepDate];
-
-}
-
-
-- (void)screensaverStarted:(NSNotification *)notification {
-    
-    NSLog(@"screensaverStarted");
-    
-    // log date/time when screensaver started for later reference
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSDate date] forKey:@"ScreensaverStartedDateKey"];
-    [defaults synchronize];
-    
-}
-
-
-- (void)screensaverStopped:(NSNotification *)notification {
-    
-    NSLog(@"screensaverStopped");
-    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreensaverStartedDateKey"];
-    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
-    
-}
-
-
-- (void)screenLocked:(NSNotification *)notification {
-    
-    NSLog(@"screenLocked");
-    
-    // log date/time when system went to sleep
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSDate date] forKey:@"ScreenLockedDateKey"];
-    [defaults synchronize];
-
-}
-
-
-- (void)screenUnlocked:(NSNotification *)notification {
-    
-    NSLog(@"screenUnlocked");
-    NSDate *screensaverStartedDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"ScreenLockedDateKey"];
-    [self showTimeTrackerWindowWithStartDate:screensaverStartedDate];
-    
-}
-
-
-#pragma mark - Time Tracker Window
-
-
-- (void)hideTimeTrackerWindow {
-    
-    if ([self.timeTrackerWindow isVisible]) {
-        [self.timeTrackerWindow orderOut:self];
-    }
-    
-    for (TransparentWindow *window in self.transparentWindowArray) {
-        if ([window isVisible]) {
-            [window orderOut:self];
-        }
-    }
-    
-    [self.transparentWindowArray removeAllObjects];
-    self.transparentWindowArray = nil;
-    
-}
-
-
-- (void)_showTimeTrackerWindow {
-    
-    if (_showTimeTrackerWindow && _userLeaveDate != nil) {
-
-        // reset the flag
-        _showTimeTrackerWindow = NO;
-
-        // show the window
-        [self performSelectorOnMainThread:@selector(showTimeTrackerWindowWithLeaveDate:)
-                               withObject:[_userLeaveDate copy]
-                            waitUntilDone:NO];
-
-        // clear the date
-        _userLeaveDate = nil;
-        
-    }
-
-}
-
-
-- (void)showTimeTrackerWindowWithStartDate:(NSDate *)startDate {
-    
-    NSDate *now = [NSDate date];
-    NSTimeInterval duration = [startDate timeIntervalSinceDate:now];
-    
-    // if the user left his Mac for more than 5 minutes, ask what he did during the time
-//    if (duration > 0 ) { // 60 * 5
-        
-        _userLeaveDate = startDate;
-        _showTimeTrackerWindow = YES;
-
-        // in case the service is online, we can open the tracker window right away
-        if (self.kimai.isServiceReachable) {
-            [self _showTimeTrackerWindow];
-        }
-        
-//    }
-    
-}
-
-
-- (void)showTimeTrackerWindowWithLeaveDate:(NSDate *)leaveDate {
-    
-    NSDate *now = [NSDate date];
-    NSString *durationString = [BMTimeFormatter formatedDurationStringFromDate:leaveDate toDate:now];
-//    self.window.title = [NSString stringWithFormat:@"You were gone for %@", durationString];
-    [self.presentButton setTitle:durationString];
-
-    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-    [dayFormat setDateFormat:@"dd.MM.yyyy"];
-    [self.leaveDateDayLabel setStringValue:[dayFormat stringFromDate:leaveDate]];
-
-    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:@"HH:mm"];
-    [self.leaveDateTimeLabel setStringValue:[timeFormat stringFromDate:leaveDate]];
-
-    
-/*
-    [self.window setOpaque:NO];
-    self.window.backgroundColor = [NSColor colorWithCalibratedWhite:1.0 alpha:0.0];
-*/
-    
-    KimaiActiveRecording *activeRecordingOrNil = nil;
-    if (self.kimai.activeRecordings) {
-        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
-        if (activeRecordingOrNil) {
-            NSString *activityTime = [BMTimeFormatter formatedWorkingDuration:0 withCurrentActivity:activeRecordingOrNil];
-            self.pastButton.title = [NSString stringWithFormat:@"%@ (%@) %@", activeRecordingOrNil.projectName, activeRecordingOrNil.activityName, activityTime];
-        }
-    }
-    
-    
-    
-	NSArray *screens = [NSScreen screens];
-    self.transparentWindowArray = [NSMutableArray arrayWithCapacity:screens.count];
-    
-	for (int i = 0; i < [screens count]; i++) {
-        
-		NSScreen *screen = [screens objectAtIndex:i];
-        NSValue *screenSizeValue = [[screen deviceDescription] objectForKey:NSDeviceSize];
-        CGSize screenSize = screenSizeValue.sizeValue;
-        CGRect windowRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
-        
-        TransparentWindow *transparentWindow = [[TransparentWindow alloc] initWithContentRect:windowRect
-                                                                                    styleMask:NSBorderlessWindowMask
-                                                                                      backing:NSBackingStoreRetained
-                                                                                        defer:NO
-                                                                                       screen:screen];
-        
-#ifndef DEBUG
-        transparentWindow.level = NSMainMenuWindowLevel + 1;
-#endif
-        
-        if (i == 0) {
-            [transparentWindow addChildWindow:self.timeTrackerWindow ordered:NSWindowAbove];
-        } else {
-            TransparentWindow *lastTransparentWindow = [self.transparentWindowArray lastObject];
-            [lastTransparentWindow addChildWindow:transparentWindow ordered:NSWindowAbove];
-        }
-        
-        [self.transparentWindowArray addObject:transparentWindow];
-        [transparentWindow makeKeyAndOrderFront:self];
-        transparentWindow.canHide = NO;
-	}
-
-    
-    [self.timeTrackerWindow center];
-    [self.timeTrackerWindow makeKeyAndOrderFront:self];
-    [NSApp activateIgnoringOtherApps:YES];
-
-}
-
-
-- (IBAction)timeTrackWindowOKClicked:(id)sender {
-    [self hideTimeTrackerWindow];
-}
-
-
-- (IBAction)homeButtonClicked:(id)sender {
-
-}
-
-static NSString *PAST_BUTTON_TITLE = @"PAST";
-static NSString *PRESENT_BUTTON_TITLE = @"PRESENT";
-static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
-
-
-- (IBAction)pickActivityButtonClicked:(id)sender {
-    
-    if (!self.kimai.isServiceReachable || self.kimai.apiKey == nil) {
-        NSLog(@"Kimai is not initialized or reachable!");
-        return;
-    }
-    
-    
-    NSString *menuTitle;
-    NSButton *button = (NSButton *)sender;
-    if (button == self.pastButton) {
-        menuTitle = PAST_BUTTON_TITLE;
-    } else if (button == self.presentButton) {
-        menuTitle = PRESENT_BUTTON_TITLE;
-    } else if (button == self.futureButton) {
-        menuTitle = FUTURE_BUTTON_TITLE;
-    }
-    
-    NSMenu *kimaiMenu = [[NSMenu alloc] initWithTitle:menuTitle];
-
-    
-    KimaiActiveRecording *activeRecordingOrNil = nil;
-    if (self.kimai.activeRecordings) {
-        activeRecordingOrNil = [self.kimai.activeRecordings objectAtIndex:0];
-    }
-    
-    // TODAY
-    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:NSLocalizedString(@"Today", @"Section title for today's activities")
-                        timesheetRecords:self.kimai.timesheetRecordsToday
-                         currentActivity:activeRecordingOrNil
-                                  action:@selector(pickActivityWithMenuItem:)];
-    
-    // YESTERDAY
-    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:NSLocalizedString(@"Yesterday", @"Section title for yesterday's activities")
-                        timesheetRecords:self.kimai.timesheetRecordsYesterday
-                         currentActivity:nil
-                                  action:@selector(pickActivityWithMenuItem:)];
-    
-    // TOTAL WORKING HOURS LAST WEEK Mon-Sun
-    [self addMenuItemTaskHistoryWithMenu:kimaiMenu
-                                   title:NSLocalizedString(@"Last Week", @"Section title for last week's activities")
-                        timesheetRecords:_timesheetRecordsForLastSevenDays
-                         currentActivity:nil
-                                  action:@selector(pickActivityWithMenuItem:)];
-    
-    // ALL PROJECTS
-    NSMenuItem *allProjectsMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Projects", @"Submenu title for all projects") action:nil keyEquivalent:@""];
-    [allProjectsMenuItem setSubmenu:[self projectsMenuWithAction:@selector(pickActivityWithMenuItem:)]];
-    [kimaiMenu addItem:allProjectsMenuItem];
-    
-
-    
-    // show the menu as a popover
-    [kimaiMenu popUpMenuPositioningItem:nil atLocation:button.frame.origin inView:self.timeTrackerWindow.contentView];
-
-}
-
-
-- (void)pickActivityWithMenuItem:(id)sender {
-    if ([sender isKindOfClass:[NSMenuItem class]]) {
-        
-        NSMenuItem *menuItem = (NSMenuItem *)sender;
-        NSMenu *menu;
-        
-        KimaiTask *task;
-        KimaiProject *project;
-        
-        if ([menuItem.representedObject isKindOfClass:[KimaiTimesheetRecord class]]) {
-            
-            menu = menuItem.menu;
-            
-            KimaiTimesheetRecord *record = menuItem.representedObject;
-            record.project = [self.kimai projectWithID:record.projectID];
-            record.task = [self.kimai taskWithID:record.activityID];
-            project = record.project;
-            task = record.task;
-            
-        } else if ([menuItem.representedObject isKindOfClass:[KimaiTask class]]) {
-            
-            menu = menuItem.parentItem.parentItem.menu;
-            
-            task = menuItem.representedObject;
-            project = menuItem.parentItem.representedObject;
-            
-        }
-        
-        
-        NSString *menuTitle = menu.title;
-        NSString *taskTitle = [NSString stringWithFormat:@"%@ (%@)", project.name, task.name];
-        if ([menuTitle isEqualToString:PAST_BUTTON_TITLE]) {
-            [self.pastButton setTitle:taskTitle];
-        } else if ([menuTitle isEqualToString:PRESENT_BUTTON_TITLE]) {
-            [self.presentButton setTitle:taskTitle];
-        } else if ([menuTitle isEqualToString:FUTURE_BUTTON_TITLE]) {
-            [self.futureButton setTitle:taskTitle];
-        }
-        
-    }
-
 }
 
 
@@ -596,46 +141,12 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
         
         NSLog(@"%@", error);
         [self showPreferences];
+        [self reloadMenu];
 
     }];
     
 }
 
-/*
-- (void)_testTimeSheets {
-    
-    KimaiTimesheetRecord *newRecord = [[KimaiTimesheetRecord alloc] init];
-    newRecord.statusID = [NSNumber numberWithInt:1];
-    newRecord.project = [self.kimai.projects objectAtIndex:0];
-    newRecord.task = [self.kimai.tasks objectAtIndex:0];
-    
-    // FROM - TODAY 00:00
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
-                                          fromDate:[NSDate date]];
-    newRecord.startDate = [cal dateFromComponents:components];
-    newRecord.startDate = [newRecord.startDate dateByAddingTimeInterval:60*60]; // add one hour
-    
-    // TO - NOW
-    newRecord.endDate = [NSDate date];
-    
-    
-    [self.kimai setTimesheetRecord:newRecord success:^(id response) {
-        
-        [self.kimai getTimesheetRecordWithID:newRecord.timeEntryID success:^(id response) {
-            for (KimaiTimesheetRecord *record in response) {
-                NSLog(@"%@", record);
-            }
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-        }];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];    
-
-}
-*/
 
 - (void)reloadData {
     
@@ -658,18 +169,12 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     
     [self.kimai reloadAllContentWithSuccess:^(id response) {
         
-#if DEBUG
-        //[self.kimai logAllData];
-        //[self _testTimeSheets];
-#endif
         [self reloadMenu];
 
         [self reloadMostUsedProjectsAndTasksWithSuccess:^(id response) {
         
             [self reloadMenu];
             
-            [self _showTimeTrackerWindow];
-
         } failure:failureHandler];
 
     } failure:failureHandler];
@@ -927,12 +432,6 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 
     /////////////////////////////////////////////////////////////////////////////////
     [kimaiMenu addItem:[NSMenuItem separatorItem]];
-
-#if DEBUG
-    // SHOW TIME TRACKER WINDOW
-    NSMenuItem *timetrackerMenuItem = [[NSMenuItem alloc] initWithTitle:@"Timetracker Window..." action:@selector(_showTimeTrackerWindow) keyEquivalent:@""];
-    [kimaiMenu addItem:timetrackerMenuItem];
-#endif
     
     // QUIT
     NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Quit TimeTracker", @"Quit and leave the application") action:@selector(quitApplication) keyEquivalent:@""];
@@ -1097,25 +596,17 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
 - (void)hidePreferences {
     
     [self.preferencesWindowController close];
-/*
-    if ([self.window isVisible]) {
-        [self.window orderOut:self];
-    }
- */
+
 }
 
 
 - (void)showPreferences {
     
+    [self.preferencesWindowController.window setLevel:NSMainMenuWindowLevel];
     [self.preferencesWindowController.window center];
     [self.preferencesWindowController.window makeKeyAndOrderFront:self];
     [self.preferencesWindowController showWindow:nil];
 
-/*
-    [self.window center];
-    [self.window makeKeyAndOrderFront:self];
-    [NSApp activateIgnoringOtherApps:YES];
- */
 }
 
 
@@ -1177,213 +668,5 @@ static NSString *FUTURE_BUTTON_TITLE = @"FUTURE";
     [self performSelectorOnMainThread:@selector(updateTime) withObject:nil waitUntilDone:NO];
 }
 
-
-
-#pragma mark - CoreData
-
-- (void)initCoreData {
-    
-    if ([self isDatabaseMigrationNecessary]) {
-        NSLog(@"Database migration is necessary!");
-    }
-    
-    [self managedObjectContext];
-}
-
-
-- (BOOL)isDatabaseMigrationNecessary {
-    
-    // Create a persistence controller that uses the model you've defined as the "current" model
-    NSManagedObjectModel *model = [self managedObjectModel];
-    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    
-    NSError *error = nil;
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
-    NSURL *sourceStoreURL = [applicationFilesDirectory URLByAppendingPathComponent:@"timetracker.storedata"];
-    NSDictionary *sourceStoreMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
-                                                                                                   URL:sourceStoreURL
-                                                                                                 error:&error];
-    if (error) {
-        NSLog(@"Error fetching metadata for persistent store: %@", error.localizedDescription);
-    }
-    
-    NSManagedObjectModel *destinationModel = [psc managedObjectModel];
-    BOOL pscCompatible = [destinationModel isConfiguration:nil
-                               compatibleWithStoreMetadata:sourceStoreMetadata];
-    
-    return !pscCompatible; // if pscCompatible == YES, then you don't need to do a migration.
-}
-
-
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "com.blockhausmedia.timetracker" in the user's Application Support directory.
-- (NSURL *)applicationFilesDirectory
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"com.blockhausmedia.timetracker"];
-}
-
-// Creates if necessary and returns the managed object model for the application.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel) {
-        return _managedObjectModel;
-    }
-	
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"timetracker" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSManagedObjectModel *mom = [self managedObjectModel];
-    if (!mom) {
-        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
-        return nil;
-    }
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
-    NSError *error = nil;
-    
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-    
-    
-    
-    if (!properties) {
-        BOOL ok = NO;
-        if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    } else {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
-            
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
-            
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-    
-    
-    // Allow inferred migration from the original version of the application.
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-    
-    
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"timetracker.storedata"];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    _persistentStoreCoordinator = coordinator;
-    
-    return _persistentStoreCoordinator;
-}
-
-
-// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    
-    return _managedObjectContext;
-}
-
-// Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
-- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
-{
-    return [[self managedObjectContext] undoManager];
-}
-
-// Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
-- (void)saveDatabase
-{
-    NSError *error = nil;
-    
-    if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
-    }
-    
-    if (![[self managedObjectContext] save:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-    }
-}
-
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
-    // Save changes in the application's managed object context before the application terminates.
-    
-    if (!_managedObjectContext) {
-        return NSTerminateNow;
-    }
-    
-    if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
-        return NSTerminateCancel;
-    }
-    
-    if (![[self managedObjectContext] hasChanges]) {
-        return NSTerminateNow;
-    }
-    
-    NSError *error = nil;
-    if (![[self managedObjectContext] save:&error]) {
-        
-        // Customize this code block to include application-specific recovery steps.
-        BOOL result = [sender presentError:error];
-        if (result) {
-            return NSTerminateCancel;
-        }
-        
-        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
-        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:question];
-        [alert setInformativeText:info];
-        [alert addButtonWithTitle:quitButton];
-        [alert addButtonWithTitle:cancelButton];
-        
-        NSInteger answer = [alert runModal];
-        
-        if (answer == NSAlertAlternateReturn) {
-            return NSTerminateCancel;
-        }
-    }
-    
-    return NSTerminateNow;
-}
 
 @end
